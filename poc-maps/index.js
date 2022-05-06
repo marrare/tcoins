@@ -3,7 +3,7 @@ let infowindow;
 
 async function initMap() {
     const mapOptions = {
-        zoom: 15,
+        zoom: 11,
         center: { lat: -37.793834, lng: 144.987018 }
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -12,10 +12,11 @@ async function initMap() {
     getLocation();
 
     const locations = [
-        { name: 'Estação de Jaboatão', lat: -8.111128, lng: -35.017472 },
-        { name: 'IFPE', lat: -8.1136885, lng: -35.032987 },
-        { name: 'UPA Jaboatão', lat: -8.11096, lng: -35.008839 },
-        { name: 'Atacadão', lat: -8.1124277, lng: -35.0343976 }
+        { name: 'IFPE Campus Jaboatão dos Guararapes', lat: -8.1184208, lng: -35.0335069, link: 'https://www.ifpe.edu.br/campus/jaboatao', endereco: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000' },
+        { name: 'IFPE Campus Cabo de Santo Agostinho', lat: -8.275302, lng: -35.0611116, link: 'https://www.ifpe.edu.br/campus/cabo', endereco: 'Sede Provisória (Fachuca - R. Sebastião Jovêntino, S/N - Destilaria, Cabo de Santo Agostinho - PE, 54510-110' },
+        { name: 'IFPE Campus Recife', lat: -8.1072273, lng: -35.0541636, link: 'https://www.ifpe.edu.br/campus/recife', endereco: 'Av. Prof. Luís Freire, 500 - Cidade Universitária, Recife - PE, 50740-545' },
+        { name: 'IFPE Campus Vitória de Santo Antão', lat: -8.1013378, lng: -35.2937936, link: 'https://www.ifpe.edu.br/campus/vitoria', endereco: 's/n Propriedade Terra Preta Zona Rural, Vitória de Santo Antão - PE, 55600-000' },
+        { name: 'Campus Paulista', lat: -7.9456112, lng: -34.893849, link: 'https://www.ifpe.edu.br/campus/paulista', endereco: 'Maranguape I, Paulista - PE, 53441-601' },
     ];
     
     locations.map((local) => placeMarker(local));
@@ -35,7 +36,11 @@ function placeMarker(local, isUser = false) {
     if(!isUser) {
         google.maps.event.addListener(marker, "click", () => {
             infowindow.close();
-            infowindow.setContent(`<div id="infowindow">${local.name}</div>`);
+            infowindow.setContent(`<div id="infowindow">
+                <h3>${local.name}</h3>
+                <p>${local.endereco}</p></br>
+                <a href="${local.link}" target="_blank">site</a>
+                </div>`);
             infowindow.open(map, marker);
         });
     }
