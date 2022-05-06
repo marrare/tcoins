@@ -9,14 +9,7 @@ async function initMap() {
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
     infowindow = new google.maps.InfoWindow();
 
-    const currentLocation = await getLocation();
-    if(currentLocation) {
-        new google.maps.Marker({
-            position: new google.maps.LatLng(currentLocation.lat, currentLocation.lng),
-            icon: './icons/location-64px.png',
-            map
-        });
-    }
+    getLocation();
 
     const locations = [
         { name: 'Estação de Jaboatão', lat: -8.111128, lng: -35.017472 },
@@ -25,45 +18,43 @@ async function initMap() {
         { name: 'Atacadão', lat: -8.1124277, lng: -35.0343976 }
     ];
     
-    locations.map(placeMarker);
+    locations.map((local) => placeMarker(local));
 }
 
 
 
-function placeMarker(local) {
-    const marker = new google.maps.Marker({
+function placeMarker(local, isUser = false) {
+    const optionsMarker = {
         position: new google.maps.LatLng(local.lat, local.lng),
         map
-    });
+    }
+    if(isUser) optionsMarker.icon = './icons/location-64px.png';
 
-    google.maps.event.addListener(marker, "click", () => {
-        infowindow.close();
-        infowindow.setContent(`<div id="infowindow">${local.name}</div>`);
-        infowindow.open(map, marker);
-    });
+    const marker = new google.maps.Marker(optionsMarker);
+
+    if(!isUser) {
+        google.maps.event.addListener(marker, "click", () => {
+            infowindow.close();
+            infowindow.setContent(`<div id="infowindow">${local.name}</div>`);
+            infowindow.open(map, marker);
+        });
+    }
 }
 
 
 
 async function getLocation() {
-    return new Promise((resolve, reject) => {
-        let currentLocation;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                currentLocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                }
-                map.setCenter(currentLocation);
-                resolve(currentLocation);
-            }, (error) => {
-                alert("Não foi possível obter sua localização.");
-                reject(false);
-            });
-        } else { 
-            alert("Geolocalização não suportada para esse navegador.");
-        }
-    })
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const currentLocation = { lat: position.coords.latitude, lng: position.coords.longitude }
+            placeMarker(currentLocation, true);
+            map.setCenter(currentLocation);
+        }, (error) => {
+            alert("Não foi possível obter sua localização.");
+        });
+    } else { 
+        alert("Geolocalização não suportada para esse navegador.");
+    }
 }
 
 
