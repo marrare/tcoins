@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.Card {
+  display: flex;
+  max-width: 1150px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
+
+.CardItem {
+  margin-left: 60px;
+}
+
