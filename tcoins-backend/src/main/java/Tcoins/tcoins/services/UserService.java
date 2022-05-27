@@ -18,5 +18,11 @@ public class UserService {
 	public void deleteUser(Long id) {
 		usuarioDao.deleteById(id);
 	}
-	
+
+	public void updateUser(Usuario usuario){
+		usuarioDao.save(usuario);
+	}
+	public Usuario getUserById(Long id){
+		return usuarioDao.findById(id).get();
+	}
 }
