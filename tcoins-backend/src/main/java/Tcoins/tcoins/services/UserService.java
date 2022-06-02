@@ -3,26 +3,26 @@ package Tcoins.tcoins.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Tcoins.tcoins.DAO.UsuarioDAO;
+import Tcoins.tcoins.DAO.UserDAO;
 import Tcoins.tcoins.entities.User;
 
 @Service
 public class UserService {
 
 	@Autowired
-	UsuarioDAO usuarioDao;
+    UserDAO userDao;
 	
 	public void createUser(User user) {
-		usuarioDao.save(user);
+		userDao.save(user);
 	}
 	public void deleteUser(Long id) {
-		usuarioDao.deleteById(id);
+		userDao.deleteById(id);
 	}
 
 	public void updateUser(User user){
-		usuarioDao.save(user);
+		userDao.save(user);
 	}
 	public User getUserById(Long id){
-		return usuarioDao.findById(id).get();
+		return userDao.findById(id).get();
 	}
 }

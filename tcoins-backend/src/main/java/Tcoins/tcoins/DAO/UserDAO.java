@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import Tcoins.tcoins.entities.User;
 
 @Repository
-public interface UsuarioDAO extends JpaRepository<User, Long> {
+public interface UserDAO extends JpaRepository<User, Long> {
 	
-	public User findByUsuario(User user);
+	public User findByUser(User user);
 	
 }
