@@ -1,25 +1,21 @@
 import React from 'react';
 import './App.css';
+import { Routes, Route } from "react-router-dom";
+
 import ButtonAppBar from './components/ButtonAppBar';
-import MultiActionAreaCard from './components/MultiActionAreaCard';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 function App() {
   return (
     <div className="App">
 
       <ButtonAppBar></ButtonAppBar>
-      
-      <div className="Card">
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-      </div>
 
-      <div className="Card">
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-        <MultiActionAreaCard className="CardItem"></MultiActionAreaCard>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes> 
       
     </div>
   );
