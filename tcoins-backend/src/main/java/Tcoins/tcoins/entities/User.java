@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
-public class Usuario {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +32,8 @@ public class Usuario {
 	
 	private Date updatesAt;
 	
-	public Usuario(Long id, Long planoVigente, String email, String senha, String googleTokenId, Byte[] imagem,
-			int deleted, Date createdAt, Date updatesAt) {
+	public User(Long id, Long planoVigente, String email, String senha, String googleTokenId, Byte[] imagem,
+				int deleted, Date createdAt, Date updatesAt) {
 		super();
 		this.id = id;
 		this.planoVigente = planoVigente;
@@ -46,7 +46,7 @@ public class Usuario {
 		this.updatesAt = updatesAt;
 	}
 
-	public Usuario() {
+	public User() {
 		super();
 	}
 
