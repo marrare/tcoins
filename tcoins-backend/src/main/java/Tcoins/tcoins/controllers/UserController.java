@@ -1,6 +1,6 @@
 package Tcoins.tcoins.controllers;
 
-import Tcoins.tcoins.entities.Usuario;
+import Tcoins.tcoins.entities.User;
 import Tcoins.tcoins.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+
 @RestController
 public class UserController {
 	
 	@Autowired
 	UserService usuarioService;
 
-    @GetMapping("/user/{id}")
-    public void getUsuarioByid(Long id){
+    @GetMapping("/usuario")
+    public void getUsuarioByid(@RequestHeader Long id){
         return;
     }
     
     @PostMapping("/usuario")
-    public void cadastrarUsuario(@RequestHeader Usuario user){
+    public void cadastrarUsuario(@RequestHeader User user){
         usuarioService.createUser(user);
     }
     
-    @DeleteMapping("/usuario/{id}")
-    public void deletarUsuario(@RequestParam Long id){
+    @DeleteMapping("/usuario")
+    public void deletarUsuario(@RequestHeader Long id){
         usuarioService.deleteUser(id);
     }
 
