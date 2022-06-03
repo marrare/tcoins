@@ -1,33 +1,46 @@
 package Tcoins.tcoins.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import java.util.Date;
 
 @Entity
+@Table(name = "user_plano")
 public class UserPlano {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne //    TODO ajustar relação
+    @ManyToOne
+	@JoinColumn(name = "plano_id", referencedColumnName = "id")
     private Planos plano;
+	@JoinColumn(name = "preco_pago")
     private Long precoPago;
+	@JoinColumn(name = "data_expiracao")
     private Date dataExpiracao;
+	@JoinColumn(name = "created_at")
     private Date createdAt;
-    private Date updatedAt;
+	@JoinColumn(name = "updates_at")
+    private Date updatesAt;
 
 
     public UserPlano() {
     }
 
-    public UserPlano(Long id, Planos plano, Long precoPago, Date dataExpiracao, Date createdAt, Date updatedAt) {
+    public UserPlano(Long id, Planos plano, Long precoPago, Date dataExpiracao, Date createdAt, Date updatesAt) {
         this.id = id;
         this.plano = plano;
         this.precoPago = precoPago;
         this.dataExpiracao = dataExpiracao;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.updatesAt = updatesAt;
     }
 
     public Long getId() {
@@ -70,11 +83,11 @@ public class UserPlano {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Date getUpdatesAt() {
+        return updatesAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatesAt(Date updatesAt) {
+        this.updatesAt = updatesAt;
     }
 }

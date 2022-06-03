@@ -2,28 +2,36 @@ package Tcoins.tcoins.entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Produto {
 
     @Id
     private Long id;
-    @ManyToOne //TODO corrigir relação
+    @ManyToOne
+    @JoinColumn(name = "loja_id", referencedColumnName = "id")
     private Loja loja;
     private String nome;
     private String descricao;
+    @JoinColumn(name = "preco_tcoins")
     private Double precoTcoins;
+    @JoinColumn(name = "valor_recompensa")
     private Double valorRecompensa;
     @Lob
     private byte[] imagem;
     private int deleted;
-    private Date createdAt;
-    private Date updateAt;
+    
+    @JoinColumn(name = "created_at")
+	private Date createdAt;
+	
+	@JoinColumn(name = "updates_at")
+    private Date updatesAt;
 
     public Produto() {
 
     }
-    public Produto(Long id, Loja loja, String nome, String descricao, Double precoTcoins, Double valorRecompensa, byte[] imagem, int deleted, Date createdAt, Date updateAt) {
+    public Produto(Long id, Loja loja, String nome, String descricao, Double precoTcoins, Double valorRecompensa, byte[] imagem, int deleted, Date createdAt, Date updatesAt) {
         this.id = id;
         this.loja = loja;
         this.nome = nome;
@@ -33,7 +41,7 @@ public class Produto {
         this.imagem = imagem;
         this.deleted = deleted;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.updatesAt = updatesAt;
     }
 
     public Long getId() {
@@ -108,11 +116,11 @@ public class Produto {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatesAt() {
+        return updatesAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdateAt(Date updatesAt) {
+        this.updatesAt = updatesAt;
     }
 }

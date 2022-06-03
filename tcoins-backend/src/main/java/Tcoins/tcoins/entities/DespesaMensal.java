@@ -1,60 +1,65 @@
 package Tcoins.tcoins.entities;
 
-import java.text.DateFormat;
 import java.util.Date;
 
-public class DespesaMensal {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="despesa_mensal")
+public class DespesaMensal {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private Long usuarioId;
-	
-	private Long lojaId;
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User usuarioId;
+	@ManyToOne
+	@JoinColumn(name = "loja_id", referencedColumnName = "id")
+	private Loja lojaId;
 	
 	private double valor;
 	
 	
+	@JoinColumn(name = "created_at")
 	private Date createdAt;
 	
+	@JoinColumn(name = "updates_at")
 	private Date updatesAt;
-	
-	
-	
-	public DespesaMensal() {
-		super();
-	}
 
-	public DespesaMensal(Long id, Long usuarioId, Long lojaId, double valor, Date createdAt, Date updatesAt) {
-		super();
-		this.id = id;
-		this.usuarioId = usuarioId;
-		this.lojaId = lojaId;
-		this.valor = valor;
-		this.createdAt = createdAt;
-		this.updatesAt = updatesAt;
+	@Override
+	public String toString() {
+		return "DespesaMensal [id=" + id + ", usuarioId=" + usuarioId + ", lojaId=" + lojaId + ", valor=" + valor
+				+ ", createdAt=" + createdAt + ", updatesAt=" + updatesAt + "]";
 	}
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getUsuarioId() {
+	public User getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(Long usuarioId) {
+	public void setUsuarioId(User usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 
-	public Long getLojaId() {
+	public Loja getLojaId() {
 		return lojaId;
 	}
 
-	public void setLojaId(Long lojaId) {
+	public void setLojaId(Loja lojaId) {
 		this.lojaId = lojaId;
 	}
 
@@ -81,6 +86,9 @@ public class DespesaMensal {
 	public void setUpdatesAt(Date updatesAt) {
 		this.updatesAt = updatesAt;
 	}
+	
+	
+	
 	
 	
 }

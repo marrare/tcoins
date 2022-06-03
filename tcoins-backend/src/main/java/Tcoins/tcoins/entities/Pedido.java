@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido {
@@ -13,31 +15,24 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private Long clienteId;
-	
+	@ManyToOne
+	@JoinColumn(name = "created_at", referencedColumnName = "id")
+	private User clienteId;
+	@JoinColumn(name = "uso_saldo")
 	private int usoSaldo;
 	
 	private int deleted;
 	
+	@JoinColumn(name = "created_at")
 	private Date createdAt;
 	
+	@JoinColumn(name = "updates_at")
 	private Date updatedAt;
-	
-	
 
-	public Pedido() {
-		super();
-	}
-
-	public Pedido(Long id, Long clienteId, int usoSaldo, int deleted, Date createdAt, Date updatedAt) {
-		super();
-		this.id = id;
-		this.clienteId = clienteId;
-		this.usoSaldo = usoSaldo;
-		this.deleted = deleted;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", clienteId=" + clienteId + ", usoSaldo=" + usoSaldo + ", deleted=" + deleted
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 	public Long getId() {
@@ -48,11 +43,11 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public Long getClienteId() {
+	public User getClienteId() {
 		return clienteId;
 	}
 
-	public void setClienteId(Long clienteId) {
+	public void setClienteId(User clienteId) {
 		this.clienteId = clienteId;
 	}
 
@@ -87,6 +82,9 @@ public class Pedido {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
+
 	
 	
 }

@@ -1,12 +1,15 @@
 package Tcoins.tcoins.entities;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Loja {
@@ -15,9 +18,12 @@ public class Loja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	private Long donoId;
-	
-	private Long ramoId;
+	@ManyToOne
+	@JoinColumn(name = "dono_id", referencedColumnName = "id")
+	private User donoId;
+	@ManyToOne
+	@JoinColumn(name = "ramo_id", referencedColumnName = "id")
+	private LojaRamos ramoId;
 	
 	private String nome;
 	
@@ -32,30 +38,18 @@ public class Loja {
 	
 	private int deleted;
 	
+	@JoinColumn(name = "created_at")
 	private Date createdAt;
 	
+	@JoinColumn(name = "updates_at")
 	private Date updatesAt;
-	
-	
 
-	public Loja() {
-		super();
-	}
-
-	public Loja(Long id, Long donoId, Long ramoId, String nome, String descricao, double longitude, double latitude,
-			Byte[] imagem, int deleted, Date createdAt, Date updatesAt) {
-		super();
-		Id = id;
-		this.donoId = donoId;
-		this.ramoId = ramoId;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.imagem = imagem;
-		this.deleted = deleted;
-		this.createdAt = createdAt;
-		this.updatesAt = updatesAt;
+	@Override
+	public String toString() {
+		return "Loja [Id=" + Id + ", donoId=" + donoId + ", ramoId=" + ramoId + ", nome=" + nome + ", descricao="
+				+ descricao + ", longitude=" + longitude + ", latitude=" + latitude + ", imagem="
+				+ Arrays.toString(imagem) + ", deleted=" + deleted + ", createdAt=" + createdAt + ", updatesAt="
+				+ updatesAt + "]";
 	}
 
 	public Long getId() {
@@ -66,19 +60,19 @@ public class Loja {
 		Id = id;
 	}
 
-	public Long getDonoId() {
+	public User getDonoId() {
 		return donoId;
 	}
 
-	public void setDonoId(Long donoId) {
+	public void setDonoId(User donoId) {
 		this.donoId = donoId;
 	}
 
-	public Long getRamoId() {
+	public LojaRamos getRamoId() {
 		return ramoId;
 	}
 
-	public void setRamoId(Long ramoId) {
+	public void setRamoId(LojaRamos ramoId) {
 		this.ramoId = ramoId;
 	}
 
@@ -145,5 +139,9 @@ public class Loja {
 	public void setUpdatesAt(Date updatesAt) {
 		this.updatesAt = updatesAt;
 	}
+	
+	
+
+	
 	
 }

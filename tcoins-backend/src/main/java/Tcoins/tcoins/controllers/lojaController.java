@@ -1,8 +1,5 @@
 package Tcoins.tcoins.controllers;
 
-import Tcoins.tcoins.entities.User;
-import Tcoins.tcoins.services.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,26 +7,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import Tcoins.tcoins.entities.Loja;
+import Tcoins.tcoins.services.LojaService;
+import Tcoins.tcoins.services.UserService;
 
 @RestController
-public class UserController {
-	
+public class lojaController {
+
 	@Autowired
 	UserService usuarioService;
-
-    @GetMapping("/usuario")
-    public void getUsuarioByid(@RequestHeader Long id){
-        return;
+	
+	@Autowired
+	LojaService lojaService;
+	
+    @GetMapping("/lojas")
+    public void getLojaByid(@RequestHeader Long id){
+        lojaService.getLojaById(id);
     }
     
-    @PostMapping("/usuario")
-    public void cadastrarUsuario(@RequestHeader User user){
-        usuarioService.createUser(user);
+    @PostMapping("/loja")
+    public void cadastrarLoja(@RequestHeader Loja loja){
+        lojaService.cadastrarloja(loja);
     }
     
-    @DeleteMapping("/usuario")
+    @DeleteMapping("/loja")
     public void deletarUsuario(@RequestHeader Long id){
-        usuarioService.deleteUser(id);
+        lojaService.deleteLojabyId(id);
     }
-
+	
 }
