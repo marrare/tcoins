@@ -1,12 +1,16 @@
 package Tcoins.tcoins.entities;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class User {
@@ -15,12 +19,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long planoVigente;
+	@ManyToOne
+	@JoinColumn(name = "plano_vigente", referencedColumnName = "id")
+	private Planos planoVigente;
+	
+	private String nome;
 	
 	private String email;
 	
+	@JoinColumn(name = "codigo_user")
+	private String codigoUser;
+	
 	private String senha;
 	
+	@JoinColumn(name = "google_token_id")
 	private String googleTokenId;
 	
 	@Lob
@@ -28,27 +40,11 @@ public class User {
 	
 	private int deleted;
 	
+	@JoinColumn(name = "created_at")
 	private Date createdAt;
 	
+	@JoinColumn(name = "updates_at")
 	private Date updatesAt;
-	
-	public User(Long id, Long planoVigente, String email, String senha, String googleTokenId, Byte[] imagem,
-				int deleted, Date createdAt, Date updatesAt) {
-		super();
-		this.id = id;
-		this.planoVigente = planoVigente;
-		this.email = email;
-		this.senha = senha;
-		this.googleTokenId = googleTokenId;
-		this.imagem = imagem;
-		this.deleted = deleted;
-		this.createdAt = createdAt;
-		this.updatesAt = updatesAt;
-	}
-
-	public User() {
-		super();
-	}
 
 	public Long getId() {
 		return id;
@@ -58,12 +54,20 @@ public class User {
 		this.id = id;
 	}
 
-	public Long getPlanoVigente() {
+	public Planos getPlanoVigente() {
 		return planoVigente;
 	}
 
-	public void setPlanoVigente(Long planoVigente) {
+	public void setPlanoVigente(Planos planoVigente) {
 		this.planoVigente = planoVigente;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -72,6 +76,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCodigoUser() {
+		return codigoUser;
+	}
+
+	public void setCodigoUser(String codigoUser) {
+		this.codigoUser = codigoUser;
 	}
 
 	public String getSenha() {
@@ -122,9 +134,12 @@ public class User {
 		this.updatesAt = updatesAt;
 	}
 
-
-	
-	
-	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", planoVigente=" + planoVigente + ", nome=" + nome + ", email=" + email
+				+ ", codigoUser=" + codigoUser + ", senha=" + senha + ", googleTokenId=" + googleTokenId + ", imagem="
+				+ Arrays.toString(imagem) + ", deleted=" + deleted + ", createdAt=" + createdAt + ", updatesAt="
+				+ updatesAt + "]";
+	}
 	
 }

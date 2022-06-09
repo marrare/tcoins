@@ -1,18 +1,29 @@
 package Tcoins.tcoins.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
 import java.util.Date;
 
 @Entity
 public class Planos {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double preco;
     private int lojas;
+    
+    @JoinColumn(name = "produtos_por_loja")
     private int produtosPorLoja;
+    
+    @JoinColumn(name = "created_at")
     private Date createdAt;
-    private Date updatedAt;
+    
+    @JoinColumn(name = "updates_at")
+    private Date updatesAt;
 
     public Planos(Long id, Double preco, int lojas, int produtosPorLoja, Date createdAt, Date updatedAt) {
         this.id = id;
@@ -20,7 +31,7 @@ public class Planos {
         this.lojas = lojas;
         this.produtosPorLoja = produtosPorLoja;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.updatesAt = updatedAt;
     }
 
     public Planos() {
@@ -68,10 +79,10 @@ public class Planos {
     }
 
     public Date getUpdatedAt() {
-        return updatedAt;
+        return updatesAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatedAt(Date updatesAt) {
+        this.updatesAt = updatesAt;
     }
 }

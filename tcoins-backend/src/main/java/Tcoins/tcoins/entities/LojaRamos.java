@@ -1,22 +1,32 @@
 package Tcoins.tcoins.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
 import java.util.Date;
 
 @Entity
+@Table(name="loja_ramos")
 public class LojaRamos {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String Ramo;
-    private Date createdAt;
-    private Date UpdatedAt;
+    @JoinColumn(name = "created_at")
+	private Date createdAt;
+	
+	@JoinColumn(name = "updates_at")
+    private Date UpdatesAt;
 
-    public LojaRamos(String ramo, Date createdAt, Date updatedAt) {
+    public LojaRamos(String ramo, Date createdAt, Date updatesAt) {
         Ramo = ramo;
         this.createdAt = createdAt;
-        UpdatedAt = updatedAt;
+        UpdatesAt = updatesAt;
     }
 
     public LojaRamos() {
@@ -48,10 +58,10 @@ public class LojaRamos {
     }
 
     public Date getUpdatedAt() {
-        return UpdatedAt;
+        return UpdatesAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        UpdatedAt = updatedAt;
+    public void setUpdatedAt(Date updatesAt) {
+        UpdatesAt = updatesAt;
     }
 }

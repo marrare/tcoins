@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import Tcoins.tcoins.DAO.UserDAO;
 import Tcoins.tcoins.entities.User;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -24,5 +26,9 @@ public class UserService {
 	}
 	public User getUserById(Long id){
 		return userDao.findById(id).get();
+	}
+
+	public List<User> getAllUser(){
+		return  userDao.findAll();
 	}
 }
