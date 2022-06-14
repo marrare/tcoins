@@ -28,7 +28,7 @@ export default function ButtonAppBar() {
             <Link to="/" className="Link">T-COINS</Link>
           </Typography>
           <Button color="inherit"><Link to="/login" className="Link">Login</Link></Button>
-          <Button color="inherit"><Link to="/login" className="Link">Cadastro</Link></Button>
+          <Button color="inherit"><Link to="/cadastro" className="Link">Cadastro</Link></Button>
         </Toolbar>
       </AppBar>
     </Box>
