@@ -1,34 +1,31 @@
 package br.ifpe.tcoins.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ifpe.tcoins.model.User;
 import br.ifpe.tcoins.service.UserService;
 
 
 @RestController
+@RequestMapping("/usuario")
 public class UserController {
 	
-//	@Autowired
-//	UserService usuarioService;
-//
-//    @GetMapping("/usuario")
-//    public void getUsuarioByid(@RequestHeader Long id){
+	@Autowired
+	UserService usuarioService;
+
+//    @GetMapping("")
+//    public void getUsuarioByid(@RequestHeader final Long id){
 //        return;
 //    }
 //    
-//    @PostMapping("/usuario")
-//    public void cadastrarUsuario(@RequestHeader User user){
+//    @PostMapping("")
+//    public void cadastrarUsuario(@RequestHeader final User user){
 //        usuarioService.createUser(user);
 //    }
 //    
-//    @DeleteMapping("/usuario")
-//    public void deletarUsuario(@RequestHeader Long id){
+//    @DeleteMapping("")
+//    public void deletarUsuario(@RequestHeader final Long id){
 //        usuarioService.deleteUser(id);
 //    }
 
