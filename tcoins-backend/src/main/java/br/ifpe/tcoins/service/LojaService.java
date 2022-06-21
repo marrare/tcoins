@@ -1,7 +1,5 @@
 package br.ifpe.tcoins.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ifpe.tcoins.model.Loja;
+import br.ifpe.tcoins.repository.LojaRamosRepository;
 import br.ifpe.tcoins.repository.LojaRepository;
 
 @Service
@@ -17,16 +16,22 @@ public class LojaService {
 
     @Autowired
     private LojaRepository lojaRepository;
+    
+    @Autowired
+    private LojaRamosRepository lojaRamosRepository;
 
-    public Page<Loja> getLojas(int page, int pageSize, String buscaPorNome, String buscaPorRamo){
+    public Page<Loja> getLojas(int page, int pageSize, String nome, String ramo){
     	//TODO - ordenar por proximidade
-        if (!buscaPorNome.toLowerCase().trim().isBlank())
-            return lojaRepository.findAllbyNomeContains(PageRequest.of(page, pageSize), buscaPorNome);
-        else if (!buscaPorRamo.toLowerCase().trim().isBlank())
-            return lojaRepository.findAllByRamoContains(
-                    PageRequest.of(page,pageSize, Sort.Direction.ASC, "nome"));
-        else
-            return lojaRepository.findAll(
-                    PageRequest.of(page,pageSize, Sort.by(Sort.Direction.ASC, "nome")));
+    	Pageable reqPage = PageRequest.of(page-1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
+    	
+        if (nome.isBlank() && ramo.isBlank()) {
+        	return lojaRepository.findAll(reqPage);	// TODO - fix get lojas by nome and ramo
+        } else if(!nome.isBlank() && !ramo.isBlank()) {
+        	return lojaRepository.findAll(reqPage);
+        } else if(!ramo.isBlank()) {
+        	return lojaRepository.findAll(reqPage); // TODO - fix get lojas by ramo
+        } else {
+        	return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome);
+        }          
     }
 }
