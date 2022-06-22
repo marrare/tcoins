@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Type;
 
@@ -18,7 +19,9 @@ import org.hibernate.annotations.Type;
 public class Loja {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loja_generator")
+	@SequenceGenerator(name="loja_generator", sequenceName = "loja_seq")
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	
 	@ManyToOne
@@ -44,14 +47,13 @@ public class Loja {
 	@Lob
 	private Byte[] imagem;
 	
-	@Column(columnDefinition = "TINYINT DEFAULT 0", nullable=false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
+	@Column(columnDefinition = "boolean default true", nullable=false)
 	private boolean deleted;
 	
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp updatedAt;
 	
 	@Override

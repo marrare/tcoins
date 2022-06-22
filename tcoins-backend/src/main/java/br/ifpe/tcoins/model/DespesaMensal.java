@@ -9,16 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-//TODO - Constructors
 
 @Entity
 @Table(name="despesa_mensal")
 public class DespesaMensal {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "despesa_mensal_generator")
+	@SequenceGenerator(name="despesa_mensal_generator", sequenceName = "despesa_mensal_seq")
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	
 	@ManyToOne
@@ -35,7 +36,7 @@ public class DespesaMensal {
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp updatedAt;
 
 	@Override

@@ -11,15 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Type;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="users")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	@SequenceGenerator(name="user_generator", sequenceName = "user_seq")
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	
 	@ManyToOne
@@ -44,14 +47,13 @@ public class User {
 	@Lob
 	private Byte[] imagem;
 	
-	@Column(columnDefinition = "TINYINT DEFAULT 0")
-	@Type(type = "org.hibernate.type.NumericBooleanType")
+	@Column(columnDefinition = "boolean default true")
 	private boolean deleted;
 	
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp updatedAt;
 
 	@Override
@@ -149,7 +151,5 @@ public class User {
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	
 	
 }
