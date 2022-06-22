@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ifpe.tcoins.model.Loja;
@@ -23,22 +24,22 @@ public class LojaController {
 
 	@GetMapping()
 	public ResponseEntity<List<Loja>> getLoja(
-		@RequestHeader final int page,
-		@RequestHeader final int pageSize,
+		@RequestParam(required = false) final Integer currentPage,
+		@RequestParam(required = false, defaultValue = "10") final Integer pageSize,
 		@RequestHeader(required = false, defaultValue = "") final String nomeProduto, 
 		@RequestHeader(required = false, defaultValue = "") final String ramoProduto) {
 		try {
-			Page<Loja> lojas = lojaService.getLojas(page, pageSize, nomeProduto, ramoProduto);
+			Page<Loja> lojas = lojaService.getLojas(currentPage, pageSize, nomeProduto, ramoProduto);
 
-			if (lojas.getTotalElements() == 0)
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lojas.getContent());
-			else
+			if (lojas.getTotalElements() == 0) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			} else {
 				return ResponseEntity.status(HttpStatus.OK).body(lojas.getContent());
-
+			}
 		} catch (Exception e) {
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
-			return ResponseEntity.internalServerError().build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
 	}
