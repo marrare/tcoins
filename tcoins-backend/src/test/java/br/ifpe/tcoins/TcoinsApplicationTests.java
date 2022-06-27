@@ -1,4 +1,4 @@
-package Tcoins.tcoins;
+package br.ifpe.tcoins;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
