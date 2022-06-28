@@ -21,13 +21,31 @@ public class LojaService {
 		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
 
 		if (nome.isBlank() && ramo.isBlank()) {
-			return lojaRepository.findAll(reqPage); // TODO - fix get lojas by nome and ramo
-		} else if (!nome.isBlank() && !ramo.isBlank()) {
+
 			return lojaRepository.findAll(reqPage);
+		} else if (!nome.isBlank() && !ramo.isBlank()) {
+
+			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(reqPage, nome, ramo);
 		} else if (!ramo.isBlank()) {
-			return lojaRepository.findByRamo(reqPage, ramo); // TODO - fix get lojas by ramo
+
+			return lojaRepository.findByRamo_RamoContainingIgnoreCase(reqPage, ramo);
 		} else {
+
 			return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome);
 		}
+	}
+	public void cadastrarLoja(Loja loja){
+		lojaRepository.save(loja);
+	}
+	public void deletarLojaById(Long id){
+		lojaRepository.deleteById(id);
+	}
+
+	public Loja getLojaByNome(String nome) {
+		return lojaRepository.findByNomeIgnoreCase(nome);
+	}
+
+	public Loja getLojabyId(Long lojaId) {
+		 return lojaRepository.getById(lojaId);
 	}
 }
