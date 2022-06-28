@@ -1,5 +1,6 @@
 package br.ifpe.tcoins.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import br.ifpe.tcoins.repository.PlanosRepository;
@@ -7,6 +8,7 @@ import br.ifpe.tcoins.repository.UserPlanoRepository;
 import br.ifpe.tcoins.service.RamoService;
 import br.ifpe.tcoins.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +53,47 @@ public class LojaController {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
+
+	}
+
+	@PostMapping
+	public ResponseEntity cadastarLoja(@RequestHeader(required = true) Long donoId, @RequestHeader(required = true) Long ramoId,
+									   @RequestHeader(required = true) String nome, @RequestHeader(required = true) String descricao,
+									   @RequestHeader(required = true) Double latitude, @RequestHeader(required = true) Double longitude,
+									   @RequestHeader(required = false) Byte[] imagem ){
+		try {
+			if (lojaService.getLojaByNome(nome) == null){
+				Loja loja = new Loja();
+				loja.setDeleted(false);
+				loja.setCreatedAt(LocalDate.now());
+				loja.setUpdatedAt(LocalDate.now());
+				loja.setDono(userService.getUserById(donoId));
+				loja.setRamo(ramoService.getRamoById(ramoId));
+				loja.setNome(nome); loja.setDescricao(descricao);
+				loja.setImagem(imagem); loja.setLatitude(latitude); loja.setLongitude(longitude);
+				lojaService.cadastrarLoja(loja);
+				return ResponseEntity.ok().build();
+			}else
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome já existe");
+		}catch (Exception e){
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+
+	@DeleteMapping
+	public ResponseEntity deleteLoja(@RequestHeader Long lojaId){
+		try {
+			Loja loja = lojaService.getLojabyId(lojaId);
+			lojaService.deletarLojaById(lojaId);
+		}catch (EmptyResultDataAccessException e){
+			return ResponseEntity.noContent().build();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().build();
+		}
+		return ResponseEntity.ok().build();
 
 	}
 
