@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Type;
 
@@ -19,9 +18,8 @@ import org.hibernate.annotations.Type;
 public class Loja {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loja_generator")
-	@SequenceGenerator(name="loja_generator", sequenceName = "loja_seq")
-	@Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
 	private Long id;
 	
 	@ManyToOne

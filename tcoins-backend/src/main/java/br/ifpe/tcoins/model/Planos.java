@@ -7,15 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Planos {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planos_generator")
-	@SequenceGenerator(name="planos_generator", sequenceName = "planos_seq")
-    @Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
     private Long id;
     
     @Column(columnDefinition="DECIMAL(10,2)", nullable=false)
