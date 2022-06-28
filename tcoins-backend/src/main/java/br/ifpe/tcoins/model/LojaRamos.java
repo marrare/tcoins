@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +14,8 @@ import javax.persistence.Table;
 public class LojaRamos {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loja_ramos_generator")
-	@SequenceGenerator(name="loja_ramos_generator", sequenceName = "loja_ramos_seq")
-    @Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
     private Long id;
     
     @Column(length = 30, nullable=false)
