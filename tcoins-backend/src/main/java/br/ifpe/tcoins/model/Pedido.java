@@ -9,17 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 public class Pedido {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
-	@SequenceGenerator(name="pedido_generator", sequenceName = "pedido_seq")
-	@Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
 	private Long id;
 
 	@ManyToOne

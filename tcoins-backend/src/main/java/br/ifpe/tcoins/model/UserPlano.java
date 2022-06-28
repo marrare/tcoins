@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +20,8 @@ import javax.persistence.TemporalType;
 public class UserPlano {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_plano_generator")
-	@SequenceGenerator(name="user_plano_generator", sequenceName = "user_plano_seq")
-    @Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
     private Long id;
     
     @ManyToOne
