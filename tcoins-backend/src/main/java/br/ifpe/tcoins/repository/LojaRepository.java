@@ -3,7 +3,6 @@ package br.ifpe.tcoins.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import br.ifpe.tcoins.model.Loja;
 
@@ -25,5 +24,5 @@ public interface LojaRepository extends JpaRepository<Loja, Long> {
 
     public Loja findByNomeIgnoreCase(String nome);
 
-    public Page<Loja> findByUser_id(Pageable pageable, Long userId);
+    public Page<Loja> findByDono_id(Pageable pageable, Long userId);
 }
