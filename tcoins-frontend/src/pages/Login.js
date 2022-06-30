@@ -6,13 +6,8 @@ import Typography from '@mui/material/Typography';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
-
 
 function Login() {
 
@@ -20,6 +15,7 @@ function Login() {
     return (
 
         <div>
+            
             <Box
                 sx={{
                     marginTop: 8,
@@ -34,7 +30,8 @@ function Login() {
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
-                <Box component="form" /* onSubmit={handleSubmit} */ noValidate sx={{ mt: 1 }}>
+                <Box component="form" /* onSubmit={handleSubmit} */ noValidate sx={{ mt: 2, width: "400px" }}>
+                <Grid item xs={18}>
                     <TextField
                         margin="normal"
                         required
@@ -45,6 +42,8 @@ function Login() {
                         autoComplete="email"
                         autoFocus
                     />
+                </Grid>
+                <Grid item xs={18}>
                     <TextField
                         margin="normal"
                         required
@@ -55,6 +54,7 @@ function Login() {
                         id="password"
                         autoComplete="current-password"
                     />
+                </Grid>
 
                     <Button
                         type="submit"
@@ -74,6 +74,7 @@ function Login() {
                     </Grid>
                 </Box>
             </Box>
+            
         </div>
 
     )
