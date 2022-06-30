@@ -1,13 +1,12 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,19 +14,18 @@ import javax.persistence.Table;
 public class LojaRamos {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loja_ramos_generator")
-	@SequenceGenerator(name="loja_ramos_generator", sequenceName = "loja_ramos_seq")
-    @Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
     private Long id;
     
     @Column(length = 30, nullable=false)
     private String ramo;
     
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
+	@Column(name = "created_at", length = 255, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
+	@Column(name = "updated_at", length = 255, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate updatedAt;
 
 	@Override
 	public String toString() {
@@ -50,19 +48,19 @@ public class LojaRamos {
 		this.ramo = ramo;
 	}
 
-	public Timestamp getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Timestamp updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
