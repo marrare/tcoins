@@ -1,5 +1,89 @@
+/*Setar as cores, fontes, espaçamento padrão, radius, shadow...*/
+:root {
+  --default-color: #005270;
+  --primary-color: #00AFEF;
+  --secondary-color: #0C3DF8;
+  --sucess-color: #18bf5c;
+  --danger-color: #f53636;
+  --warning-color: #ff6020;
+  --heading-color: #32325d;
+  --shadow: 0 15px 35px rgba(28, 28, 53, 0.2), 0 5px 15px rgb(0 0 0 / 17%);
+}
+
+/*definir as especificações de fonte, margin e background-color*/
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.Footer {
+  height: 300px;
+  background-color: #00AFEF;
+  bottom: 0;
+  align-items: center;
+}
+
+.FooterContent {
+  align-self: center;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 40px 80px;
+}
+
+.FooterEsquerda {
+  display: flex;
+  flex-direction: column;
+}
+
+.FooterDireitos {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  line-height: 0;
+  font-size: 0.8rem;
+  padding: 0 1.3rem;
+  color: #fff;
+}
+
+.FooterNav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FooterDireita {
+  width: 55%;
+}
+
+.FooterLista {
+  list-style: none;
+  text-align: left;
+  color: #fff;
+}
+
+.ListaTitulo {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.ListaItem {
+  font-size: 13px;
+  font-weight: 400;
+  margin-top: 0.4rem;
+}
+
 .App {
   text-align: center;
+}
+
+.Logo {
+  width: 220px;
+}
+
+.Paginacao {
+  color: var(--primary-color);
+  align-self: flex-end;
 }
 
 .Card {
@@ -11,7 +95,32 @@
   justify-content: space-between;
 }
 
-.CardItem {
-  margin-left: 60px;
+.Container {
+  padding: 1rem 2rem;
+  font-family: 'Poppins', sans-serif;
+
 }
 
+.Tabela {
+  font-family: 'Poppins', sans-serif;
+  box-shadow: var(--shadow);
+}
+
+.CardItem {
+  margin-left: 60px;
+  height: 130px;
+  background-color: aqua;
+}
+
+@media (max-width: 580px) {
+  .Card {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .CardItem {
+    margin-bottom: 0.7rem;
+  }
+
+}
