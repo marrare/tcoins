@@ -48,4 +48,10 @@ public class LojaService {
 	public Loja getLojabyId(Long lojaId) {
 		 return lojaRepository.getById(lojaId);
 	}
+
+    public Page<Loja> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
+		Pageable pag = PageRequest.of(page -1, pageSize);
+		return lojaRepository.findByUser_id(pag, userId);
+
+    }
 }

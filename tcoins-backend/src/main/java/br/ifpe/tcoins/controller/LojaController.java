@@ -3,6 +3,7 @@ package br.ifpe.tcoins.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.ifpe.tcoins.model.User;
 import br.ifpe.tcoins.repository.PlanosRepository;
 import br.ifpe.tcoins.repository.UserPlanoRepository;
 import br.ifpe.tcoins.service.RamoService;
@@ -95,6 +96,18 @@ public class LojaController {
 		}
 		return ResponseEntity.ok().build();
 
+	}
+
+	@GetMapping("usuario")
+	public ResponseEntity<List<Loja>> listarLojaPorUsuario(
+			@RequestHeader Integer page,
+			@RequestHeader Integer pageSize,
+			@RequestHeader Long userId){
+
+		List<Loja> lojas = lojaService.getLojaByUserId(page, pageSize, userId)
+						.getContent();
+
+			return  ResponseEntity.ok(lojas);
 	}
 
 }
