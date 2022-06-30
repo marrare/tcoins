@@ -24,4 +24,6 @@ public interface LojaRepository extends JpaRepository<Loja, Long> {
     public Page<Loja> findByNomeContainingIgnoreCase(Pageable pageable, String nome);
 
     public Loja findByNomeIgnoreCase(String nome);
+
+    public Page<Loja> findByUser_id(Pageable pageable, Long userId);
 }
