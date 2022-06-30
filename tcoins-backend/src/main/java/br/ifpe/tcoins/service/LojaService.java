@@ -1,7 +1,5 @@
 package br.ifpe.tcoins.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,18 +13,39 @@ import br.ifpe.tcoins.repository.LojaRepository;
 @Service
 public class LojaService {
 
-    @Autowired
-    private LojaRepository lojaRepository;
+	@Autowired
+	private LojaRepository lojaRepository;
 
-    public Page<Loja> getLojas(int page, int pageSize, String buscaPorNome, String buscaPorRamo){
-    	//TODO - ordenar por proximidade
-        if (!buscaPorNome.toLowerCase().trim().isBlank())
-            return lojaRepository.findAllbyNomeContains(PageRequest.of(page, pageSize), buscaPorNome);
-        else if (!buscaPorRamo.toLowerCase().trim().isBlank())
-            return lojaRepository.findAllByRamoContains(
-                    PageRequest.of(page,pageSize, Sort.Direction.ASC, "nome"));
-        else
-            return lojaRepository.findAll(
-                    PageRequest.of(page,pageSize, Sort.by(Sort.Direction.ASC, "nome")));
-    }
+	public Page<Loja> getLojas(Integer page, Integer pageSize, String nome, String ramo) {
+		// TODO - ordenar por proximidade
+		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
+
+		if (nome.isBlank() && ramo.isBlank()) {
+
+			return lojaRepository.findAll(reqPage);
+		} else if (!nome.isBlank() && !ramo.isBlank()) {
+
+			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(reqPage, nome, ramo);
+		} else if (!ramo.isBlank()) {
+
+			return lojaRepository.findByRamo_RamoContainingIgnoreCase(reqPage, ramo);
+		} else {
+
+			return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome);
+		}
+	}
+	public void cadastrarLoja(Loja loja){
+		lojaRepository.save(loja);
+	}
+	public void deletarLojaById(Long id){
+		lojaRepository.deleteById(id);
+	}
+
+	public Loja getLojaByNome(String nome) {
+		return lojaRepository.findByNomeIgnoreCase(nome);
+	}
+
+	public Loja getLojabyId(Long lojaId) {
+		 return lojaRepository.getById(lojaId);
+	}
 }

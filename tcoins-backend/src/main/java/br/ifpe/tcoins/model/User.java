@@ -1,6 +1,6 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import javax.persistence.Column;
@@ -11,15 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Type;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="users")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
 	private Long id;
 	
 	@ManyToOne
@@ -44,15 +45,14 @@ public class User {
 	@Lob
 	private Byte[] imagem;
 	
-	@Column(columnDefinition = "TINYINT DEFAULT 0")
-	@Type(type = "org.hibernate.type.NumericBooleanType")
+	@Column(columnDefinition = "boolean default true")
 	private boolean deleted;
 	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
+	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate updatedAt;
 
 	@Override
 	public String toString() {
@@ -134,22 +134,20 @@ public class User {
 		this.deleted = deleted;
 	}
 
-	public Timestamp getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Timestamp updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	
 	
 }
