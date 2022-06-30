@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TabelaUser from '../components/TabelaUser';
-import Paginacao from '../components/Paginacao'
+import TabelaUser from '../../components/TabelaUser';
+import Paginacao from '../../components/Paginacao';
 
 function ComprasUser() {
 
