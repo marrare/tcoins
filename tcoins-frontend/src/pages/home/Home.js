@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiActionAreaCard from '../components/MultiActionAreaCard';
+import MultiActionAreaCard from '../../components/MultiActionAreaCard';
 
 function Home() {
 
