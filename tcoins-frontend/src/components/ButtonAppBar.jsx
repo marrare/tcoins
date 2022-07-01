@@ -1,5 +1,6 @@
 import * as React from 'react';
-import './ButtonAppBar.css';
+// import './ButtonAppBar.css';
+import logo from '../T-C_ins__1_-removebg-preview.png'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,7 +16,7 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="Toolbar">
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -23,12 +24,15 @@ export default function ButtonAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className="Typography" variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/" className="Link">T-COINS</Link>
+          </IconButton> */}
+          <Typography className="Typography" component="div">
+            <Link to="/" className="Link"><img className="LogoMenor" src={logo} alt="" /></Link>
           </Typography>
-          <Button color="inherit"><Link to="/login" className="Link">Login</Link></Button>
-          <Button color="inherit"><Link to="/cadastro" className="Link">Cadastro</Link></Button>
+          <div className='Botoes'>
+            <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
+            <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
+          </div>
+
         </Toolbar>
       </AppBar>
     </Box>
