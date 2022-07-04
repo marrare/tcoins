@@ -22,6 +22,7 @@ function gerar(tabela){
         {
             table:{
                 headerRows: 1,
+                widths:['12%','88%'],
                 body:[
                     [
                         {text:'id', style:'tableHeader', fontSize:12},
@@ -43,7 +44,7 @@ function gerar(tabela){
         content: [details],
         footer: [rodape]
     }
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).open();
 }
 export default gerar;
 
