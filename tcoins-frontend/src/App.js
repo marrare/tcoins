@@ -3,9 +3,14 @@ import './App.css';
 import { Routes, Route } from "react-router-dom";
 
 import ButtonAppBar from './components/ButtonAppBar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Cadastro from './pages/Cadastro';
+import Footer from './components/Footer';
+
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
+import Cadastro from './pages/cadastro/Cadastro';
+import ComprasUser from './pages/comprasUsuario/ComprasUser';
+import GerenciarLojas from './pages/gerenciarLojas/GerenciarLojas';
+import GerenciarProdutos from './pages/gerenciarProdutos/GerenciarProdutos';
 
 function App() {
   return (
@@ -15,9 +20,14 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/compras" element={<ComprasUser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-      </Routes> 
+        <Route path="/gerenciar-lojas" element={<GerenciarLojas />} />
+        <Route path="/gerenciar-produtos" element={<GerenciarProdutos />} />
+      </Routes>
+
+      <Footer></Footer>
       
     </div>
   );

@@ -5,7 +5,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-export default function MultiActionAreaCard() {
+export default function MultiActionAreaCard({ data }) {
+
+  // let lojaToRender;
+  // if (ramo == "") {
+  //     lojaToRender = dados;
+  // } else {
+  //     lojaToRender = dados.filter(function (loja) {
+  //         return loja.ramo == ramo;
+  //     });
+  // }
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -17,10 +26,10 @@ export default function MultiActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Restaurante da Colina
+            {data.nome}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Venha nos visitar! Estamos no centro do Recife a sua espera. Tenho certeza que você gostará do Restaurante da Colina.
+            {data.id}
           </Typography>
         </CardContent>
       </CardActionArea>

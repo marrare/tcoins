@@ -1,6 +1,6 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import javax.persistence.Column;
@@ -48,11 +48,11 @@ public class Loja {
 	@Column(columnDefinition = "boolean default true", nullable=false)
 	private boolean deleted;
 	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
+	@Column(name = "created_at",length = 255, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
+	@Column(name = "updated_at",length = 255, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate updatedAt;
 	
 	@Override
 	public String toString() {
@@ -133,19 +133,19 @@ public class Loja {
 		this.deleted = deleted;
 	}
 
-	public Timestamp getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Timestamp updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

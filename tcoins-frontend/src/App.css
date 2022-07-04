@@ -1,17 +1,260 @@
+/*Setar as cores, fontes, espaçamento padrão, radius, shadow...*/
+:root {
+  --default-color: #005270;
+  --primary-color: #00AFEF;
+  --secondary-color: #0C3DF8;
+  --sucess-color: #18bf5c;
+  --danger-color: #f53636;
+  --warning-color: #ff6020;
+  --heading-color: #32325d;
+  --shadow: 0 15px 35px rgba(28, 28, 53, 0.2), 0 5px 15px rgb(0 0 0 / 17%);
+}
+
+* {
+  text-decoration: none;
+}
+
+/*definir as especificações de fonte, margin e background-color*/
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  background-color: #F0EEF0;
+}
+
+.Footer {
+  height: 200px;
+  background-color: #00AFEF;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+}
+
+.FooterContent {
+  align-self: center;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 40px 80px;
+}
+
+.FooterEsquerda {
+  display: flex;
+  flex-direction: column;
+}
+
+.FooterDireitos {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  line-height: 0;
+  font-size: 0.8rem;
+  padding: 0 1.3rem;
+  color: #fff;
+}
+
+.FooterNav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FooterDireita {
+  width: 55%;
+}
+
+.FooterLista {
+  list-style: none;
+  text-align: left;
+  color: #fff;
+}
+
+.Pesquisa {
+  display: flex;
+  padding: 0 3rem;
+  gap: 1rem;
+  align-items: center;
+  height: 50px;
+  margin: auto;
+}
+
+/* .Ordernar{
+  width: 70%;
+}
+.Ramo{
+  width: 100%;
+} */
+.Selects {
+  width: 39%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.Ordernar,
+.Ramo {
+  background-color: #fff !important;
+  color: rgba(37, 37, 37, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.BarraPesquisa {
+  width: 60%;
+  height: 48px;
+  /* height: 100%; */
+  margin: 0;
+
+}
+
+.ListaTitulo {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.ListaItem {
+  font-size: 13px;
+  font-weight: 400;
+  margin-top: 0.4rem;
+}
+
 .App {
   text-align: center;
+  height: 100%;
+}
+
+.Link {
+  text-decoration: none;
+  color: white;
+}
+
+.Toolbar.Link {
+  margin: auto;
+}
+
+.Toolbar {
+  background-color: #00AFEF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 2000;
+
+}
+
+.LogoMenor {
+  width: 120px;
+}
+
+.Logo {
+  width: 220px;
+}
+
+.Paginacao {
+  color: var(--primary-color);
+  align-self: flex-end;
 }
 
 .Card {
   display: flex;
-  max-width: 1150px;
-  margin: auto;
+  /* max-width: 1150px; */
+  flex-wrap: wrap;
+  margin: 0;
   margin-top: 30px;
   margin-bottom: 30px;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2rem 2.5rem;
+}
+
+.Botao {
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.625rem 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: all .15s ease;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.Login {
+  color: #000;
+  background-color: #fff;
+  border-color: #ffffff;
+
+}
+
+.Cadastro {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.FormContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.Form {
+  margin: 1.5rem 0;
+  width: 320px;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  justify-content: center;
+  align-items: center;
+}
+
+.FormContent {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.BotaoContainer {
+  padding: 0 5rem;
+}
+
+.Container {
+  padding: 1rem 2rem;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+.ContainerHome {
+  padding: 1rem 4rem;
+  margin: 0;
+
+}
+
+.Tabela {
+  font-family: 'Poppins', sans-serif;
+  box-shadow: var(--shadow);
 }
 
 .CardItem {
-  margin-left: 60px;
+  /* margin-left: 60px; */
+  height: 130px;
+  width: 33%;
+  background-color: aqua;
 }
 
+@media (max-width: 580px) {
+  .Card {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .CardItem {
+    margin-bottom: 0.7rem;
+  }
+
+}

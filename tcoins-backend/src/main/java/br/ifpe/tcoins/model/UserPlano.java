@@ -1,18 +1,8 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 
 @Entity
@@ -20,8 +10,9 @@ import javax.persistence.TemporalType;
 public class UserPlano {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_plano_generator")
+	@SequenceGenerator(name="user_plano_generator", sequenceName = "user_plano_seq")
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     
     @ManyToOne
@@ -32,14 +23,14 @@ public class UserPlano {
     private Double precoPago;
 	
     @Column(name = "data_expiracao",  nullable=false)
-    @Temporal(TemporalType.DATE)
-    private Date dataExpiracao;
+//    @Temporal(TemporalType.DATE)
+    private LocalDate dataExpiracao;
 	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
+	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate createdAt;
 	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate updatedAt;
 
 	@Override
 	public String toString() {
@@ -71,27 +62,27 @@ public class UserPlano {
 		this.precoPago = precoPago;
 	}
 
-	public Date getDataExpiracao() {
+	public LocalDate getDataExpiracao() {
 		return dataExpiracao;
 	}
 
-	public void setDataExpiracao(Date dataExpiracao) {
+	public void setDataExpiracao(LocalDate dataExpiracao) {
 		this.dataExpiracao = dataExpiracao;
 	}
 
-	public Timestamp getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Timestamp updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

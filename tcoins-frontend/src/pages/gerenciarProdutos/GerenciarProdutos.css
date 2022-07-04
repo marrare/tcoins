@@ -1,0 +1,78 @@
+.Nav {
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    max-height: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Bloco1 {
+    display: flex;
+}
+
+.ImagemLoja {
+    background-color: black;
+    width: 200px;
+    height: 200px;
+}
+
+.Localizacao {
+    min-width: 600px;
+    height: 300px;
+}
+
+.NomeLoja {
+    margin-left: 15px;
+    margin-top: 30px;
+}
+
+.DescricaoLoja {
+    max-width: 700px;
+    text-align: start;
+}
+
+.BarraPesquisa {
+    margin: auto;
+}
+
+.Checkbox {
+    margin-bottom: 35px;
+}
+
+.Listagem {
+    width: 900px;
+    margin: auto;
+}
+
+.ListaProdutos {
+    max-height: 130px;
+    width: 900px;
+    box-shadow: 2px 2px 10px #CCC;
+    display: flex;
+    margin: 20px;
+}
+
+.FotoProdutos {
+    height: 100px;
+    width: 100px;
+    padding: 10px;
+    align-self: center;
+    
+}
+
+.DetalheProduto {
+    width: 700px;
+    max-height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+   
+}
+
+.DescricaoProduto {
+    max-width: 80%;
+    text-align: justify;
+    margin-left: 2.5rem;
+    
+}

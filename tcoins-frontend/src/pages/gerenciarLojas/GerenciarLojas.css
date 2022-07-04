@@ -1,0 +1,22 @@
+.Corpo {
+    margin: auto;
+}
+
+.Barra {
+    width: 90%;
+    margin: auto;
+}
+
+/* .BarraPesquisa {
+    margin: auto;
+    margin: 30px;
+} */
+
+.Tabela {
+    width: 80%;
+    margin: auto;
+}
+
+.BotaoAcao {
+    margin-right: 10px;
+}
