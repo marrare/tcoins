@@ -25,14 +25,10 @@ public class ProdutoService {
 	}
 	
 	public void alterarProduto(Produto produto) {
-		
 		this.produtoRepository.save(produto);
 	}
-	
 	public void apagarProduto(Long id) {
-		
 		this.produtoRepository.deleteById(id);
-		
 	}
 	
 	public void buscarProdutoPorId(Long id) {
