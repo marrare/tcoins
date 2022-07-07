@@ -35,4 +35,8 @@ public class ProdutoService {
 		
 		this.produtoRepository.findById(id).get();
 	}
+
+	public Produto findByNome(String nome){
+		return this.produtoRepository.findByNome(nome);
+	}
 }
