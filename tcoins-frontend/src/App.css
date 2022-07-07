@@ -13,7 +13,9 @@
 * {
   text-decoration: none;
 }
-
+a{
+  color: #fff;
+}
 /*definir as especificações de fonte, margin e background-color*/
 body {
   font-family: 'Poppins', sans-serif;
@@ -58,11 +60,32 @@ body {
   justify-content: space-between;
 }
 
+.HeaderCenter {
+  width: 50%;
+  align-self: center;
+}
+
+.HeaderNav {
+  display: flex;
+  width: 100%;
+}
+
 .FooterDireita {
   width: 55%;
 }
 
-.FooterLista {
+.HeaderLista {
+  width: 100%;
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 300px;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+.FooterLista,
+.HeaderLista {
   list-style: none;
   text-align: left;
   color: #fff;
@@ -110,9 +133,11 @@ body {
 .ListaTitulo {
   font-size: 16px;
   font-weight: 700;
+  
+}
+.ItemFooter{
   margin-bottom: 0.8rem;
 }
-
 .ListaItem {
   font-size: 13px;
   font-weight: 400;
