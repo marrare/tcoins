@@ -1,0 +1,11 @@
+version: '3'
+services:
+    postgres:
+        image: postgres:14.4
+        network_mode: host
+        restart: always
+        volumes: 
+            - ./db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
