@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -11,11 +12,14 @@ import Box from '@mui/material/Box';
 
 function Login() {
 
-   
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+
     return (
 
         <div>
-            
+
             <Box
                 sx={{
                     marginTop: 8,
@@ -31,30 +35,34 @@ function Login() {
                     Login
                 </Typography>
                 <Box component="form" /* onSubmit={handleSubmit} */ noValidate sx={{ mt: 2, width: "400px" }}>
-                <Grid item xs={18}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                </Grid>
-                <Grid item xs={18}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Senha"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                </Grid>
+                    <Grid item xs={18}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            value={email}
+                            onChangeText={email => setEmail(email)}
+                        />
+                    </Grid>
+                    <Grid item xs={18}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Senha"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={senha}
+                            onChangeText={senha => setSenha(senha)}
+                        />
+                    </Grid>
 
                     <Button
                         type="submit"
@@ -70,11 +78,11 @@ function Login() {
                                 Esqueceu a senha?               // TODO - Alterar senha
                             </Link>
                         </Grid> */}
-                        
+
                     </Grid>
                 </Box>
             </Box>
-            
+
         </div>
 
     )

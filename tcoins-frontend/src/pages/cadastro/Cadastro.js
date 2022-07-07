@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +14,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 function Cadastro() {
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,6 +48,8 @@ function Cadastro() {
                   id="firstName"
                   label="Nome"
                   autoFocus
+                  value={nome}
+                  onChangeText={nome => setNome(nome)}
                 />
               </Grid>
 
@@ -54,6 +61,8 @@ function Cadastro() {
                   label="Email"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChangeText={email => setEmail(email)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -65,6 +74,8 @@ function Cadastro() {
                   type="password"
                   id="password"
                   autoComplete="Nova-senha"
+                  value={senha}
+                  onChangeText={senha => setSenha(senha)}
                 />
               </Grid>
 
