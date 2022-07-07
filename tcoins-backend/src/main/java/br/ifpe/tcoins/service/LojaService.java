@@ -23,7 +23,6 @@ public class LojaService {
 		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
 
 		if (nome.isBlank() && ramo.isBlank()) {
-
 			return lojaRepository.findAll(reqPage).map(p -> LojaDTO.convertFromLoja(p));
 		} else if (!nome.isBlank() && !ramo.isBlank()) {
 
@@ -54,7 +53,7 @@ public class LojaService {
 	}
 
     public Page<Loja> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
-		Pageable pag = PageRequest.of(page -1, pageSize);
+		Pageable pag = PageRequest.of(page - 1, pageSize);
 		return lojaRepository.findByDono_id(pag, userId);
 
     }

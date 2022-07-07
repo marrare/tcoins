@@ -1,52 +1,22 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Pedido {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-	private Long id;
+public class Pedido extends ObjetoGeral {
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", referencedColumnName = "id", nullable=false)
 	private User cliente;
 
-	@Column(name = "uso_saldo", columnDefinition = "boolean default true", nullable=false)
+	@Column(name = "uso_saldo", columnDefinition = "boolean default false")
 	private boolean usoSaldo;
 
-	@Column(columnDefinition = "boolean default true", nullable=false)
+	@Column(columnDefinition = "boolean default false")
 	private boolean deleted;
-
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
-	
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", cliente=" + cliente + ", usoSaldo=" + usoSaldo + ", deleted=" + deleted
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public User getCliente() {
 		return cliente;
@@ -70,22 +40,6 @@ public class Pedido {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-
-	public Timestamp getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 	
 }

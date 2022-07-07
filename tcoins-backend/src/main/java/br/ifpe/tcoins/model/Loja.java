@@ -1,26 +1,14 @@
 package br.ifpe.tcoins.model;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
 @Entity
-public class Loja {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-	private Long id;
+public class Loja extends ObjetoGeral {
 	
 	@ManyToOne
 	@JoinColumn(name = "dono_id", referencedColumnName = "id", nullable=false)
@@ -42,32 +30,10 @@ public class Loja {
 	@Column(nullable=false, columnDefinition="DECIMAL(11,8)")
 	private Double longitude;
 	
-	@Lob
 	private Byte[] imagem;
 	
-	@Column(columnDefinition = "boolean default true", nullable=false)
+	@Column(columnDefinition = "boolean default false")
 	private boolean deleted;
-	
-	@Column(name = "created_at",length = 255, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate createdAt;
-	
-	@Column(name = "updated_at",length = 255, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate updatedAt;
-	
-	@Override
-	public String toString() {
-		return "Loja [id=" + id + ", dono=" + dono + ", ramo=" + ramo + ", nome=" + nome + ", descricao=" + descricao
-				+ ", latitude=" + latitude + ", longitude=" + longitude + ", imagem=" + Arrays.toString(imagem)
-				+ ", deleted=" + deleted + ", createdAt=" + createdAt + ", updatesAt=" + updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public User getDono() {
 		return dono;
@@ -131,22 +97,6 @@ public class Loja {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 }
