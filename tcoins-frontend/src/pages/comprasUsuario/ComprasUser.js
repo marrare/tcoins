@@ -1,10 +1,10 @@
 import React from 'react';
 
-import TabelaUser from '../components/TabelaUser';
 import Paginacao from '../components/Paginacao'
 import TableEstilizada from '../components/Table';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import gerar from './gerarPdf';
 
 import Button from '@mui/material/Button';
 
@@ -31,17 +31,16 @@ function ComprasUser() {
     useEffect(() => {
         resgatarDados()
     }, [])
-
+    
 
     const campo1 = [{ "id": "160030312", "nome": "Fazendinha", "regiao-imediata": "Macapá", "regiao-intermediaria": "Amapá", "": "", "": "" }];
     return (
         <div className="Container">
             {/* <PdfComponent></PdfComponent> */}
-            <Button className="Botao" color="inherit">Baixar PDF</Button>
+            <Button className="Botao" color="inherit" onClick={(e) => gerar(getdata)}>Baixar PDF</Button>
             <TableEstilizada dados={getdata} cabecalho={dadosHeader}></TableEstilizada>
-            {/* <TabelaUser className="Tabela"></TabelaUser> */}
             <Paginacao className="Paginacao"></Paginacao>
-
+            
 
         </div>
 
