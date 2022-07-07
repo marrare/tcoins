@@ -88,6 +88,8 @@ public class LojaController {
 						.getContent();
 
 			return  ResponseEntity.ok(lojas);
+
+		return ResponseEntity.ok().build();
 	}
 
 }
