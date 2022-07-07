@@ -17,19 +17,19 @@ export default function Footer() {
                 <div className="FooterDireita">
                     <nav className='FooterNav'>
                         <ul className='FooterLista'>
-                            <span className='ListaTitulo'>Planos</span>
+                            <span className='ListaTitulo ItemFooter'>Planos</span>
                             <li className='ListaItem'>Standard</li>
                             <li className='ListaItem'>Intermediary</li>
                             <li className='ListaItem'>Advanced</li>
                         </ul>
                         <ul className='FooterLista'>
-                            <span className='ListaTitulo'>Quem somos?</span>
+                            <span className='ListaTitulo ItemFooter'>Quem somos?</span>
                             <li className='ListaItem'>Lorem</li>
                             <li className='ListaItem'>Lorem</li>
                             <li className='ListaItem'>Lorem</li>
                         </ul>
                         <ul className='FooterLista'>
-                            <span className='ListaTitulo'>Dúvidas</span>
+                            <span className='ListaTitulo ItemFooter'>Dúvidas</span>
                             <li className='ListaItem'>Lorem</li>
                             <li className='ListaItem'>Lorem</li>
                             <li className='ListaItem'>Lorem</li>
