@@ -12,6 +12,8 @@ public class UserService {
 
 	@Autowired
     UserRepository userRepository;
+	
+
 	public void createUser(User user) {
 		userRepository.save(user);
 	}
