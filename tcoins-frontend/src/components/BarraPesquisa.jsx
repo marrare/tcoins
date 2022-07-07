@@ -10,9 +10,43 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 // import CheckIcon from '@mui/icons-material/CheckIcon'
 
-export default function BarraPesquisa({ api, setData, resgatarDados }) {
+export default function BarraPesquisa(props) {
+    const api = axios.create({
+        baseURL: 'https://servicodados.ibge.gov.br/api/v1/localidades/'
+    });
+    const [search, setSearch] = useState('');
+    const [ordem, setOrdem] = useState('');
+    const [dados, setDados] = useState([]);
+
+    //Lógica de Filtro de Ramos
+    var array = ['a', 'b', 'b', 'c', 'c'];
+    var unique = [...new Set(array)];
+
+    //Lógica do Filtro de Ordem
+    var ordemTeste = [{ id: 1, tipo: '' }, { id: 2, tipo: 'Nome' }, { id: 3, tipo: 'Mais próximas' }, { id: 3, tipo: 'Data de abertura' }];
+    // console.log(ordemTeste.sort())
+
+    let lojasPorOrdem;
+    if (ordem == "") {
+        lojasPorOrdem = dados;
+    } else if (ordem == 'Nome') {
+        lojasPorOrdem = dados.sort()
+        console.log('ordenando por nome')
+    } else if (ordem == 'Mais próximas') {
+        // fazer lógica
+    }
+    //fazer outro else if dps
+
+
+    // console.log(unique);
+    // function handleSearchChange(event) {
+    //     setSearch(event.target.value.toLowerCase());
+    // }
+
     /*ATUALIZAR COM OS DADOS DA API*/
     // let [ramo, setRamo] = React.useState("");
     // let [placeToRender, setPlace] = useState([]);
@@ -44,8 +78,9 @@ export default function BarraPesquisa({ api, setData, resgatarDados }) {
     // }
     // const [age, setAge] = React.useState('');
 
-    //const handleChange = (event) => {
+    //const handleChange =  (event) => {
     // setRamo(event.target.value);
+    const ramos = [{ id: 1, nome: 'Alimentício' }, { d: 2, nome: 'Restaurante' }]
     // };
 
     return (
@@ -63,16 +98,15 @@ export default function BarraPesquisa({ api, setData, resgatarDados }) {
                             accessibilityLabel="Selecione o ramo"
                             placeholder="Selecione "
                         /*ATUALIZAR COM OS DADOS DA API*/
-                        // _selectedItem={{
-                        //     bg: "teal.600",
-                        //     endIcon: <CheckIcon size="5" />,
-                        // }}
-                        // mt={1}
-                        //   onValueChange={(itemValue) => setRamo(itemValue)}
+
+                        // onValueChange={(itemValue) => setRamo(itemValue)}
                         >
-                            {/* {ramos.map((ramo, i) => (
-              <Select.Item label={ramo.nome} value={ramo.nome} />
-          ))} */}
+                            <MenuItem value="">
+                                <em>Nenhum</em>
+                            </MenuItem>
+                            {ramos.map((ramo, i) => (
+                                <MenuItem value={i}>{ramo.nome}</MenuItem>
+                            ))}
 
                         </Select>
                     </FormControl>
@@ -83,16 +117,19 @@ export default function BarraPesquisa({ api, setData, resgatarDados }) {
                             className="Ordernar"
                             id="demo-simple-select-filled-label"
                             label="Ramo"
-                            // selectedValue={ramo}
-                            accessibilityLabel="Selecione o ramo"
+                            selectedValue={ordem}
+                            onValueChange={(itemValue) => setOrdem(itemValue)}
                             placeholder="Selecione "
                         >
-                            <MenuItem value="">
-                                <em>Nenhum</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Nome</MenuItem>
-                            <MenuItem value={20}>Localização</MenuItem>
-                            <MenuItem value={30}>Data de abertura</MenuItem>
+                            {ordemTeste.map((ordemDeListagem, i) => (
+                                <MenuItem value={ordemDeListagem}>{ordemDeListagem}</MenuItem>
+                            ))}
+                            {/* <MenuItem value="">
+                            <em>Nenhum</em>
+                        </MenuItem>
+                        
+                        <MenuItem value={'Mais próximas'}>Mais próximas</MenuItem>
+                        <MenuItem value={'Data de abertura'}>Data de abertura</MenuItem> */}
                         </Select>
                     </FormControl>
                 </div>
@@ -103,22 +140,28 @@ export default function BarraPesquisa({ api, setData, resgatarDados }) {
                     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 1000 }}
                 >
                     <InputBase
+                        type={Text}
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="Buscar por nome"
                         inputProps={{ 'aria-label': 'Buscar por nome' }}
-                        onChangeText={(text) => {
-                            if (text.trim().length >= 2) {
-                                api.get(`estados/PE/distritos${text}`)
+                        onChange={
+                            (event) => {
+                                const text = event.target.value.toLowerCase()
+                                console.log(text)
+
+
+                                api.get('estados/PE/distritos/' + text)
                                     .then(function (response) {
-                                        setData(response.data);
+                                        setSearch(response.data);
                                     })
                                     .catch(function (error) {
                                         console.log("erro ao buscar");
                                     });
-                            } else {
-                                resgatarDados();
-                            }
-                        }}
+
+                                //else {
+                                //     resgatarDados();
+                                // }
+                            }}
 
 
                     />
