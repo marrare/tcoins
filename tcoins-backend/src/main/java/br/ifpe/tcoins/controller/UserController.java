@@ -51,11 +51,13 @@ public class UserController {
 	@GetMapping("todos")
 	public ResponseEntity<List<User>> getAllUsers(int page, int pageSize){
         try {
-           ResponseEntity.ok(usuarioService.getAllUser(page,pageSize).getContent());
+           return ResponseEntity.ok(usuarioService.getAllUser(page,pageSize).getContent());
         }catch (Exception e ){
             e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
         }
-        return ResponseEntity.internalServerError().build();
+       
+
 	}
 
     @PostMapping("login")

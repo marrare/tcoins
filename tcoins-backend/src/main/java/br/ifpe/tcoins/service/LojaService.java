@@ -51,7 +51,7 @@ public class LojaService {
 
     public Page<Loja> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
 		Pageable pag = PageRequest.of(page -1, pageSize);
-		return lojaRepository.findByUser_id(pag, userId);
+		return lojaRepository.findByDono_id(pag, userId);
 
     }
 }
