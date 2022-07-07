@@ -15,7 +15,7 @@ function Home() {
         api.get('estados/PE/distritos')
             .then(function (response) {
                 setData(response.data);
-                console.log(response);
+                // console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
@@ -30,20 +30,20 @@ function Home() {
     return (
         <div className="App">
             <div className='ContainerHome'>
-                <BarraPesquisa api={api} setData={setData} resgatarDados={resgatarDados}></BarraPesquisa>
+                <BarraPesquisa setData={setData} api={api}></BarraPesquisa>
 
-                <div className="Card">
-                    {getdata.map((dado, i) => (
-                        <MultiActionAreaCard data={dado} className="CardItem"></MultiActionAreaCard>
+            <div className="Card">
+                {getdata.map((dado, i) => (
+                    <MultiActionAreaCard data={dado} key={i} className="CardItem"></MultiActionAreaCard>
 
-                    ))}
-                </div>
-
-
+                ))}
             </div>
 
 
         </div>
+
+
+        </div >
     )
 }
 /*API: https://tcoinsapp.herokuapp.com/api/tcoins*/
