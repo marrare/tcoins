@@ -19,35 +19,35 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("")
-    public ResponseEntity<Produto> getProdutoById(@RequestHeader final Long id){
-        try{
-            return ResponseEntity.ok(produtoService.buscarProdutoPorId(id));
-        } catch(Exception e){
-             e.printStackTrace();
-             return ResponseEntity.internalServerError().build();
-        }
-    }
-
-    public ResponseEntity cadastrarProduto(@RequestHeader final Produto produto){
-        Produto produtoValidado = produtoService.findByNome(produto.getNome());
-        if(produtoValidado != null)
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Produto já cadastrado");
-        produtoService.criarProduto(produto);
-        return ResponseEntity.ok().build();
-    }
-    
-    @DeleteMapping("")
-    public ResponseEntity deletarUsuario(@RequestHeader final Long id){
-       try {
-           produtoService.apagarProduto(id);
-       } catch (Exception e){
-           System.out.println("Erro: " + e.getMessage());
-           e.printStackTrace();
-           return ResponseEntity.internalServerError().build();
-       }
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping("")
+//    public ResponseEntity<Produto> getProdutoById(@RequestHeader final Long id){
+//        try{
+//            return ResponseEntity.ok(produtoService.buscarProdutoPorId(id));
+//        } catch(Exception e){
+//             e.printStackTrace();
+//             return ResponseEntity.internalServerError().build();
+//        }
+//    }
+//
+//    public ResponseEntity cadastrarProduto(@RequestHeader final Produto produto){
+//        Produto produtoValidado = produtoService.findByNome(produto.getNome());
+//        if(produtoValidado != null)
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Produto já cadastrado");
+//        produtoService.criarProduto(produto);
+//        return ResponseEntity.ok().build();
+//    }
+//    
+//    @DeleteMapping("")
+//    public ResponseEntity deletarUsuario(@RequestHeader final Long id){
+//       try {
+//           produtoService.apagarProduto(id);
+//       } catch (Exception e){
+//           System.out.println("Erro: " + e.getMessage());
+//           e.printStackTrace();
+//           return ResponseEntity.internalServerError().build();
+//       }
+//        return ResponseEntity.ok().build();
+//    }
 
 
 }
