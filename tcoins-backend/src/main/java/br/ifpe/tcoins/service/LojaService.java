@@ -40,7 +40,7 @@ public class LojaService {
 	}
 	public void deletarLojaById(Long id){
 		Loja loja = lojaRepository.getById(id);
-		loja.setDeleted(false);
+		loja.setDeleted(true);
 		lojaRepository.save(loja);
 	}
 
@@ -52,9 +52,8 @@ public class LojaService {
 		 return lojaRepository.getById(id);
 	}
 
-    public Page<Loja> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
-		Pageable pag = PageRequest.of(page - 1, pageSize);
-		return lojaRepository.findByDono_id(pag, userId);
-
+    public Page<LojaDTO> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
+		Pageable reqPage = PageRequest.of(page - 1, pageSize);
+		return lojaRepository.findByDono_id(reqPage, userId).map(p -> LojaDTO.convertFromLoja(p));
     }
 }

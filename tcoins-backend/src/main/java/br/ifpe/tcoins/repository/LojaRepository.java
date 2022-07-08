@@ -10,9 +10,6 @@ public interface LojaRepository extends JpaRepository<Loja, Long> {
 
     public Page<Loja> findAll(Pageable pageable);
     
-    /*
-     * é necessário o uso do countQuery e nativeQuery, quando se tem interesse de paginar junto com query customizada @Query
-     */
     public Page<Loja> findByRamo_RamoContainingIgnoreCase(Pageable pageable, String ramo);
 
     public Page<Loja> findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(Pageable pageable, String nome, String ramo);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ifpe.tcoins.dto.request.LojaRequestDTO;
 import br.ifpe.tcoins.dto.response.LojaDTO;
+import br.ifpe.tcoins.exception.ResourceAlreadyExistsException;
 import br.ifpe.tcoins.exception.ResourceNotFoundException;
 import br.ifpe.tcoins.model.Loja;
 import br.ifpe.tcoins.repository.PlanosRepository;
@@ -49,9 +50,9 @@ public class LojaController {
 
 		Page<LojaDTO> lojas = lojaService.getLojas(currentPage, pageSize, nomeLoja, ramoLoja);
 
-		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found loja");
+		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");
 		
-		return ResponseEntity.status(HttpStatus.OK).body(lojas.getContent());
+		return ResponseEntity.ok(lojas.getContent());
 	}
 
 	@PostMapping
@@ -63,8 +64,9 @@ public class LojaController {
 		Loja loja = lojaDto.convertToLoja();
 		loja.setDono(userService.getUserById(userId));
 		loja.setRamo(ramoService.getRamoById(ramoId));
-			
-		//TODO - a coluna nome é unique, tentar inserir o mesmo nome 2x e verificar se handlerException já está tratando erro
+		
+		if (lojaService.getLojaByNome(loja.getNome()) != null) throw new ResourceAlreadyExistsException("Loja já cadastrado");
+		
 		lojaService.cadastrarLoja(loja);
 				
 		return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -72,24 +74,21 @@ public class LojaController {
 
 	@DeleteMapping
 	public ResponseEntity<?> deleteLoja(@RequestHeader Long lojaId) {
-		Loja loja = lojaService.getLojabyId(lojaId);
 		lojaService.deletarLojaById(lojaId);
 
 		return ResponseEntity.ok().build();
 	}
-
+	
 	@GetMapping("usuario")
-	public ResponseEntity<List<Loja>> listarLojaPorUsuario(
-			@RequestHeader Integer page,
-			@RequestHeader Integer pageSize,
-			@RequestHeader Long userId){
+	public ResponseEntity<List<LojaDTO>> listarLojaPorUsuario(
+		@RequestHeader Integer page,
+		@RequestHeader Integer pageSize,
+		@RequestHeader Long userId){
 
-		List<Loja> lojas = lojaService.getLojaByUserId(page, pageSize, userId)
-						.getContent();
+		Page<LojaDTO> lojas = lojaService.getLojaByUserId(page, pageSize, userId);
+		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");
 
-			return  ResponseEntity.ok(lojas);
-
-		return ResponseEntity.ok().build();
+		return  ResponseEntity.ok(lojas.getContent());
 	}
 
 }
