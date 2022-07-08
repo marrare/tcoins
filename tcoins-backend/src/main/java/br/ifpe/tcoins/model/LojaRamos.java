@@ -1,44 +1,15 @@
 package br.ifpe.tcoins.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="loja_ramos")
-public class LojaRamos {
-
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-    private Long id;
+public class LojaRamos extends ObjetoGeral {
     
     @Column(length = 30, nullable=false)
     private String ramo;
-    
-	@Column(name = "created_at", length = 255, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate createdAt;
-	
-	@Column(name = "updated_at", length = 255, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate updatedAt;
-
-	@Override
-	public String toString() {
-		return "LojaRamos [id=" + id + ", ramo=" + ramo + ", createdAt=" + createdAt + ", updatesAt=" + updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getRamo() {
 		return ramo;
@@ -46,22 +17,6 @@ public class LojaRamos {
 
 	public void setRamo(String ramo) {
 		this.ramo = ramo;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 }

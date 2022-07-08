@@ -1,48 +1,29 @@
 package br.ifpe.tcoins.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class Planos {
-	
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-    private Long id;
+public class Planos extends ObjetoGeral {
     
+    @Column(length = 45, nullable=false)
+	private String nome;
+
     @Column(columnDefinition="DECIMAL(10,2)", nullable=false)
     private Double preco;
-    
+
     @Column(nullable=false)
     private int lojas;
-    
+
     @Column(name = "produtos_por_loja", nullable=false)
     private int produtosPorLoja;
-    
-	@Column(name = "created_at" ,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate updatedAt;
 
-    @Override
-	public String toString() {
-		return "Planos [id=" + id + ", preco=" + preco + ", lojas=" + lojas + ", produtosPorLoja=" + produtosPorLoja
-				+ ", createdAt=" + createdAt + ", updatesAt=" + updatedAt + "]";
+	public String getNome() {
+		return nome;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Double getPreco() {
@@ -67,22 +48,6 @@ public class Planos {
 
 	public void setProdutosPorLoja(int produtosPorLoja) {
 		this.produtosPorLoja = produtosPorLoja;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 	
 }
