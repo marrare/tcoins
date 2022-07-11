@@ -14,26 +14,26 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	public List<Produto> listarProdutos(){
+	public List<Produto> getAllProdutos(){
 		
 		return this.produtoRepository.findAll();
 	}
 	
-	public void criarProduto(Produto produto) {
+	public void createProduto(Produto produto) {
 		
 		this.produtoRepository.save(produto);
 	}
 	
-	public void alterarProduto(Produto produto) {
+	public void updateProduto(Produto produto) {
 		this.produtoRepository.save(produto);
 	}
-	public void apagarProduto(Long id) {
+	public void deleteProduto(Long id) {
 		this.produtoRepository.deleteById(id);
 	}
 	
-	public void buscarProdutoPorId(Long id) {
+	public Produto findProdutoById(Long id) {
 		
-		this.produtoRepository.findById(id).get();
+		return this.produtoRepository.findById(id).get();
 	}
 
 	public Produto findByNome(String nome){
