@@ -1,5 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import UsuarioService from '../../services/UsuarioService';
+import {Navigate} from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,6 +16,32 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+
+    const [user, setUser] = useState();
+
+    function handleOnChange(e){    
+        setEmail(e.target.value);
+        setSenha(e.target.value);
+        console.log(email);
+    }
+
+    function autenticarUsuario() {
+      
+        if(email == user.email && senha == user.senha) {
+            return <Navigate to="/" />
+        }else{
+            console.log("Credenciais incorretas")
+        }
+    }
+
+      useEffect(() => {
+        UsuarioService
+          .getUsuario("id")
+          .then((response) => setUser(response.data))
+          .catch((err) => {
+            console.error("ops! ocorreu um erro" + err);
+          });
+      }, []);
 
 
     return (
@@ -41,12 +69,11 @@ function Login() {
                             required
                             fullWidth
                             id="email"
+                            onChange={handleOnChange}
                             label="Email"
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            value={email}
-                            onChangeText={email => setEmail(email)}
                         />
                     </Grid>
                     <Grid item xs={18}>
@@ -57,10 +84,9 @@ function Login() {
                             name="password"
                             label="Senha"
                             type="password"
-                            id="password"
+                            id="senha"
+                            onChange={handleOnChange}
                             autoComplete="current-password"
-                            value={senha}
-                            onChangeText={senha => setSenha(senha)}
                         />
                     </Grid>
 
@@ -68,6 +94,7 @@ function Login() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={autenticarUsuario}
                         sx={{ mt: 3, mb: 2 }}
                     >
                         Confirmar
