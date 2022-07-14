@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import UsuarioService from '../../services/UsuarioService';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +19,25 @@ function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+
+  function handleOnChange(e){    
+    setNome(e.target.value);
+    setEmail(e.target.value);
+    setSenha(e.target.value);
+    console.log(nome);
+  }
+  
+  function cadastrarUsuario() {
+    const setUser = UsuarioService.postUsuario('/login', {
+      nome: nome,
+      email: email,
+      senha: senha,
+    }).then((response) => setUser(response.data))
+    .catch((err) => {
+      console.error("ops! ocorreu um erro" + err);
+    });
+
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,11 +65,10 @@ function Cadastro() {
                   name="Nome"
                   required
                   fullWidth
-                  id="firstName"
+                  id="nome"
+                  onChange={handleOnChange}
                   label="Nome"
                   autoFocus
-                  value={nome}
-                  onChangeText={nome => setNome(nome)}
                 />
               </Grid>
 
@@ -57,12 +76,12 @@ function Cadastro() {
                 <TextField
                   required
                   fullWidth
-                  id="Email"
                   label="Email"
                   name="email"
                   autoComplete="email"
-                  value={email}
-                  onChangeText={email => setEmail(email)}
+                  id="email"
+                  onChange={handleOnChange}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -72,10 +91,9 @@ function Cadastro() {
                   name="Senha"
                   label="Senha"
                   type="password"
-                  id="password"
                   autoComplete="Nova-senha"
-                  value={senha}
-                  onChangeText={senha => setSenha(senha)}
+                  id="senha"
+                  onChange={handleOnChange}
                 />
               </Grid>
 
@@ -84,6 +102,7 @@ function Cadastro() {
               type="submit"
               fullWidth
               variant="contained"
+              onClick={cadastrarUsuario}
               sx={{ mt: 3, mb: 2 }}
             >
               CONFIRMAR
