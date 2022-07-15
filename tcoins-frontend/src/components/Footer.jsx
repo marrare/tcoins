@@ -5,7 +5,7 @@ import logo from '../T-C_ins__1_-removebg-preview.png'
 export default function Footer() {
 
     return (
-        <div className="Footer">
+        <footer className="Footer">
             <div className='FooterContent'>
                 <div className="FooterEsquerda">
                     <img className="Logo" src={logo} alt="" />
@@ -41,6 +41,6 @@ export default function Footer() {
 
             </div>
 
-        </div>
+        </footer>
     )
 }
