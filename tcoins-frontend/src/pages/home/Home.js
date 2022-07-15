@@ -4,7 +4,6 @@ import MultiActionAreaCard from '../../components/MultiActionAreaCard';
 import BarraPesquisa from '../../components/BarraPesquisa'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import LojaService from '../../services/LojaService';
 import Pagination from '@mui/material/Pagination';
 
 function Home({ props }) {
