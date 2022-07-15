@@ -20,11 +20,16 @@ function Cadastro() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  function handleOnChange(e){    
+  function handleOnChangeNome(e){    
     setNome(e.target.value);
+  }
+
+  function handleOnChangeEmail(e) {
     setEmail(e.target.value);
+  }
+
+  function handleOnChangeSenha(e) {
     setSenha(e.target.value);
-    console.log(nome);
   }
   
   function cadastrarUsuario() {
@@ -66,7 +71,7 @@ function Cadastro() {
                   required
                   fullWidth
                   id="nome"
-                  onChange={handleOnChange}
+                  onChange={handleOnChangeNome}
                   label="Nome"
                   autoFocus
                 />
@@ -80,7 +85,7 @@ function Cadastro() {
                   name="email"
                   autoComplete="email"
                   id="email"
-                  onChange={handleOnChange}
+                  onChange={handleOnChangeEmail}
 
                 />
               </Grid>
@@ -93,7 +98,7 @@ function Cadastro() {
                   type="password"
                   autoComplete="Nova-senha"
                   id="senha"
-                  onChange={handleOnChange}
+                  onChange={handleOnChangeSenha}
                 />
               </Grid>
 
