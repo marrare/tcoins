@@ -4,7 +4,7 @@ const LojaService = {
 
     async getLojas(nomeLoja = "", ramoLoja = "", currentpage = "", pageSize = "") {
         const header = { nomeLoja, ramoLoja }
-        const ret = await RequisicaoService.get(`loja?currentpage=${currentpage}&pageSize=${pageSize}`, header);
+        const ret = await RequisicaoService.get(`loja?currentPage=${currentpage}&pageSize=${pageSize}`, header);
         return ret;
     }
 }
