@@ -5,26 +5,28 @@ const instance = axios.create({
 });
 
 const RequisicaoService = {
-    get(rota, header={}){
-        instance.get(rota, { headers: header}).then((data) => {
-            console.log(data);
-            return data;
-        }).catch((error) => {
-            console.log(error);
-
+    get(rota, header = {}) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                instance.get(rota, { headers: header }).then((data) => {
+                    resolve(data);
+                }).catch((error) => reject(error));
+            } catch (err) {
+                reject(err);
+            }
         })
     },
 
-    post(rota, body, header={}){
+    post(rota, body, header = {}) {
         axios.post(rota, { headers: header }, body);
     },
 
-    update(rota, body, header={}){
+    update(rota, body, header = {}) {
         axios.put(rota, { header: header }, body);
     },
 
-    delete(rota, header={}){
-        axios.delete(rota, { headers: header});
+    delete(rota, header = {}) {
+        axios.delete(rota, { headers: header });
     }
 }
 
