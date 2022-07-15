@@ -6,4 +6,5 @@ import br.ifpe.tcoins.model.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto,Long> {
 	
+    public Produto findByNome(String nome);
 }
