@@ -2,7 +2,9 @@ package br.ifpe.tcoins.service;
 
 import java.util.List;
 
+import br.ifpe.tcoins.dto.response.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import br.ifpe.tcoins.model.Produto;
@@ -31,12 +33,13 @@ public class ProdutoService {
 		this.produtoRepository.deleteById(id);
 	}
 	
-	public Produto findProdutoById(Long id) {
+	public ProdutoDTO findProdutoById(Long id) {
 		
-		return this.produtoRepository.findById(id).get();
+		return this.produtoRepository.findById(id).map(
+				ProdutoDTO::convertFromPdoruto).get();
 	}
 
-	public Produto findByNome(String nome){
-		return this.produtoRepository.findByNome(nome);
+	public ProdutoDTO findByNome(String nome){
+		return this.produtoRepository.findByNome(nome).map(ProdutoDTO::convertFromPdoruto).get();
 	}
 }

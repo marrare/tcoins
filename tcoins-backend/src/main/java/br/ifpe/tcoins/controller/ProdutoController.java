@@ -2,39 +2,32 @@ package br.ifpe.tcoins.controller;
 
 import java.util.List;
 
+import br.ifpe.tcoins.dto.response.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.ifpe.tcoins.model.Produto;
 import br.ifpe.tcoins.service.ProdutoService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 @RequestMapping("/produto")
+@CrossOrigin(origins = "*")
 public class ProdutoController {
     
     @Autowired
     private ProdutoService produtoService;
 
     @GetMapping("")
-    public ResponseEntity<Produto> getProdutoById(@RequestHeader final Long id){
-        try{
-            return ResponseEntity.ok(produtoService.findProdutoById(id));
-        } catch(Exception e){
-             e.printStackTrace();
-             return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<ProdutoDTO> getProdutoById(@RequestHeader Long id){
+        ProdutoDTO produto = produtoService.findProdutoById(id);
+        return ResponseEntity.ok(produto);
     }
 
     public ResponseEntity cadastrarProduto(@RequestHeader final Produto produto){
-        Produto produtoValidado = produtoService.findByNome(produto.getNome());
+        ProdutoDTO produtoValidado = produtoService.findByNome(produto.getNome());
         if(produtoValidado != null)
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Produto já cadastrado");
         produtoService.createProduto(produto);

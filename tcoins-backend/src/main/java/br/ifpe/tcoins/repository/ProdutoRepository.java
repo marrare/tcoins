@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.ifpe.tcoins.model.Produto;
 
+import java.util.Optional;
+
 public interface ProdutoRepository extends JpaRepository<Produto,Long> {
 	
-    public Produto findByNome(String nome);
+    public Optional<Produto> findByNome(String nome);
 }
