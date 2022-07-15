@@ -6,7 +6,7 @@ const UsuarioService = {
         const header = { id }
         RequisicaoService.get(id, header);
     },
-
+    //ToDo - Ajuste na função assim como está no swagger
     postUsuario(user = "", email = "", senha = "") {
         const header = { user, email, senha }
         RequisicaoService.post("usuario", header)
