@@ -12,75 +12,44 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import LojaService from '../services/LojaService';
 // import CheckIcon from '@mui/icons-material/CheckIcon'
 
 export default function BarraPesquisa(props) {
-    const api = axios.create({
-        baseURL: 'https://servicodados.ibge.gov.br/api/v1/localidades/'
-    });
-    const [search, setSearch] = useState('');
+    // const api = axios.create({
+    //     baseURL: 'https://servicodados.ibge.gov.br/api/v1/localidades/'
+    // });
+    const [pesquisaHome, setPesquisaHome] = useState('');
     const [ordem, setOrdem] = useState('');
     const [dados, setDados] = useState([]);
+    const [ramo, setRamo] = useState('');
 
     //Lógica de Filtro de Ramos
     var array = ['a', 'b', 'b', 'c', 'c'];
     var unique = [...new Set(array)];
 
     //Lógica do Filtro de Ordem
-    var ordemTeste = [{ id: 1, tipo: '' }, { id: 2, tipo: 'Nome' }, { id: 3, tipo: 'Mais próximas' }, { id: 3, tipo: 'Data de abertura' }];
+    // var ordemTeste = [{ id: 1, tipo: '' }, { id: 2, tipo: 'Nome' }, { id: 3, tipo: 'Mais próximas' }, { id: 3, tipo: 'Data de abertura' }];
     // console.log(ordemTeste.sort())
 
     let lojasPorOrdem;
-    if (ordem == "") {
+    if (ordem === "") {
         lojasPorOrdem = dados;
-    } else if (ordem == 'Nome') {
-        lojasPorOrdem = dados.sort()
+    } else if (ordem === 'nome') {
+        lojasPorOrdem = setDados(dados.sort());
         console.log('ordenando por nome')
-    } else if (ordem == 'Mais próximas') {
+    } else if (ordem === 'próximas') {
         // fazer lógica
     }
     //fazer outro else if dps
 
 
-    // console.log(unique);
-    // function handleSearchChange(event) {
-    //     setSearch(event.target.value.toLowerCase());
-    // }
+    
+    useEffect(() => {
+        LojaService.getLojas(pesquisaHome, ramo, '', '');
+    }, [pesquisaHome])
 
-    /*ATUALIZAR COM OS DADOS DA API*/
-    // let [ramo, setRamo] = React.useState("");
-    // let [placeToRender, setPlace] = useState([]);
-    // const [dados, setDados] = useState([]);
-    // const [logged, setLogged] = useState();
-
-    // function resgatarDados() {
-    //     api.get('lojaRamos')
-    //         .then(function (response) {
-    //             setDados(response.data);
-    //             console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
-    // useEffect(() => {
-    //     resgatarDados()
-    // }, [])
-
-    // let lojaToRender;
-    // if (ramo == "") {
-    //     lojaToRender = dados;
-    // } else {
-    //     lojaToRender = dados.filter(function (loja) {
-    //         return loja.ramo == ramo;
-    //     });
-    // }
-    // const [age, setAge] = React.useState('');
-
-    //const handleChange =  (event) => {
-    // setRamo(event.target.value);
-    const ramos = [{ id: 1, nome: 'Alimentício' }, { d: 2, nome: 'Restaurante' }]
+    const ramos = [{ id: 1, nome: 'Alimentício' }, { id: 2, nome: 'Restaurante' }]
     // };
 
     return (
@@ -94,18 +63,18 @@ export default function BarraPesquisa(props) {
                             className="Ramo"
                             id="demo-simple-select-filled-label"
                             label="Ramo"
-                            // selectedValue={ramo}
+                            selectedValue={ramo}
                             accessibilityLabel="Selecione o ramo"
                             placeholder="Selecione "
-                        /*ATUALIZAR COM OS DADOS DA API*/
+                            /*ATUALIZAR COM OS DADOS DA API*/
 
-                        // onValueChange={(itemValue) => setRamo(itemValue)}
+                            onValueChange={(itemValue) => setRamo(itemValue)}
                         >
                             <MenuItem value="">
                                 <em>Nenhum</em>
                             </MenuItem>
                             {ramos.map((ramo, i) => (
-                                <MenuItem value={i}>{ramo.nome}</MenuItem>
+                                <MenuItem value={ramo.id}>{ramo.nome}</MenuItem>
                             ))}
 
                         </Select>
@@ -121,9 +90,12 @@ export default function BarraPesquisa(props) {
                             onValueChange={(itemValue) => setOrdem(itemValue)}
                             placeholder="Selecione "
                         >
-                            {ordemTeste.map((ordemDeListagem, i) => (
-                                <MenuItem value={ordemDeListagem}>{ordemDeListagem}</MenuItem>
-                            ))}
+                            <MenuItem value="">
+                                <em>Nenhum</em>
+                            </MenuItem>
+                            <MenuItem value={'nome'}>Nome</MenuItem>
+                            <MenuItem value={'proximas'}>Mais Próximas</MenuItem>
+
                             {/* <MenuItem value="">
                             <em>Nenhum</em>
                         </MenuItem>
@@ -149,14 +121,14 @@ export default function BarraPesquisa(props) {
                                 const text = event.target.value.toLowerCase()
                                 console.log(text)
 
-
-                                api.get('estados/PE/distritos/' + text)
-                                    .then(function (response) {
-                                        setSearch(response.data);
-                                    })
-                                    .catch(function (error) {
-                                        console.log("erro ao buscar");
-                                    });
+                                setPesquisaHome(LojaService.getLojas(text, ramo, '1', 10));
+                                // api.get('estados/PE/distritos/' + text)
+                                //     .then(function (response) {
+                                //         setSearch(response.data);
+                                //     })
+                                //     .catch(function (error) {
+                                //         console.log("erro ao buscar");
+                                //     });
 
                                 //else {
                                 //     resgatarDados();
