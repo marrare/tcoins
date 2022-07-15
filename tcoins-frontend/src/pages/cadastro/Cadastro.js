@@ -33,16 +33,12 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    const setUser = UsuarioService.postUsuario('/login', {
-      nome: nome,
-      email: email,
-      senha: senha,
-    }).then((response) => setUser(response.data))
-    .catch((err) => {
-      console.error("ops! ocorreu um erro" + err);
-    });
+    //ToDo - ajuste na função assim como está no service
+    debugger;
+    const setUser = UsuarioService.postUsuario(nome,email,senha)
 
   }
+
 
   return (
     <ThemeProvider theme={theme}>
