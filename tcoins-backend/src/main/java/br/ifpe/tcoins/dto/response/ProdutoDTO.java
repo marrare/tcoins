@@ -1,11 +1,7 @@
 package br.ifpe.tcoins.dto.response;
 
-import br.ifpe.tcoins.model.Loja;
 import br.ifpe.tcoins.model.Produto;
-import org.hibernate.annotations.Type;
 import org.modelmapper.ModelMapper;
-
-import javax.persistence.Column;
 
 public class ProdutoDTO {
 
@@ -21,7 +17,7 @@ public class ProdutoDTO {
 
     private boolean deleted;
 
-    public static ProdutoDTO convertFromPdoruto(Produto produto) {
+    public static ProdutoDTO convertFromProduto(Produto produto) {
         return new ModelMapper().map(produto, ProdutoDTO.class);
     }
 
