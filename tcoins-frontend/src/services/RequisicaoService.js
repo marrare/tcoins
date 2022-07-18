@@ -18,15 +18,39 @@ const RequisicaoService = {
     },
 
     post(rota, body, header = {}) {
-        axios.post(rota, { headers: header }, body);
+        return new Promise(async (resolve, reject) => {
+            try {
+                instance.post(rota, { headers: header }, body).then((data) => {
+                    resolve(data);
+                }).catch((error) => reject(error));
+            } catch (err) {
+                reject(err);
+            }
+        });
     },
 
     update(rota, body, header = {}) {
-        axios.put(rota, { header: header }, body);
+        return new Promise(async (resolve, reject) => {
+            try {
+                instance.put(rota, { header: header }, body).then((data) => {
+                    resolve(data);
+                }).catch((error) => reject(error));
+            } catch (err) {
+                reject(err);
+            }
+        });
     },
 
     delete(rota, header = {}) {
-        axios.delete(rota, { headers: header });
+        return new Promise(async (resolve, reject) => {
+            try {
+                instance.delete(rota, { headers: header }).then((data) => {
+                    resolve(data);
+                }).catch((error) => reject(error));
+            } catch (err) {
+                reject(err);
+            }
+        });
     }
 }
 
