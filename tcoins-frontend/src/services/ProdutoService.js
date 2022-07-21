@@ -2,9 +2,9 @@ import RequisicaoService from "./RequisicaoService";
 
 const ProdutoService = {
 
-    async getProdutos(page = "", pageSize = "") {
-        const header = { page, pageSize}
-        const ret = await RequisicaoService.get(`loja?page=${page}&pageSize=${pageSize}`, header);
+    async getProdutosPorLoja(lojaId , page = "", pageSize = "") {
+        const header = { lojaId, page, pageSize}
+        const ret = await RequisicaoService.get(`/produto/loja`, header);
         return ret;
 
     }
