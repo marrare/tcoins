@@ -2,7 +2,13 @@ package br.ifpe.tcoins.dto.response;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.lang.Nullable;
 
 import br.ifpe.tcoins.model.Loja;
 
@@ -10,18 +16,26 @@ public class LojaDTO implements Serializable {
 
 	private static final long serialVersionUID = -2345142241051723236L;
 	
+	@NotNull
 	private Long donoId;
 	
+	@NotNull
 	private Long ramoId;
 	
+	@NotNull
+	@Size(min = 1, max = 45)
 	private String nome;
 	
+	@Nullable
 	private String descricao;
 
+	@NotNull
 	private Double latitude;
 
+	@NotNull
 	private Double longitude;
 	
+	@Nullable
 	private Byte[] imagem;
 	
 	public static LojaDTO convertFromLoja(Loja loja) {
