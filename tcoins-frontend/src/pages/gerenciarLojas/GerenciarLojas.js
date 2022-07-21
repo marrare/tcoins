@@ -82,10 +82,10 @@ export default function CustomizedTables() {
 
             <div classsName="Tabela">
                 <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto' }} >
-                    <Table  aria-label="customized table">
+                    <Table aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem'}}>Imagem</StyledTableCell>
+                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem'}}>Nome</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem'}}>Ramo</StyledTableCell>
                                 <StyledTableCell align="center" sx={{ fontSize: '1.1rem'}}>Ações</StyledTableCell>
@@ -93,7 +93,7 @@ export default function CustomizedTables() {
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
-                                
+
                                 <StyledTableRow key={row.nome}>
                                     <StyledTableCell component="th" scope="row" align="left">
                                         {row.imagem}
@@ -105,7 +105,7 @@ export default function CustomizedTables() {
                                         <Button size="small" color="error">{row.deletar}</Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
-                                
+
                             ))}
                         </TableBody>
                     </Table>
