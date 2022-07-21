@@ -31,6 +31,42 @@ function GerenciarProdutos() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [checked, setChecked] = React.useState(false);
+    const [isDisabled, setIsDisabled] = React.useState(true);
+    const [checkedTwo, setCheckedTwo] = React.useState(false);
+    const [isDisabledTwo, setIsDisabledTwo] = React.useState(true);
+    
+
+    const handleChange = () => {
+        
+        setChecked(!checked)
+        if(checked === false) {
+            setChecked(true)
+            setIsDisabled(!isDisabled)
+           
+            console.log("Clicando" + checked)
+        }else{
+            setIsDisabled(!isDisabled)
+            
+        }
+        
+    };
+
+    const handleChangeTwo = () => {
+        
+        setCheckedTwo(!checkedTwo)
+        if(checkedTwo === false) {
+            setCheckedTwo(true)
+            setIsDisabledTwo(!isDisabledTwo)
+           
+            console.log("Clicando" + checkedTwo)
+        }else{
+            setIsDisabledTwo(!isDisabledTwo)
+            
+        }
+        
+    };
+   
 
     return (
 
@@ -116,18 +152,20 @@ function GerenciarProdutos() {
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Recompensa em tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChange} checked={checked}
+                             ></input>
+                            
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabled} ></input>
                     </fieldset>
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Comprar com tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChangeTwo} checked={checkedTwo}></input>
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabledTwo}></input>
                     </fieldset>
 
                     <Button
@@ -135,6 +173,7 @@ function GerenciarProdutos() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={handleClose}
                     >
                         CANCELAR
                     </Button>
