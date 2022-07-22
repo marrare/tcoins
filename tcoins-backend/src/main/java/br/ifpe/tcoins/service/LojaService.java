@@ -38,7 +38,7 @@ public class LojaService {
 	}
 	
 	public void deletarLojaById(Long id){
-		Loja loja = lojaRepository.findById(id).get();
+		Loja loja = lojaRepository.getById(id);
 		loja.setDeleted(true);
 		lojaRepository.save(loja);
 	}
