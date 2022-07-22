@@ -21,8 +21,6 @@ import br.ifpe.tcoins.dto.response.LojaDTO;
 import br.ifpe.tcoins.exception.ResourceAlreadyExistsException;
 import br.ifpe.tcoins.exception.ResourceNotFoundException;
 import br.ifpe.tcoins.model.Loja;
-import br.ifpe.tcoins.repository.PlanosRepository;
-import br.ifpe.tcoins.repository.UserPlanoRepository;
 import br.ifpe.tcoins.service.LojaService;
 import br.ifpe.tcoins.service.RamoService;
 import br.ifpe.tcoins.service.UserService;
@@ -38,27 +36,32 @@ public class LojaController {
 	UserService userService;
 	@Autowired
 	RamoService ramoService;
-	@Autowired
-	PlanosRepository planosRepository;
-	@Autowired
-	UserPlanoRepository userPlanoRepository;
 
-	@GetMapping()
-	public ResponseEntity<List<LojaDTO>> getLoja(
-		@RequestParam(required = true, defaultValue = "1") final Integer currentPage,
-		@RequestParam(required = true, defaultValue = "10") final Integer pageSize,
+	@GetMapping
+	public ResponseEntity<List<LojaDTO>> getAll(
+		@RequestParam(required = false) final Integer currentPage,
+		@RequestParam(required = false) final Integer pageSize,
 		@RequestHeader(required = false, defaultValue = "") final String nomeLoja,
 		@RequestHeader(required = false, defaultValue = "") final String ramoLoja) {
 
 		Page<LojaDTO> lojas = lojaService.getLojas(currentPage, pageSize, nomeLoja, ramoLoja);
-
 		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");
 		
 		return ResponseEntity.ok(lojas.getContent());
 	}
+	
+	@GetMapping("info")
+	public ResponseEntity<LojaDTO> getLoja(@RequestHeader final Long lojaId) {
+		Loja loja = lojaService.getLojaById(lojaId);
+		
+		if(loja == null) throw new ResourceNotFoundException("Loja not found");
+		
+		LojaDTO lojaDto = LojaDTO.convertFromLoja(loja);
+		return ResponseEntity.ok(lojaDto);
+	}
 
 	@PostMapping
-	public ResponseEntity<?> cadastarLoja(
+	public ResponseEntity cadastarLoja(
 		@RequestHeader final Long userId,
 		@RequestHeader final Long ramoId,
 		@RequestBody final LojaRequestDTO lojaDto) {
@@ -75,7 +78,7 @@ public class LojaController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<?> deleteLoja(@RequestHeader Long lojaId) {
+	public ResponseEntity deleteLoja(@RequestHeader final Long lojaId) {
 		lojaService.deletarLojaById(lojaId);
 
 		return ResponseEntity.ok().build();
@@ -83,9 +86,9 @@ public class LojaController {
 	
 	@GetMapping("usuario")
 	public ResponseEntity<List<LojaDTO>> listarLojaPorUsuario(
-		@RequestHeader Integer page,
-		@RequestHeader Integer pageSize,
-		@RequestHeader Long userId){
+		@RequestHeader(required = false) final Integer page,
+		@RequestHeader(required = false) final Integer pageSize,
+		@RequestHeader final Long userId){
 
 		Page<LojaDTO> lojas = lojaService.getLojaByUserId(page, pageSize, userId);
 		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");

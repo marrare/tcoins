@@ -23,21 +23,20 @@ public class LojaService {
 		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
 
 		if (nome.isBlank() && ramo.isBlank()) {
-			return lojaRepository.findAll(reqPage).map(p -> LojaDTO.convertFromLoja(p));
+			return lojaRepository.findAll(reqPage).map(LojaDTO::convertFromLoja);
 		} else if (!nome.isBlank() && !ramo.isBlank()) {
-
-			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(reqPage, nome, ramo).map(p -> LojaDTO.convertFromLoja(p));
+			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(reqPage, nome, ramo).map(LojaDTO::convertFromLoja);
 		} else if (!ramo.isBlank()) {
-
-			return lojaRepository.findByRamo_RamoContainingIgnoreCase(reqPage, ramo).map(p -> LojaDTO.convertFromLoja(p));
+			return lojaRepository.findByRamo_RamoContainingIgnoreCase(reqPage, ramo).map(LojaDTO::convertFromLoja);
 		} else {
-
-			return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome).map(p -> LojaDTO.convertFromLoja(p));
+			return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome).map(LojaDTO::convertFromLoja);
 		}
 	}
+	
 	public void cadastrarLoja(Loja loja){
 		lojaRepository.save(loja);
 	}
+	
 	public void deletarLojaById(Long id){
 		Loja loja = lojaRepository.getById(id);
 		loja.setDeleted(true);
@@ -48,12 +47,14 @@ public class LojaService {
 		return lojaRepository.findByNomeIgnoreCase(nome);
 	}
 
-	public Loja getLojabyId(Long id) {
-		 return lojaRepository.getById(id);
+	public Loja getLojaById(Long id) {
+		// TODO - Não retornar lojas deletadas
+		return lojaRepository.findById(id).orElse(null);
 	}
 
     public Page<LojaDTO> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
-		Pageable reqPage = PageRequest.of(page - 1, pageSize);
-		return lojaRepository.findByDono_id(reqPage, userId).map(p -> LojaDTO.convertFromLoja(p));
+    	// TODO - Não retornar lojas deletadas
+    	Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
+		return lojaRepository.findByDono_id(reqPage, userId).map(LojaDTO::convertFromLoja);
     }
 }

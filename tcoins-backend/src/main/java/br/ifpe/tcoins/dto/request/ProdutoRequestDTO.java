@@ -13,9 +13,7 @@ public class ProdutoRequestDTO {
 
     private String descricao;
 
-
     private Double precoTcoins;
-
 
     private Double valorRecompensa;
 

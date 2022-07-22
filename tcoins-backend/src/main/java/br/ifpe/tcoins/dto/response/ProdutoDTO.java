@@ -15,8 +15,6 @@ public class ProdutoDTO {
 
     private byte[] imagem;
 
-    private boolean deleted;
-
     public static ProdutoDTO convertFromProduto(Produto produto) {
         return new ModelMapper().map(produto, ProdutoDTO.class);
     }
@@ -24,8 +22,6 @@ public class ProdutoDTO {
     public Produto convertToProduto() {
         return new ModelMapper().map(this, Produto.class);
     }
-
-
 
     public String getNome() {
         return nome;
@@ -67,11 +63,4 @@ public class ProdutoDTO {
         this.imagem = imagem;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 }
