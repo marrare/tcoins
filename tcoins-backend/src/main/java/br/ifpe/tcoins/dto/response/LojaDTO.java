@@ -16,26 +16,18 @@ public class LojaDTO implements Serializable {
 
 	private static final long serialVersionUID = -2345142241051723236L;
 	
-	@NotNull
 	private Long donoId;
-	
-	@NotNull
+
 	private Long ramoId;
 	
-	@NotNull
-	@Size(min = 1, max = 45)
 	private String nome;
-	
-	@Nullable
+
 	private String descricao;
 
-	@NotNull
 	private Double latitude;
 
-	@NotNull
 	private Double longitude;
 	
-	@Nullable
 	private Byte[] imagem;
 	
 	public static LojaDTO convertFromLoja(Loja loja) {

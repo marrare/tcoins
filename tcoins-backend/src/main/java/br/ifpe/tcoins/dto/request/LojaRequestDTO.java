@@ -2,6 +2,7 @@ package br.ifpe.tcoins.dto.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
