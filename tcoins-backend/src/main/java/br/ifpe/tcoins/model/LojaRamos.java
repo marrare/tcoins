@@ -10,7 +10,7 @@ public class LojaRamos extends ObjetoGeral {
     
     @Column(length = 30, nullable=false)
     private String ramo;
-
+    
 	public String getRamo() {
 		return ramo;
 	}
