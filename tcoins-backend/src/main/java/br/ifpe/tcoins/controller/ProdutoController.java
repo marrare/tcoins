@@ -35,7 +35,7 @@ public class ProdutoController {
     public ResponseEntity cadastrarProduto(@RequestHeader Long lojaId,
                                            @RequestBody ProdutoRequestDTO produtoDto){
         Produto produto = produtoDto.convertToProduto();
-        Loja loja = lojaService.getLojabyId(lojaId);
+        Loja loja = lojaService.getLojaById(lojaId);
         produto.setLoja(loja);
         produtoService.createProduto(produto);
         return ResponseEntity.ok().build();
