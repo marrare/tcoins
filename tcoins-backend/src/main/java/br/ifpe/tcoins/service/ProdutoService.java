@@ -21,11 +21,17 @@ public class ProdutoService {
 	@Autowired
 	private LojaRepository lojaRepository;
 	
-	public List<ProdutoDTO> getAllProdutos(int page, int pageSize){
-
-		return this.produtoRepository.findAll(PageRequest.of(page, pageSize))
-				.map(ProdutoDTO::convertFromProduto)
-				.getContent();
+	public List<ProdutoDTO> getAllProdutos(int page, int pageSize, String pesquisa){
+		if (pesquisa.isBlank())
+			return this.produtoRepository
+					.findAll(PageRequest.of(page -1 , pageSize))
+					.map(ProdutoDTO::convertFromProduto)
+					.getContent();
+		else
+			return this.produtoRepository
+					.findByNomeContainingIgnoreCase(PageRequest.of(page -1 , pageSize), pesquisa)
+					.map(ProdutoDTO::convertFromProduto)
+					.getContent();
 	}
 	
 	public void createProduto(Produto produto) {
@@ -57,7 +63,7 @@ public class ProdutoService {
 	}
 
 	public List<ProdutoDTO> getAllByLojaId(Long lojaId, int page, int pageSize) {
-		return  produtoRepository.findAllByLoja_Id(lojaId, PageRequest.of(page, pageSize))
+		return  produtoRepository.findAllByLoja_Id(lojaId, PageRequest.of(page -1 , pageSize))
 				.get()
 				.stream()
 				.map(ProdutoDTO::convertFromProduto)

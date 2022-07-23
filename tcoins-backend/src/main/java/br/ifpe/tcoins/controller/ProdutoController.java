@@ -48,8 +48,10 @@ public class ProdutoController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ProdutoDTO>> getAllProdutos(int page, int pageSize) {
-            return ResponseEntity.ok(produtoService.getAllProdutos(page, pageSize));
+    public ResponseEntity<List<ProdutoDTO>> getAllProdutos(@RequestHeader(defaultValue = "1") int page,
+                                                           @RequestHeader(defaultValue = "10") int pageSize,
+                                                           @RequestHeader(defaultValue = "") String pesquisa) {
+            return ResponseEntity.ok(produtoService.getAllProdutos(page, pageSize, pesquisa));
     }
 
     @PutMapping()
@@ -59,7 +61,10 @@ public class ProdutoController {
     }
 
     @GetMapping("/loja")
-    public ResponseEntity<List<ProdutoDTO>> getByLojaId(Long lojaId, int page, int pageSize){
+    public ResponseEntity<List<ProdutoDTO>> getAllByLojaId(
+            @RequestHeader Long lojaId,
+            @RequestHeader(defaultValue = "1") int page,
+            @RequestHeader(defaultValue = "10") int pageSize){
         List<ProdutoDTO> listaProdutos = produtoService.getAllByLojaId(lojaId, page, pageSize);
         return ResponseEntity.ok(listaProdutos);
     }
