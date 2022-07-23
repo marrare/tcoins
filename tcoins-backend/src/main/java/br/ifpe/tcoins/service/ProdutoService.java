@@ -8,6 +8,8 @@ import br.ifpe.tcoins.repository.LojaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.ifpe.tcoins.model.Produto;
@@ -21,7 +23,8 @@ public class ProdutoService {
 	@Autowired
 	private LojaRepository lojaRepository;
 	
-	public List<ProdutoDTO> getAllProdutos(int page, int pageSize, String pesquisa){
+	public List<ProdutoDTO> getAllProdutos(Integer page, Integer pageSize, String pesquisa){
+		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize);
 		if (pesquisa.isBlank())
 			return this.produtoRepository
 					.findAll(PageRequest.of(page -1 , pageSize))
@@ -29,7 +32,8 @@ public class ProdutoService {
 					.getContent();
 		else
 			return this.produtoRepository
-					.findByNomeContainingIgnoreCase(PageRequest.of(page -1 , pageSize), pesquisa)
+
+					.findByNomeContainingIgnoreCaseAndDeletedFalse(reqPage, pesquisa)
 					.map(ProdutoDTO::convertFromProduto)
 					.getContent();
 	}
@@ -58,15 +62,14 @@ public class ProdutoService {
 				ProdutoDTO::convertFromProduto).get();
 	}
 
-	public ProdutoDTO findByNome(String nome){
-		return this.produtoRepository.findByNome(nome).map(ProdutoDTO::convertFromProduto).get();
+	public List<ProdutoDTO> findByNome(Integer page, Integer pageSize, String nome){
+		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize);
+		return this.produtoRepository.findByNomeContainingIgnoreCaseAndDeletedFalse(reqPage, nome).map(ProdutoDTO::convertFromProduto).getContent();
 	}
 
-	public List<ProdutoDTO> getAllByLojaId(Long lojaId, int page, int pageSize) {
-		return  produtoRepository.findAllByLoja_Id(lojaId, PageRequest.of(page -1 , pageSize))
-				.get()
-				.stream()
-				.map(ProdutoDTO::convertFromProduto)
-				.collect(Collectors.toList());
+	public List<ProdutoDTO> getAllByLojaId(Long lojaId, Integer page, Integer pageSize) {
+		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize);
+		return  produtoRepository.findAllByLoja_IdAndDeletedFalse(reqPage, lojaId)
+				.map(ProdutoDTO::convertFromProduto).getContent();
 	}
 }
