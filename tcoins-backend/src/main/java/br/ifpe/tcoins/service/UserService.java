@@ -8,6 +8,8 @@ import br.ifpe.tcoins.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,8 +38,9 @@ public class UserService {
 		return userRepository.findByIdAndDeletedFalse(id);
 	}
 
-	public Page<UserDTO> getAllUser(int page, int pageSize){
-		return  userRepository.findAllByDeletedFalse(PageRequest.of(page - 1 ,pageSize)).map(UserDTO::convertFromUser);
+	public Page<UserDTO> getAllUser(Integer page, Integer pageSize){
+		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize);
+		return  userRepository.findAllByDeletedFalse(reqPage).map(UserDTO::convertFromUser);
 
 	}
 
