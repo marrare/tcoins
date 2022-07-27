@@ -8,14 +8,15 @@ const LojaService = {
         return ret;
     },
 
-    async cadastrarLojas(userId, ramoId, nome, descricao, latitude, longitude, imagem) {
-        const header = { userId, ramoId}
+    async cadastrarLojas(loja) {
+        const headerLoja = [loja.userId, loja.ramoId]
+        const header = { headerLoja}
         const ret = await RequisicaoService.post("/loja", {
-            nome: nome,
-            descricao: descricao,
-            latitude: latitude,
-            longitude: longitude,
-            imagem: imagem
+            nome:      loja.nome,
+            descricao: loja.descricao,
+            latitude:  loja.latitude,
+            longitude: loja.longitude,
+            imagem:    loja.imagem
         }, header)
         return ret;
 

@@ -2,18 +2,19 @@ import RequisicaoService from "./RequisicaoService";
 
 const UsuarioService = {
 
-    getUsuario(id = ""){
-        const header = { id }
-        RequisicaoService.get(id, header);
+    getUsuario(userId){
+        const header = { userId }
+        RequisicaoService.get("usuario", header);
     },
     //ToDo - Ajuste na função assim como está no swagger
-    postUsuario(user = "", email = "", senha = "") {
-        const header = { user, email, senha }
+    postUsuario(usuario) {
+        const headerUsuario = [ usuario.nome, usuario.email, usuario.senha ]
+        const header = { headerUsuario }
         RequisicaoService.post("usuario", header)
     },
 
-    deleteUsuario(id = "") {
-        const header = { id }
+    deleteUsuario(userId) {
+        const header = { userId }
         RequisicaoService.delete( "usuario", header);
     }
 

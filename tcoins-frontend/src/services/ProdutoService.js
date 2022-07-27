@@ -9,33 +9,35 @@ const ProdutoService = {
 
     },
 
-    async cadastrarProdutos(lojaId, nome, descricao, precoTcoins, valorRecompensa, imagem) {
+    async cadastrarProdutos(produto) {
+        const lojaId = produto.lojaId
         const header = { lojaId }
         const ret = await RequisicaoService.post("/produto", {
-            nome: nome,
-            descricao: descricao,
-            precoTcoins: precoTcoins,
-            valorRecompensa: valorRecompensa,
-            imagem: imagem
+            nome: produto.nome,
+            descricao: produto.descricao,
+            precoTcoins: produto.precoTcoins,
+            valorRecompensa: produto.valorRecompensa,
+            imagem: produto.imagem
 
         }, header)
         return ret;
     },
 
-    async deletarProdutos(id) {
-        const header = { id }
+    async deletarProdutos(produtoId) {
+        const header = { produtoId }
         const ret = await RequisicaoService.delete("/produto", header)
         return ret;
     },
 
-    async atualizarProdutos(produtoId, lojaId, nome, descricao, precoTcoins, valorRecompensa, imagem) {
-        const header = { produtoId, lojaId }
+    async atualizarProdutos(produto) {
+        const headerProduto = [produto.id, produto.lojaId]
+        const header = { headerProduto }
         const ret = await RequisicaoService.update("/produto", {
-            nome: nome,
-            descricao: descricao,
-            precoTcoins: precoTcoins,
-            valorRecompensa: valorRecompensa,
-            imagem: imagem
+            nome: produto.nome,
+            descricao: produto.descricao,
+            precoTcoins: produto.precoTcoins,
+            valorRecompensa: produto.valorRecompensa,
+            imagem: produto.imagem
         }, header)
         return ret;
 
