@@ -20,6 +20,12 @@ function Cadastro() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  const usuario = {
+    nome: nome,
+    email: email,
+    senha: senha,
+  }
+
   function handleOnChangeNome(e){    
     setNome(e.target.value);
   }
@@ -33,9 +39,7 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    //ToDo - ajuste na função assim como está no service
-    debugger;
-    const setUser = UsuarioService.postUsuario(nome,email,senha)
+    const setUser = UsuarioService.postUsuario(usuario)
 
   }
 
