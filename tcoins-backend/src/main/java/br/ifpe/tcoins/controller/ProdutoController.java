@@ -44,7 +44,8 @@ public class ProdutoController {
         Page<ProdutoDTO> produtos = produtoService.getAllByLojaId(currentPage, pageSize, lojaId, nomeProduto);
         if (produtos.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found produtos");
         
-        return ResponseEntity.ok(produtos.getContent());
+        String totalPages = String.valueOf(produtos.getTotalPages());
+		return ResponseEntity.ok().header("totalPages", totalPages).body(produtos.getContent());
     }
     
     @GetMapping("info")

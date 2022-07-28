@@ -47,7 +47,8 @@ public class LojaController {
 		Page<LojaDTO> lojas = lojaService.getLojas(currentPage, pageSize, nomeLoja, ramoLoja);
 		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");
 		
-		return ResponseEntity.ok(lojas.getContent());
+		String totalPages = String.valueOf(lojas.getTotalPages());
+		return ResponseEntity.ok().header("totalPages", totalPages).body(lojas.getContent());
 	}
 	
 	@GetMapping("info")
