@@ -1,18 +1,24 @@
 package br.ifpe.tcoins.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import br.ifpe.tcoins.dto.request.UserRequestDTO;
 import br.ifpe.tcoins.dto.request.UserUpdateRequestDTO;
 import br.ifpe.tcoins.dto.response.UserDTO;
 import br.ifpe.tcoins.exception.ResourceAlreadyExistsException;
 import br.ifpe.tcoins.exception.ResourceNotFoundException;
 import br.ifpe.tcoins.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import br.ifpe.tcoins.service.UserService;
-import java.util.List;
 
 
 @RestController
@@ -57,11 +63,5 @@ public class UserController {
        usuarioService.updateUser(userAtt);
        return ResponseEntity.ok().build();
    }
-
-	@GetMapping("todos")
-	public ResponseEntity<List<UserDTO>> getAllUsers(@RequestHeader(defaultValue = "1") int page,
-                                                     @RequestHeader(defaultValue = "10") int pageSize){
-          return  ResponseEntity.ok(usuarioService.getAllUser(page,pageSize).getContent());
-	}
 
 }
