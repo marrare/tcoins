@@ -8,7 +8,9 @@ import br.ifpe.tcoins.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public Page<User> findAll(Pageable pageable);
+    public Page<User> findAllByDeletedFalse(Pageable pageable);
 
     public  User findByEmail(String email);
+
+    public User findByIdAndDeletedFalse(Long id);
 }

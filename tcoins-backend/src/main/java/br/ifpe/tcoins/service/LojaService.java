@@ -19,17 +19,16 @@ public class LojaService {
 
 	public Page<LojaDTO> getLojas(Integer page, Integer pageSize, String nome, String ramo) {
 		// TODO - ordenar por proximidade
-		// TODO - Não retornar lojas deletadas
 		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
 
 		if (nome.isBlank() && ramo.isBlank()) {
-			return lojaRepository.findAll(reqPage).map(LojaDTO::convertFromLoja);
+			return lojaRepository.findByDeletedFalse(reqPage).map(LojaDTO::convertFromLoja);
 		} else if (!nome.isBlank() && !ramo.isBlank()) {
-			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(reqPage, nome, ramo).map(LojaDTO::convertFromLoja);
+			return lojaRepository.findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCaseAndDeletedFalse(reqPage, nome, ramo).map(LojaDTO::convertFromLoja);
 		} else if (!ramo.isBlank()) {
-			return lojaRepository.findByRamo_RamoContainingIgnoreCase(reqPage, ramo).map(LojaDTO::convertFromLoja);
+			return lojaRepository.findByRamo_RamoContainingIgnoreCaseAndDeletedFalse(reqPage, ramo).map(LojaDTO::convertFromLoja);
 		} else {
-			return lojaRepository.findByNomeContainingIgnoreCase(reqPage, nome).map(LojaDTO::convertFromLoja);
+			return lojaRepository.findByNomeContainingIgnoreCaseAndDeletedFalse(reqPage, nome).map(LojaDTO::convertFromLoja);
 		}
 	}
 	
@@ -44,17 +43,15 @@ public class LojaService {
 	}
 
 	public Loja getLojaByNome(String nome) {
-		return lojaRepository.findByNomeIgnoreCase(nome);
+		return lojaRepository.findByNomeIgnoreCaseAndDeletedFalse(nome);
 	}
 
 	public Loja getLojaById(Long id) {
-		// TODO - Não retornar lojas deletadas
-		return lojaRepository.findById(id).orElse(null);
+		return lojaRepository.findByIdAndDeletedFalse(id);
 	}
 
     public Page<LojaDTO> getLojaByUserId(Integer page, Integer pageSize, Long userId) {
-    	// TODO - Não retornar lojas deletadas
     	Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
-		return lojaRepository.findByDono_id(reqPage, userId).map(LojaDTO::convertFromLoja);
+		return lojaRepository.findByDono_idAndDeletedFalse(reqPage, userId).map(LojaDTO::convertFromLoja);
     }
 }

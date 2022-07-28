@@ -17,14 +17,17 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	public Page<ProdutoDTO> getAllByLojaId(Integer page, Integer pageSize, Long lojaId) {
+	public Page<ProdutoDTO> getAllByLojaId(Integer page, Integer pageSize, Long lojaId, String nomeProduto) {
 		Pageable reqPage = page == null ? Pageable.unpaged() : PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
-		// TODO - Não retornar produtos deletadas
-		return produtoRepository.findAllByLoja_Id(lojaId, reqPage).map(ProdutoDTO::convertFromProduto);
+		
+		if(nomeProduto.isBlank()) {
+			return produtoRepository.findAllByDeletedFalseAndLoja_IdAndDeletedFalse(reqPage, lojaId).map(ProdutoDTO::convertFromProduto);
+		} else {
+			return produtoRepository.findByNomeContainingIgnoreCaseAndDeletedFalseAndLoja_IdAndDeletedFalse(reqPage, nomeProduto, lojaId).map(ProdutoDTO::convertFromProduto);
+		}
 	}
 	
 	public Produto getProdutoById(Long id) {
-		// TODO - Não retornar produtos deletadas
 		return this.produtoRepository.findById(id).orElse(null);
 	}
 	

@@ -38,9 +38,10 @@ public class ProdutoController {
     public ResponseEntity<List<ProdutoDTO>> getProdutos(
 		@RequestParam(required = false) final Integer currentPage,
 		@RequestParam(required = false) final Integer pageSize,
-		@RequestHeader(required = true) final Long lojaId) {
+		@RequestHeader(required = true) final Long lojaId,
+		@RequestHeader(required = false, defaultValue = "") final String nomeProduto) {
     	
-        Page<ProdutoDTO> produtos = produtoService.getAllByLojaId(currentPage, pageSize, lojaId);
+        Page<ProdutoDTO> produtos = produtoService.getAllByLojaId(currentPage, pageSize, lojaId, nomeProduto);
         if (produtos.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found produtos");
         
         return ResponseEntity.ok(produtos.getContent());

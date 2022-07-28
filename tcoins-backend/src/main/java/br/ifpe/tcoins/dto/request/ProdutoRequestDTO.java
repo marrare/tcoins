@@ -20,7 +20,7 @@ public class ProdutoRequestDTO {
     private byte[] imagem;
 
 
-    public static ProdutoDTO convertFromPdoruto(Produto produto) {
+    public static ProdutoDTO convertFromProduto(Produto produto) {
         return new ModelMapper().map(produto, ProdutoDTO.class);
     }
 

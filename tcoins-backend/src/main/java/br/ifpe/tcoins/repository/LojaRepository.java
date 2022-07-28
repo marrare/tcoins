@@ -10,13 +10,17 @@ public interface LojaRepository extends JpaRepository<Loja, Long> {
 
     public Page<Loja> findAll(Pageable pageable);
     
-    public Page<Loja> findByRamo_RamoContainingIgnoreCase(Pageable pageable, String ramo);
+    public Page<Loja> findByRamo_RamoContainingIgnoreCaseAndDeletedFalse(Pageable pageable, String ramo);
 
-    public Page<Loja> findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCase(Pageable pageable, String nome, String ramo);
+    public Page<Loja> findByNomeContainingIgnoreCaseAndRamo_RamoContainingIgnoreCaseAndDeletedFalse(Pageable pageable, String nome, String ramo);
     
-    public Page<Loja> findByNomeContainingIgnoreCase(Pageable pageable, String nome);
+    public Page<Loja> findByNomeContainingIgnoreCaseAndDeletedFalse(Pageable pageable, String nome);
 
-    public Loja findByNomeIgnoreCase(String nome);
+    public Loja findByNomeIgnoreCaseAndDeletedFalse(String nome);
 
-    public Page<Loja> findByDono_id(Pageable pageable, Long userId);
+    public Page<Loja> findByDono_idAndDeletedFalse(Pageable pageable, Long userId);
+
+    public Loja findByIdAndDeletedFalse(Long id);
+
+    public Page<Loja> findByDeletedFalse(Pageable pageable);
 }
