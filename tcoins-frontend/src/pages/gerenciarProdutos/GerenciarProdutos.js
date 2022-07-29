@@ -26,56 +26,63 @@ const style = {
 
 };
 
-function GerenciarProdutos({ route, navigate }) {
-
-    const [getProdutos, setProdutos] = useState([]);
-    const [getNome, setNome] = useState('');
-    const [getDetalhe, setDetalhe] = useState('');
-    const [getImagem, setImagem] = useState('');
-    const [getId, setId] = useState('');
-    const [getRamo, setRamo] = useState('')
-
-    // useEffect(() => {
-    //     if (route.params) {
-    //         const { nome } = route.params
-    //         const { detalhe } = route.params
-    //         const { imagem } = route.params
-    //         const { id } = route.params
-    //         const { ramo } = route.params
-
-    //         console.log(route.params)
-    //         //             const { alterar } =  route.params
-
-    //         setNome(nome)
-    //         setDetalhe(detalhe)
-    //         setImagem(imagem)
-    //         setId(id)
-    //         setRamo(ramo)
-    //         console.log(getNome)
-    //         //             setAlterar(alterar)
-    //     }
-
-    // }, [])
+function GerenciarProdutos() {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [checked, setChecked] = React.useState(false);
+    const [isDisabled, setIsDisabled] = React.useState(true);
+    const [checkedTwo, setCheckedTwo] = React.useState(false);
+    const [isDisabledTwo, setIsDisabledTwo] = React.useState(true);
+    
+
+    const handleChange = () => {
+        
+        setChecked(!checked)
+        if(checked === false) {
+            setChecked(true)
+            setIsDisabled(!isDisabled)
+           
+            console.log("Clicando" + checked)
+        }else{
+            setIsDisabled(!isDisabled)
+            
+        }
+        
+    };
+
+    const handleChangeTwo = () => {
+        
+        setCheckedTwo(!checkedTwo)
+        if(checkedTwo === false) {
+            setCheckedTwo(true)
+            setIsDisabledTwo(!isDisabledTwo)
+           
+            console.log("Clicando" + checkedTwo)
+        }else{
+            setIsDisabledTwo(!isDisabledTwo)
+            
+        }
+        
+    };
+   
 
     return (
 
-        <div className='Container'>
+        <div>
             <div className='Nav'>
                 <div>
                     <div className='Bloco1'>
                         <div className='ImagemLoja'>
-                            {/* <img className='ImagemLoja' src={} alt="Imagem da Loja"></img> */}
+                            <img className='ImagemLoja' src='https://static.wixstatic.com/media/604b9a_429b9c20260c453e9e28ffc7a238e77c~mv2.png/v1/fill/w_256,h_256,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Design%20sem%20nome%20(4).png' alt="Imagem da Loja"></img>
                         </div>
                         <div className='NomeLoja'>
-                            <h1>teste</h1>
-                            <p>teste</p>
+                            <h1>Minuto Pão de Açúcar</h1>
+                            <p>Alimentício</p>
                         </div>
                     </div>
-                    <p className='DescricaoLoja'>teste</p>
+                    <p className='DescricaoLoja'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
                 <div className='Localizacao'>
                     <img className='Localizacao' src='https://thumbs.jusbr.com/filters:format(webp)/imgs.jusbr.com/publications/images/1a28172b38b885fb9b3a335e0e998025' alt="Localização da Loja"></img>
@@ -145,18 +152,20 @@ function GerenciarProdutos({ route, navigate }) {
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Recompensa em tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChange} checked={checked}
+                             ></input>
+                            
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabled} ></input>
                     </fieldset>
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Comprar com tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChangeTwo} checked={checkedTwo}></input>
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabledTwo}></input>
                     </fieldset>
 
                     <Button
@@ -164,6 +173,7 @@ function GerenciarProdutos({ route, navigate }) {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={handleClose}
                     >
                         CANCELAR
                     </Button>
@@ -186,16 +196,15 @@ function GerenciarProdutos({ route, navigate }) {
                     <img alt='foto-produto' className="FotoProdutos" src="http://conteudo.imguol.com.br/c/entretenimento/45/2020/10/19/pao-frances---dona-deola-1603113166267_v2_1920x1920.jpg"></img>
                     <div className="ConteudoProduto">
                         <div className="DetalheProduto">
-                            <h2>Pãozin</h2>
+                            <h2>Pão Francês</h2>
                             <p>Preço: TXXX tcoins</p>
                             <p>Recompensa: TXXX tcoins</p>
                         </div>
                         <div className='DescricaoProduto'>
-                            <p>lOREM LOREM LOREM</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                     </div>
                 </div>
-                {/* ))} */}
             </div>
         </div>
 

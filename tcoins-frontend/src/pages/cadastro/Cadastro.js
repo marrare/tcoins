@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import UsuarioService from '../../services/UsuarioService';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,66 +16,104 @@ const theme = createTheme();
 
 function Cadastro() {
 
-  return (
-    <div className='Container'>
-      <div className="FormContainer">
-        <div className="Form">
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
+  function handleOnChangeNome(e){    
+    setNome(e.target.value);
+  }
+
+  function handleOnChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleOnChangeSenha(e) {
+    setSenha(e.target.value);
+  }
+  
+  function cadastrarUsuario() {
+    //ToDo - ajuste na função assim como está no service
+    debugger;
+    const setUser = UsuarioService.postUsuario(nome,email,senha)
+
+  }
+
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Cadastro
           </Typography>
-          <div className="FormContent">
-            <TextField
-              autoComplete="given-name"
-              name="Nome"
-              required
-              fullWidth
-              id="firstName"
-              label="Nome"
-              autoFocus
-            />
+          <Box component="form" noValidate  sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="Nome"
+                  required
+                  fullWidth
+                  id="nome"
+                  onChange={handleOnChangeNome}
+                  label="Nome"
+                  autoFocus
+                />
+              </Grid>
 
-            <TextField
-              required
-              fullWidth
-              id="Email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-            />
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  autoComplete="email"
+                  id="email"
+                  onChange={handleOnChangeEmail}
 
-            <TextField
-              required
-              fullWidth
-              name="Senha"
-              label="Senha"
-              type="password"
-              id="password"
-              autoComplete="Nova-senha"
-            />
-          </div>
-          <div className='BotaoContainer'>
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Senha"
+                  label="Senha"
+                  type="password"
+                  autoComplete="Nova-senha"
+                  id="senha"
+                  onChange={handleOnChangeSenha}
+                />
+              </Grid>
+
+            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              onClick={cadastrarUsuario}
               sx={{ mt: 3, mb: 2 }}
             >
               CONFIRMAR
             </Button>
-          </div>
 
-
-
-        </div>
-
-      </div>
-
-
-    </div>
+          </Box>
+        </Box>
+        {/* <Copyright sx={{ mt: 5 }} />   */}
+      </Container>
+    </ThemeProvider>
   );
 }
 
