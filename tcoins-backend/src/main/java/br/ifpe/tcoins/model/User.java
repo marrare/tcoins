@@ -1,30 +1,17 @@
 package br.ifpe.tcoins.model;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name="users")
-public class User {
+public class User extends ObjetoGeral {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable=false)
+	@OneToOne(optional = true)
+	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
 	private UserPlano planoVigente;
 	
 	@Column(length = 45, nullable=false)
@@ -42,33 +29,10 @@ public class User {
 	@Column(name = "google_token_id", length = 45)
 	private String googleTokenId;
 	
-	@Lob
 	private Byte[] imagem;
 	
-	@Column(columnDefinition = "boolean default true")
+	@Column(columnDefinition = "boolean default false")
 	private boolean deleted;
-	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate updatedAt;
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", planoVigente=" + planoVigente + ", nome=" + nome + ", email=" + email
-				+ ", codigoUser=" + codigoUser + ", senha=" + senha + ", googleTokenId=" + googleTokenId + ", imagem="
-				+ Arrays.toString(imagem) + ", deleted=" + deleted + ", createdAt=" + createdAt + ", updatesAt="
-				+ updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public UserPlano getPlanoVigente() {
 		return planoVigente;
@@ -132,22 +96,6 @@ public class User {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 	
 }

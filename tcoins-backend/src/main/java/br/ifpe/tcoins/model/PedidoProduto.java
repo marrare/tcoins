@@ -1,24 +1,14 @@
 package br.ifpe.tcoins.model;
 
-import java.security.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pedido_produto")
-public class PedidoProduto {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", columnDefinition = "serial", updatable = false, nullable = false)
-	private Long id;
+public class PedidoProduto extends ObjetoGeral {
 	
 	@ManyToOne
 	@JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable=false)
@@ -36,27 +26,6 @@ public class PedidoProduto {
 	
 	@Column(name = "valor_recompensa", columnDefinition="DECIMAL(10,2)")
 	private Double valorRecompensa;
-	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp updatedAt;
-	
-	@Override
-	public String toString() {
-		return "PedidoProduto [id=" + id + ", pedido=" + pedido + ", produto=" + produto + ", qtdProduto=" + qtdProduto
-				+ ", precoTcoins=" + precoTcoins + ", valorRecompensa=" + valorRecompensa + ", createdAt=" + createdAt
-				+ ", updatesAt=" + updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Pedido getPedido() {
 		return pedido;
@@ -96,22 +65,6 @@ public class PedidoProduto {
 
 	public void setValorRecompensa(Double valorRecompensa) {
 		this.valorRecompensa = valorRecompensa;
-	}
-
-	public Timestamp getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 	
 }
