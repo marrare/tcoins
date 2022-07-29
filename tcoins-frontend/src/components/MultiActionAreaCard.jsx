@@ -4,32 +4,49 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
-export default function MultiActionAreaCard({ data }) {
+export default function MultiActionAreaCard({ loja }) {
+  const navigate = useNavigate();
 
   // let lojaToRender;
+  const imageDefault = 'https://i1.wp.com/mercadoeconsumo.com.br/wp-content/uploads/2019/04/Que-comida-saud%C3%A1vel-que-nada-brasileiro-gosta-de-fast-food.jpg';
+  const imageCard = loja.imagem === null ? imageDefault : loja.imagem;
   // if (ramo == "") {
   //     lojaToRender = dados;
   // } else {
   //     lojaToRender = dados.filter(function (loja) {
   //         return loja.ramo == ramo;
   //     });
+
   // }
+  const props = {
+    nome: loja.nome,
+    detalhe: loja.descricao,
+    imagem: loja.imageCard,
+    id: loja.id,
+    //ramo
+    //produtos array
+
+    ramo: loja.ramoId,
+  }
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card className="CardItem2" sx={{ maxWidth: 260 }} onClick={() => navigate("/gerenciar-produtos", props)}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="https://vinicolaaraucaria.com.br/wp-content/uploads/2020/06/interna_restaurante-1-1400x700.jpg"
-          alt="green iguana"
+          width="270"
+          minWidth='270'
+          image={imageCard}
+          alt={loja.nome}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {data.nome}
+            {loja.nome}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {data.id}
+            {loja.descricao}
           </Typography>
         </CardContent>
       </CardActionArea>

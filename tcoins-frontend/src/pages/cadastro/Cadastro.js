@@ -15,60 +15,47 @@ const theme = createTheme();
 function Cadastro() {
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+    <div className='Container'>
+      <div className="FormContainer">
+        <div className="Form">
+
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Cadastro
           </Typography>
-          <Box component="form" noValidate  sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="Nome"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Nome"
-                  autoFocus
-                />
-              </Grid>
+          <div className="FormContent">
+            <TextField
+              autoComplete="given-name"
+              name="Nome"
+              required
+              fullWidth
+              id="firstName"
+              label="Nome"
+              autoFocus
+            />
 
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="Email"
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="Senha"
-                  label="Senha"
-                  type="password"
-                  id="password"
-                  autoComplete="Nova-senha"
-                />
-              </Grid>
+            <TextField
+              required
+              fullWidth
+              id="Email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+            />
 
-            </Grid>
+            <TextField
+              required
+              fullWidth
+              name="Senha"
+              label="Senha"
+              type="password"
+              id="password"
+              autoComplete="Nova-senha"
+            />
+          </div>
+          <div className='BotaoContainer'>
             <Button
               type="submit"
               fullWidth
@@ -77,12 +64,16 @@ function Cadastro() {
             >
               CONFIRMAR
             </Button>
+          </div>
 
-          </Box>
-        </Box>
-        {/* <Copyright sx={{ mt: 5 }} />   */}
-      </Container>
-    </ThemeProvider>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
   );
 }
 

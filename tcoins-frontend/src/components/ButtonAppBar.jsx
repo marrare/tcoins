@@ -28,6 +28,16 @@ export default function ButtonAppBar() {
           <Typography className="Typography" component="div">
             <Link to="/" className="Link"><img className="LogoMenor" src={logo} alt="" /></Link>
           </Typography>
+          <div className="HeaderCenter">
+            <nav className='HeaderNav'>
+              <ul className='HeaderLista'>
+                <li className='ListaTitulo'><a href="#">Planos</a></li>
+                <li className='ListaTitulo'><a href="#">Quem somos?</a></li>
+                <li className='ListaTitulo'><a href="#">Dúvidas</a></li>
+                <li className='ListaTitulo'><a href="#">Contato</a></li>
+              </ul>
+            </nav>
+          </div>
           <div className='Botoes'>
             <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
             <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
