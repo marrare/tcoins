@@ -1,0 +1,17 @@
+.container {
+    max-width: 450px;
+    margin: auto;
+}
+
+.avatar {
+    margin: auto;
+    margin-top: 15px;
+}
+
+.campofoto {
+    max-width: 20px;
+}
+
+.foto {
+    margin: auto;
+}
