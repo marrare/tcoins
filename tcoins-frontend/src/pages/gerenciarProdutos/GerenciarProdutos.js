@@ -1,5 +1,6 @@
 import React from 'react';
 import './GerenciarProdutos.css';
+import useState from 'react';
 
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
