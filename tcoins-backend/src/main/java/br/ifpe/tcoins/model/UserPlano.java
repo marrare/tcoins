@@ -1,50 +1,34 @@
 package br.ifpe.tcoins.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "user_plano")
-public class UserPlano {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_plano_generator")
-	@SequenceGenerator(name="user_plano_generator", sequenceName = "user_plano_seq")
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+public class UserPlano extends ObjetoGeral {
     
     @ManyToOne
 	@JoinColumn(name = "plano_id", referencedColumnName = "id", nullable=false)
     private Planos plano;
     
+    @OneToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable=false)
+	private User userId;
+    
     @Column(name = "preco_pago", columnDefinition="DECIMAL(10,2)",  nullable=false)
     private Double precoPago;
 	
     @Column(name = "data_expiracao",  nullable=false)
-//    @Temporal(TemporalType.DATE)
-    private LocalDate dataExpiracao;
-	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate updatedAt;
-
-	@Override
-	public String toString() {
-		return "UserPlano [id=" + id + ", plano=" + plano + ", precoPago=" + precoPago + ", dataExpiracao="
-				+ dataExpiracao + ", createdAt=" + createdAt + ", updatesAt=" + updatedAt + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Temporal(TemporalType.DATE)
+    private Date dataExpiracao;
 
 	public Planos getPlano() {
 		return plano;
@@ -52,6 +36,14 @@ public class UserPlano {
 
 	public void setPlano(Planos plano) {
 		this.plano = plano;
+	}
+
+	public User getUserId() {
+		return userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 
 	public Double getPrecoPago() {
@@ -62,28 +54,12 @@ public class UserPlano {
 		this.precoPago = precoPago;
 	}
 
-	public LocalDate getDataExpiracao() {
+	public Date getDataExpiracao() {
 		return dataExpiracao;
 	}
 
-	public void setDataExpiracao(LocalDate dataExpiracao) {
+	public void setDataExpiracao(Date dataExpiracao) {
 		this.dataExpiracao = dataExpiracao;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 }
