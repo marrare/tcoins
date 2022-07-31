@@ -15,6 +15,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 // import CheckIcon from '@mui/icons-material/CheckIcon'
@@ -50,13 +51,15 @@ function Home() {
 
     //pegar os dados com filtro e busca
     useEffect(() => {
-
+        //tratar o filtro de ramo colocando depois
+        setPage(1)
         getLojas();
+        
 
     }, [ramo, pesquisa])
 
     async function getLojas() {
-        const lojas = await LojaService.getLojas(pesquisa, ramo, '', 4);
+        const lojas = await LojaService.getLojas(pesquisa, ramo, page, 4);
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
