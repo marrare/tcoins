@@ -1,14 +1,17 @@
 import * as React from 'react';
 import './GerenciarLojas.css';
+import LojaService from '../../services/LojaService';
 import { styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TableEstilizada from '../../components/TableTcoins';
 import Paper from '@mui/material/Paper';
-
+import { useParams } from "react-router-dom";
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -58,25 +61,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(
-    imagem: string,
-    nome: string,
-    ramo: string,
-    editar: boolean,
-    deletar: boolean,
-) {
-    return { imagem, nome, ramo, editar, deletar };
-}
 
-const rows = [
-    createData('', 'Loja 1', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 2', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 3', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 4', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 5', 'Alimentício', 'Editar', 'Deletar'),
-];
 
-export default function CustomizedTables() {
+export default function GerenciarLojas() {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -88,7 +75,25 @@ export default function CustomizedTables() {
         setRamo(event.target.value);
     };
 
+    const { userId } = useParams();
+    const [lojasPorDono, setLojasPorDono] = useState([0]);
+    //puxando o primeiro array
+    const lojasDetalhadas = lojasPorDono[0]
 
+    //pegar os dados por página
+    useEffect(() => {
+
+        getLojasPorDono();
+
+
+    }, [])
+
+
+    async function getLojasPorDono() {
+        const lojasGerenciadas = await LojaService.getLojasByUser(userId, '', '');
+        if (lojasGerenciadas.status == 200 || lojasGerenciadas.status == 404) setLojasPorDono(lojasGerenciadas.data);
+
+    }
     return (
 
 
@@ -113,6 +118,8 @@ export default function CustomizedTables() {
                     </IconButton>
                 </Paper>
             </div>
+
+            <TableEstilizada lojas={lojasPorDono}></TableEstilizada>
 
             <Modal
                 open={open}
@@ -188,37 +195,7 @@ export default function CustomizedTables() {
             </Modal>
 
 
-            <div classsName="Tabela">
-                <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto', marginBottom: 5 }} >
-                    <Table aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Nome</StyledTableCell>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Ramo</StyledTableCell>
-                                <StyledTableCell align="center" sx={{ fontSize: '1.1rem' }}>Ações</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-
-                                <StyledTableRow key={row.nome}>
-                                    <StyledTableCell component="th" scope="row" align="left">
-                                        {row.imagem}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">{row.nome}</StyledTableCell>
-                                    <StyledTableCell align="left">{row.ramo}</StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <Button size="small" color="primary">{row.editar}</Button>
-                                        <Button size="small" color="error">{row.deletar}</Button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
+            
 
         </div>
     );

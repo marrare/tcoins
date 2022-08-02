@@ -158,6 +158,10 @@ body {
   color: white;
 }
 
+.linkCard {
+  color: #000;
+}
+
 .Toolbar.Link {
   margin: auto;
 }
@@ -249,9 +253,10 @@ body {
 }
 
 .Container {
-  padding: 1rem 2rem;
+  padding: 1rem 10rem;
   height: 100%;
   font-family: 'Poppins', sans-serif;
+ 
 
 }
 
