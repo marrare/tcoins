@@ -24,7 +24,7 @@ function App() {
         <Route path="/compras" element={<ComprasUser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/gerenciar-lojas" element={<GerenciarLojas />} />
+        <Route path="/gerenciar-lojas/:userId" element={<GerenciarLojas />} />
         <Route path="/loja/:nome" element={<GerenciarProdutos />} />
       </Routes>
 
