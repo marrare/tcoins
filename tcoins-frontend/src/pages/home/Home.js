@@ -4,10 +4,6 @@ import MultiActionAreaCard from '../../components/MultiActionAreaCard';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
-
-import LojaService from '../../services/LojaService';
-
-import Pagination from '@mui/material/Pagination';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
