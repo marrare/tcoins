@@ -114,7 +114,7 @@ function GerenciarProdutos() {
 
     return (
 
-        <div className='Container'>
+        <div>
             <div className='Nav'>
                 <div>
                     <div className='Bloco1'>
@@ -196,18 +196,20 @@ function GerenciarProdutos() {
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Recompensa em tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChange} checked={checked}
+                             ></input>
+                            
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabled} ></input>
                     </fieldset>
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Comprar com tcoins(TC)</legend>
                         <label class="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onClick={handleChangeTwo} checked={checkedTwo}></input>
                             <span class="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa'></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabledTwo}></input>
                     </fieldset>
 
                     <Button
@@ -215,6 +217,7 @@ function GerenciarProdutos() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={handleClose}
                     >
                         CANCELAR
                     </Button>
