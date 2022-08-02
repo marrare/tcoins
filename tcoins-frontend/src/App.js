@@ -11,6 +11,7 @@ import Cadastro from './pages/cadastro/Cadastro';
 import ComprasUser from './pages/comprasUsuario/ComprasUser';
 import GerenciarLojas from './pages/gerenciarLojas/GerenciarLojas';
 import GerenciarProdutos from './pages/gerenciarProdutos/GerenciarProdutos';
+import GerenciarPerfil from './pages/gerenciarPerfil/GerenciarPerfil';
 import MultiActionAreaCard from './components/MultiActionAreaCard';
 
 function App() {
