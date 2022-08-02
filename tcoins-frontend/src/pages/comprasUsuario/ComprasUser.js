@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Paginacao from '../../components/Paginacao'
 import TableEstilizada from '../../components/Table';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -39,7 +38,7 @@ function ComprasUser() {
             {/* <PdfComponent></PdfComponent> */}
             {/* <Button className="Botao" color="inherit" onClick={(e) => gerar(getdata)}>Baixar PDF</Button> */}
             <TableEstilizada dados={getdata} cabecalho={dadosHeader}></TableEstilizada>
-            <Paginacao className="Paginacao"></Paginacao>
+            {/* <Paginacao className="Paginacao"></Paginacao> */}
             
 
         </div>
