@@ -68,6 +68,7 @@ function Home() {
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
+    
 
 
 

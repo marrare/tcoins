@@ -10,89 +10,107 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import MapView from '../../maps';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+
+};
 
 
 function GerenciarProdutos() {
+    //nome da loja
     const { nome } = useParams();
+    //Trazendo os produtos e a loja
+    const [produtosLista, setProdutos] = useState([]);
     const [lojaDetalhe, setLoja] = useState([0]);
+    //puxando o primeiro array
     const lojaDetalhada = lojaDetalhe[0]
+
+    //logica de imagem
     const imageDefault = 'https://i1.wp.com/mercadoeconsumo.com.br/wp-content/uploads/2019/04/Que-comida-saud%C3%A1vel-que-nada-brasileiro-gosta-de-fast-food.jpg';
     const imageCard = lojaDetalhada.imagem === null ? imageDefault : lojaDetalhada.imagem;
+    //coordenadas para o maps
+    const latitude = lojaDetalhada.latitude;
+    const longitude = lojaDetalhada.longitude;
+
+    //logicas para o modal
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [checked, setChecked] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [checkedTwo, setCheckedTwo] = useState(false);
+    const [isDisabledTwo, setIsDisabledTwo] = useState(true);
+
+
+    const handleChange = () => {
+
+        setChecked(!checked)
+        if (checked === false) {
+            setChecked(true)
+            setIsDisabled(!isDisabled)
+
+            console.log("Clicando" + checked)
+        } else {
+            setIsDisabled(!isDisabled)
+
+        }
+
+    };
+
+    const handleChangeTwo = () => {
+
+        setCheckedTwo(!checkedTwo)
+        if (checkedTwo === false) {
+            setCheckedTwo(true)
+            setIsDisabledTwo(!isDisabledTwo)
+
+            console.log("Clicando" + checkedTwo)
+        } else {
+            setIsDisabledTwo(!isDisabledTwo)
+
+        }
+
+    };
 
 
 
-
-
-
-
-    // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
-    // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
-    // const [getRamo, setRamo] = useState('')
-
-
-
-
-    // const [getProdutos, setProdutos] = useState([]);
-    // const [getNome, setNome] = useState('');
-    // const [getDetalhe, setDetalhe] = useState('');
-    // const [getImagem, setImagem] = useState('');
-    // const [getId, setId] = useState('');
 
     //pegar os dados por página
     useEffect(() => {
 
         getLoja();
+        getProdutos();
+
 
     }, [])
 
-    // setLoja(lojaTeste)
-    // const ramoLista = ramos.filter(function (ramo) {
-    //     return ramo.id == lojaDetalhe.ramoId;
-    // });
-    // setRamo(ramoLista.nome)
 
-
-
-    // const ramoNomeTeste = ramos.map((ramo, i) => (
-    //     ramo.id === loja.ramoId ? ramo.nome : ramo.nome
-    // )
-    // )
-
-
-    // console.log(ramoNome)
     async function getLoja() {
         const loja = await LojaService.getLojas(nome, '', '', '');
         if (loja.status == 200 || loja.status == 404) setLoja(loja.data);
 
     }
+    async function getProdutos() {
+        const produtos = await LojaService.getProdutosByLoja('', lojaDetalhada.lojaId, '', 4);
+        if (produtos.status == 200 || produtos.status == 404) setProdutos(produtos.data);
+    }
 
-    // useEffect(() => {
-    // console.log(nome)
-    // console.log(lojaDetalhe)
-    //     if (route.params) {
-    //         const { nome } = route.params
-    //         const { detalhe } = route.params
-    //         const { imagem } = route.params
-    //         const { id } = route.params
-    //         const { ramo } = route.params
 
-    //         console.log(route.params)
-    //         //             const { alterar } =  route.params
 
-    //         setNome(nome)
-    //         setDetalhe(detalhe)
-    //         setImagem(imagem)
-    //         setId(id)
-    //         setRamo(ramo)
-    //         console.log(getNome)
-    //         //             setAlterar(alterar)
-    //     }
 
-    // }, [])
-
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     return (
 
@@ -110,9 +128,9 @@ function GerenciarProdutos() {
                     </div>
                     <p className='DescricaoLoja'>{lojaDetalhada.descricao}</p>
                 </div>
-                <div className='Localizacao map'>
+                {/* <div className='Localizacao map'>
                     <MapView latitude={lojaDetalhada.latitude} longitude={lojaDetalhada.longitude}></MapView>
-                </div>
+                </div> */}
             </div>
 
             <Paper
@@ -212,24 +230,27 @@ function GerenciarProdutos() {
             </Modal>
 
 
+            {produtosLista.map((produto, i) => (
+                
+                <div className="Listagem">
 
-            <div className="Listagem">
-
-                <div className="ListaProdutos">
-                    <img alt='foto-produto' className="FotoProdutos" src="http://conteudo.imguol.com.br/c/entretenimento/45/2020/10/19/pao-frances---dona-deola-1603113166267_v2_1920x1920.jpg"></img>
-                    <div className="ConteudoProduto">
-                        <div className="DetalheProduto">
-                            <h2>Pãozin</h2>
-                            <p>Preço: TXXX tcoins</p>
-                            <p>Recompensa: TXXX tcoins</p>
-                        </div>
-                        <div className='DescricaoProduto'>
-                            <p>lOREM LOREM LOREM</p>
+                    <div className="ListaProdutos">
+                        <img alt={produto.nome} className="FotoProdutos" src={produto.imagem}></img>
+                        <div className="ConteudoProduto">
+                            <div className="DetalheProduto">
+                                <h2>{produto.nome}</h2>
+                                <p>Preço: {produto.precoTcoins} tcoins</p>
+                                <p>Recompensa: {produto.valorRecompensa} tcoins</p>
+                            </div>
+                            <div className='DescricaoProduto'>
+                                <p>{produto.descricao}</p>
+                            </div>
                         </div>
                     </div>
+                    {/* ))} */}
                 </div>
-                {/* ))} */}
-            </div>
+            ))}
+
         </div>
 
     )
