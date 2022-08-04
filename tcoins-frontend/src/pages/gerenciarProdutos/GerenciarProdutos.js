@@ -1,18 +1,20 @@
 import React from 'react';
 import './GerenciarProdutos.css';
-
+import LojaService from '../../services/LojaService';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import MapView from '../../maps';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -26,47 +28,89 @@ const style = {
 
 };
 
-function GerenciarProdutos() {
 
-    const [open, setOpen] = React.useState(false);
+function GerenciarProdutos() {
+    //nome da loja
+    const { nome } = useParams();
+    //Trazendo os produtos e a loja
+    const [produtosLista, setProdutos] = useState([]);
+    const [lojaDetalhe, setLoja] = useState([0]);
+    //puxando o primeiro array
+    const lojaDetalhada = lojaDetalhe[0]
+
+    //logica de imagem
+    const imageDefault = 'https://i1.wp.com/mercadoeconsumo.com.br/wp-content/uploads/2019/04/Que-comida-saud%C3%A1vel-que-nada-brasileiro-gosta-de-fast-food.jpg';
+    const imageCard = lojaDetalhada.imagem === null ? imageDefault : lojaDetalhada.imagem;
+    //coordenadas para o maps
+    const latitude = lojaDetalhada.latitude;
+    const longitude = lojaDetalhada.longitude;
+
+    //logicas para o modal
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [checked, setChecked] = React.useState(false);
-    const [isDisabled, setIsDisabled] = React.useState(true);
-    const [checkedTwo, setCheckedTwo] = React.useState(false);
-    const [isDisabledTwo, setIsDisabledTwo] = React.useState(true);
-    
+    const [checked, setChecked] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [checkedTwo, setCheckedTwo] = useState(false);
+    const [isDisabledTwo, setIsDisabledTwo] = useState(true);
+
 
     const handleChange = () => {
-        
+
         setChecked(!checked)
-        if(checked === false) {
+        if (checked === false) {
             setChecked(true)
             setIsDisabled(!isDisabled)
-           
+
             console.log("Clicando" + checked)
-        }else{
+        } else {
             setIsDisabled(!isDisabled)
-            
+
         }
-        
+
     };
 
     const handleChangeTwo = () => {
-        
+
         setCheckedTwo(!checkedTwo)
-        if(checkedTwo === false) {
+        if (checkedTwo === false) {
             setCheckedTwo(true)
             setIsDisabledTwo(!isDisabledTwo)
-           
+
             console.log("Clicando" + checkedTwo)
-        }else{
+        } else {
             setIsDisabledTwo(!isDisabledTwo)
-            
+
         }
-        
+
     };
-   
+
+
+
+
+    //pegar os dados por página
+    useEffect(() => {
+
+        getLoja();
+        getProdutos();
+
+
+    }, [])
+
+
+    async function getLoja() {
+        const loja = await LojaService.getLojas(nome, '', '', '');
+        if (loja.status == 200 || loja.status == 404) setLoja(loja.data);
+
+    }
+    async function getProdutos() {
+        const produtos = await LojaService.getProdutosByLoja('', lojaDetalhada.lojaId, '', 4);
+        if (produtos.status == 200 || produtos.status == 404) setProdutos(produtos.data);
+    }
+
+
+
+
 
     return (
 
@@ -75,18 +119,18 @@ function GerenciarProdutos() {
                 <div>
                     <div className='Bloco1'>
                         <div className='ImagemLoja'>
-                            <img className='ImagemLoja' src='https://static.wixstatic.com/media/604b9a_429b9c20260c453e9e28ffc7a238e77c~mv2.png/v1/fill/w_256,h_256,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Design%20sem%20nome%20(4).png' alt="Imagem da Loja"></img>
+                            <img className='ImagemLoja' src={imageCard} alt="Imagem da Loja"></img>
                         </div>
                         <div className='NomeLoja'>
-                            <h1>Minuto Pão de Açúcar</h1>
-                            <p>Alimentício</p>
+                            <h1>{nome}</h1>
+                            <p>{lojaDetalhada.ramo}</p>
                         </div>
                     </div>
-                    <p className='DescricaoLoja'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p className='DescricaoLoja'>{lojaDetalhada.descricao}</p>
                 </div>
-                <div className='Localizacao'>
-                    <img className='Localizacao' src='https://thumbs.jusbr.com/filters:format(webp)/imgs.jusbr.com/publications/images/1a28172b38b885fb9b3a335e0e998025' alt="Localização da Loja"></img>
-                </div>
+                {/* <div className='Localizacao map'>
+                    <MapView latitude={lojaDetalhada.latitude} longitude={lojaDetalhada.longitude}></MapView>
+                </div> */}
             </div>
 
             <Paper
@@ -189,23 +233,27 @@ function GerenciarProdutos() {
             </Modal>
 
 
+            {produtosLista.map((produto, i) => (
+                
+                <div className="Listagem">
 
-            <div className="Listagem">
-
-                <div className="ListaProdutos">
-                    <img alt='foto-produto' className="FotoProdutos" src="http://conteudo.imguol.com.br/c/entretenimento/45/2020/10/19/pao-frances---dona-deola-1603113166267_v2_1920x1920.jpg"></img>
-                    <div className="ConteudoProduto">
-                        <div className="DetalheProduto">
-                            <h2>Pão Francês</h2>
-                            <p>Preço: TXXX tcoins</p>
-                            <p>Recompensa: TXXX tcoins</p>
-                        </div>
-                        <div className='DescricaoProduto'>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div className="ListaProdutos">
+                        <img alt={produto.nome} className="FotoProdutos" src={produto.imagem}></img>
+                        <div className="ConteudoProduto">
+                            <div className="DetalheProduto">
+                                <h2>{produto.nome}</h2>
+                                <p>Preço: {produto.precoTcoins} tcoins</p>
+                                <p>Recompensa: {produto.valorRecompensa} tcoins</p>
+                            </div>
+                            <div className='DescricaoProduto'>
+                                <p>{produto.descricao}</p>
+                            </div>
                         </div>
                     </div>
+                    {/* ))} */}
                 </div>
-            </div>
+            ))}
+
         </div>
 
     )

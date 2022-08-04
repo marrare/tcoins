@@ -4,9 +4,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function MultiActionAreaCard({ loja }) {
+export default function MultiActionAreaCard({ loja, lojaInfo }) {
   const navigate = useNavigate();
 
   // let lojaToRender;
@@ -30,8 +30,20 @@ export default function MultiActionAreaCard({ loja }) {
 
     ramo: loja.ramoId,
   }
+  // onClick={() => navigate("/gerenciar-produtos", lojaInfo([{
+  //   nome: loja.nome,
+  //   detalhe: loja.descricao,
+  //   imagem: loja.imageCard,
+  //   id: loja.id,
+  //   //ramo
+  //   //produtos array
+
+  //   ramo: loja.ramoLoja,
+  const link = `loja/${loja.nome}`
+  // }])
   return (
-    <Card className="CardItem2" sx={{ maxWidth: 260 }} onClick={() => navigate("/gerenciar-produtos", props)}>
+    <Card className="CardItem2" sx={{ maxWidth: 260 }}>
+      <Link className="linkCard" to={link}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -55,6 +67,9 @@ export default function MultiActionAreaCard({ loja }) {
           MAIS
         </Button>
       </CardActions>
+
+      </Link>
+      
     </Card>
   );
 }

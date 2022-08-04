@@ -1,20 +1,44 @@
 import * as React from 'react';
 import './GerenciarLojas.css';
+import LojaService from '../../services/LojaService';
 import { styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TableEstilizada from '../../components/TableTcoins';
 import Paper from '@mui/material/Paper';
-
+import { useParams } from "react-router-dom";
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+
+};
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,26 +61,41 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(
-    imagem: string,
-    nome: string,
-    ramo: string,
-    editar: boolean,
-    deletar: boolean,
-) {
-    return { imagem, nome, ramo, editar, deletar };
-}
 
-const rows = [
-    createData('', 'Loja 1', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 2', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 3', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 4', 'Alimentício', 'Editar', 'Deletar'),
-    createData('', 'Loja 5', 'Alimentício', 'Editar', 'Deletar'),
-];
 
-export default function CustomizedTables() {
+export default function GerenciarLojas() {
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const [ramo, setRamo] = React.useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setRamo(event.target.value);
+    };
+
+    const { userId } = useParams();
+    const [lojasPorDono, setLojasPorDono] = useState([0]);
+    //puxando o primeiro array
+    const lojasDetalhadas = lojasPorDono[0]
+
+    //pegar os dados por página
+    useEffect(() => {
+
+        getLojasPorDono();
+
+
+    }, [])
+
+
+    async function getLojasPorDono() {
+        const lojasGerenciadas = await LojaService.getLojasByUser(userId, '', '');
+        if (lojasGerenciadas.status == 200 || lojasGerenciadas.status == 404) setLojasPorDono(lojasGerenciadas.data);
+
+    }
     return (
+
 
         <div className="Corpo">
             <div className="Barra">
@@ -74,43 +113,89 @@ export default function CustomizedTables() {
                         <SearchIcon />
                     </IconButton>
                     <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton color="primary" sx={{ p: '10px' }} aria-label="add">
+                    <IconButton color="primary" sx={{ p: '10px' }} aria-label="add" onClick={handleOpen}>
                         <AddIcon />
                     </IconButton>
                 </Paper>
             </div>
 
-            <div classsName="Tabela">
-                <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto' }} >
-                    <Table aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem'}}>Nome</StyledTableCell>
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem'}}>Ramo</StyledTableCell>
-                                <StyledTableCell align="center" sx={{ fontSize: '1.1rem'}}>Ações</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
+            <TableEstilizada lojas={lojasPorDono}></TableEstilizada>
 
-                                <StyledTableRow key={row.nome}>
-                                    <StyledTableCell component="th" scope="row" align="left">
-                                        {row.imagem}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">{row.nome}</StyledTableCell>
-                                    <StyledTableCell align="left">{row.ramo}</StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <Button size="small" color="primary">{row.editar}</Button>
-                                        <Button size="small" color="error">{row.deletar}</Button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+                        Adicionar Loja
+                    </Typography>
+                    <TextField sx={{ marginTop: 2, marginBottom: 1 }}
+                        autoComplete="given-name"
+                        name="Nome"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="Nome"
+                        autoFocus
+                    />
+                    <InputLabel id="demo-simple-select-label">Ramo</InputLabel>
+                    <Select sx={{ marginBottom: 1 }}
+                        autoComplete="given-name"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="Ramo"
+                        required
+                        fullWidth
+                        value={ramo}
+                        label="Ramo"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                    <InputLabel id="demo-simple-select-label">Foto</InputLabel>
+                    <TextField sx={{marginBottom: 1 }}
+                        name="upload-photo"
+                        type="file"
+                        fullWidth
+                    />
+                    <TextField
+                        sx={{ height: 8, marginBottom: 5 }}
+                        autoComplete="given-name"
+                        name="Descricao"
+                        required
+                        fullWidth
+                        id="Descricao"
+                        label="Descrição"
+                    />
+                    <Button
+                        sx={{ marginBottom: 1, backgroundColor: 'red', marginTop: 2 }}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        onClick={handleClose}
+                    >
+                        CANCELAR
+                    </Button>
+                    <Button
+                        sx={{ backgroundColor: 'green' }}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                    >
+                        CONFIRMAR
+                    </Button>
+                </Box>
+            </Modal>
 
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
+
+            
 
         </div>
     );
