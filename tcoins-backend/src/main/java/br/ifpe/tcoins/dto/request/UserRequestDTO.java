@@ -10,13 +10,9 @@ public class UserRequestDTO {
 
     private String email;
 
-    private String codigoUser;
-
     private String senha;
 
-    private String googleTokenId;
 
-    private Byte[] imagem;
 
     public static UserDTO convertFromUser(User user) {
         return new ModelMapper().map(user, UserDTO.class);
@@ -41,14 +37,6 @@ public class UserRequestDTO {
         this.email = email;
     }
 
-    public String getCodigoUser() {
-        return codigoUser;
-    }
-
-    public void setCodigoUser(String codigoUser) {
-        this.codigoUser = codigoUser;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -57,19 +45,4 @@ public class UserRequestDTO {
         this.senha = senha;
     }
 
-    public String getGoogleTokenId() {
-        return googleTokenId;
-    }
-
-    public void setGoogleTokenId(String googleTokenId) {
-        this.googleTokenId = googleTokenId;
-    }
-
-    public Byte[] getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Byte[] imagem) {
-        this.imagem = imagem;
-    }
 }
