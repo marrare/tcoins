@@ -8,9 +8,16 @@ const UsuarioService = {
     },
     //ToDo - Ajuste na função assim como está no swagger
     postUsuario(usuario) {
-        const headerUsuario = [ usuario.nome, usuario.email, usuario.senha ]
-        const header = { headerUsuario }
-        RequisicaoService.post("usuario", header)
+       const user = {
+            nome: usuario.nome,
+            email: usuario.email,
+            codigoUser: "aaa",
+            senha: usuario.senha,
+            googleTokenId: "",
+            imagem: []
+        }
+       
+        return RequisicaoService.post("/usuario", user)
     },
 
     deleteUsuario(userId) {

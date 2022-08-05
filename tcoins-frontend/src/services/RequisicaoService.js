@@ -10,6 +10,8 @@ const RequisicaoService = {
             try {
                 instance.get(rota, { headers: header }).then((data) => {
                     resolve(data);
+                    console.log(data);
+                    
                 }).catch((error) => reject(error));
             } catch (err) {
                 reject(err);

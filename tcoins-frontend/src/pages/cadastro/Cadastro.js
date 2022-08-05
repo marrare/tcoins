@@ -41,7 +41,12 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    const setUser = UsuarioService.postUsuario(usuario)
+    const setUser = UsuarioService.postUsuario(usuario).then( ()=>{ 
+    console.log("Pegou")
+    } , (erro)=> {
+      console.log("deu erro", erro)
+
+    })
 
   }
 
@@ -106,7 +111,7 @@ function Cadastro() {
 
             </Grid>
             <Button
-              type="submit"
+              type="Button"
               fullWidth
               variant="contained"
               onClick={cadastrarUsuario}
