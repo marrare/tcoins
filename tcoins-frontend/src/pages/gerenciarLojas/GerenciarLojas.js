@@ -25,6 +25,7 @@ import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import gerar from '../gerarPdf';
 
 const style = {
     position: 'absolute',
@@ -119,6 +120,7 @@ export default function GerenciarLojas() {
                         <AddIcon />
                     </IconButton>
                 </Paper>
+                <Button className="Botao" color="inherit" onClick={(e) => gerar(lojasPorDono)}>Baixar PDF</Button>
             </div>
 
             <TableEstilizada lojas={lojasPorDono}></TableEstilizada>
