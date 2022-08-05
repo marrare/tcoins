@@ -14,15 +14,15 @@ function gerar(tabela){
     }];
     const dados = tabela.map((dado)=>{
         return [
-            {text:dado.id, fontSize:10},
-            {text:dado.nome, fontSize:10}
+            {text:dado.nome, fontSize:10},
+            {text:dado.ramo, fontSize:10},
         ]
     })
     const details = [
         {
             table:{
                 headerRows: 1,
-                widths:['12%','88%'],
+                widths:['60%','40%'],
                 body:[
                     [
                         {text:'id', style:'tableHeader', fontSize:12},

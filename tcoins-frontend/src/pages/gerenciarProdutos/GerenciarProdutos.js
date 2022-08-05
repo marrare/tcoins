@@ -109,9 +109,6 @@ function GerenciarProdutos() {
     }
 
 
-
-
-
     return (
 
         <div>
@@ -128,9 +125,9 @@ function GerenciarProdutos() {
                     </div>
                     <p className='DescricaoLoja'>{lojaDetalhada.descricao}</p>
                 </div>
-                {/* <div className='Localizacao map'>
-                    <MapView latitude={lojaDetalhada.latitude} longitude={lojaDetalhada.longitude}></MapView>
-                </div> */}
+                <div className='Localizacao map'>
+                     <MapView lat={lojaDetalhada.latitude} lng={lojaDetalhada.longitude}></MapView>
+                </div>
             </div>
 
             <Paper
