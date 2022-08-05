@@ -71,8 +71,10 @@ export default function GerenciarLojas() {
 
     const [ramo, setRamo] = React.useState('');
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setRamo(event.target.value);
+    const handleChange = (event, value) => {
+        console.log(value.props.value)
+        setRamo(value.props.value)
+
     };
 
     const { userId } = useParams();
@@ -160,7 +162,7 @@ export default function GerenciarLojas() {
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                     <InputLabel id="demo-simple-select-label">Foto</InputLabel>
-                    <TextField sx={{marginBottom: 1 }}
+                    <TextField sx={{ marginBottom: 1 }}
                         name="upload-photo"
                         type="file"
                         fullWidth
@@ -195,7 +197,7 @@ export default function GerenciarLojas() {
             </Modal>
 
 
-            
+
 
         </div>
     );
