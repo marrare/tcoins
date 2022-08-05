@@ -72,6 +72,14 @@ body {
   width: 100%;
 }
 
+.HeaderTabela {
+  background-color: var(--primary-color);
+}
+
+.TableCostumizada {
+  font-family: "Poppins", sans-serif;
+}
+
 .FooterDireita {
   width: 55%;
 }
@@ -256,7 +264,7 @@ body {
   padding: 1rem 10rem;
   height: 100%;
   font-family: 'Poppins', sans-serif;
- 
+
 
 }
 
