@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react';
 
 
 
-export default function TableEstilizada({ dados }, { cabecalho }) {
+export default function TableEstilizada({ lojas }) {
     //logica para campos da tabela
     // const header = head[];
     // const campos = campos[];
@@ -38,7 +38,7 @@ export default function TableEstilizada({ dados }, { cabecalho }) {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             /* backgroundColor: theme.palette.common.black, */
-            backgroundColor: theme.palette.primary.dark,
+            /* backgroundColor: theme.palette.primary.dark, */
             color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -55,55 +55,35 @@ export default function TableEstilizada({ dados }, { cabecalho }) {
             border: 0,
         },
     }));
-    // function createData(
-    //     imagem: string,
-    //     nome: string,
-    //     ramo: string,
-    //     editar: boolean,
-    //     deletar: boolean,
-    // ) {
-    //     return { imagem, nome, ramo, editar, deletar };
-    // }
-
-    // const rows = [
-    //     createData('', 'Loja 1', 'Alimentício', 'Editar', 'Deletar'),
-    //     createData('', 'Loja 2', 'Alimentício', 'Editar', 'Deletar'),
-    //     createData('', 'Loja 3', 'Alimentício', 'Editar', 'Deletar'),
-    //     createData('', 'Loja 4', 'Alimentício', 'Editar', 'Deletar'),
-    //     createData('', 'Loja 5', 'Alimentício', 'Editar', 'Deletar'),
-    // ];
 
     return (
 
         <div className="Corpo">
 
 
-            <div classsName="Tabela">
+            <div classsName="Tabela" className="TableCostumizada">
                 <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto' }} >
-                    <Table aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-
-
-                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>ID</StyledTableCell>
+                    <Table aria-label="customized table" >
+                        <TableHead >
+                            <TableRow className="HeaderTabela">
+                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Nome</StyledTableCell>
-                                <StyledTableCell align="center" sx={{ fontSize: '1.1rem' }}>Ação</StyledTableCell>
-
-
+                                <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Ramo</StyledTableCell>
+                                <StyledTableCell align="center" sx={{ fontSize: '1.1rem' }}>Ações</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {dados.map((campo, l) => (
+                        <TableBody >
+                            {lojas.map((loja) => (
 
-                                <StyledTableRow key={campo}>
+                                <StyledTableRow key={loja.nome}>
                                     <StyledTableCell component="th" scope="row" align="left">
-                                        {campo.id}
+                                        {loja.imagem}
                                     </StyledTableCell>
-                                    <StyledTableCell align="left">{campo.nome}</StyledTableCell>
-
+                                    <StyledTableCell align="left">{loja.nome}</StyledTableCell>
+                                    <StyledTableCell align="left">{loja.ramo}</StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <Button size="small" color="primary">Editar</Button>
-                                        <Button size="small" color="error">Deletar</Button>
+                                        <Button size="small" color="primary">EDITAR</Button>
+                                        <Button size="small" color="error">DELETAR</Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
 

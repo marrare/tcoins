@@ -7,11 +7,15 @@
   --danger-color: #f53636;
   --warning-color: #ff6020;
   --heading-color: #32325d;
-  --shadow: 0 15px 35px rgba(28, 28, 53, 0.2), 0 5px 15px rgb(0 0 0 / 17%);
+  --shadow: 0 4px 8px rgb(0 0 0 / 10%);
 }
 
 * {
   text-decoration: none;
+}
+
+a {
+  color: #fff;
 }
 
 /*definir as especificações de fonte, margin e background-color*/
@@ -58,11 +62,40 @@ body {
   justify-content: space-between;
 }
 
+.HeaderCenter {
+  width: 50%;
+  align-self: center;
+}
+
+.HeaderNav {
+  display: flex;
+  width: 100%;
+}
+
+.HeaderTabela {
+  background-color: var(--primary-color);
+}
+
+.TableCostumizada {
+  font-family: "Poppins", sans-serif;
+}
+
 .FooterDireita {
   width: 55%;
 }
 
-.FooterLista {
+.HeaderLista {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  margin-left: 300px;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.FooterLista,
+.HeaderLista {
   list-style: none;
   text-align: left;
   color: #fff;
@@ -110,6 +143,10 @@ body {
 .ListaTitulo {
   font-size: 16px;
   font-weight: 700;
+
+}
+
+.ItemFooter {
   margin-bottom: 0.8rem;
 }
 
@@ -127,6 +164,10 @@ body {
 .Link {
   text-decoration: none;
   color: white;
+}
+
+.linkCard {
+  color: #000;
 }
 
 .Toolbar.Link {
@@ -151,10 +192,7 @@ body {
   width: 220px;
 }
 
-.Paginacao {
-  color: var(--primary-color);
-  align-self: flex-end;
-}
+
 
 .Card {
   display: flex;
@@ -164,7 +202,7 @@ body {
   margin-top: 30px;
   margin-bottom: 30px;
   justify-content: center;
-  gap: 2rem 2.5rem;
+  gap: 2rem 1.5rem;
 }
 
 .Botao {
@@ -215,6 +253,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 0.9rem;
 }
 
 .BotaoContainer {
@@ -222,9 +261,10 @@ body {
 }
 
 .Container {
-  padding: 1rem 2rem;
+  padding: 1rem 10rem;
   height: 100%;
   font-family: 'Poppins', sans-serif;
+
 
 }
 
@@ -241,10 +281,28 @@ body {
 
 .CardItem {
   /* margin-left: 60px; */
-  height: 130px;
-  width: 33%;
-  background-color: aqua;
+  height: 100px;
+  width: 20%;
+
 }
+
+.CardItem2 {
+  width: 100%;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%) !important;
+  transition: transform .2s ease-in-out, background .2s ease-in-out, border .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+.CardItem2:hover {
+  border: 0;
+  transition: transform .2s ease-in-out, background .2s ease-in-out, border .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+.Paginacao {
+  display: flex;
+  justify-content: end;
+  padding-right: 2.5rem;
+}
+
 
 @media (max-width: 580px) {
   .Card {

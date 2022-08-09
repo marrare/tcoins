@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import UsuarioService from '../../services/UsuarioService';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +15,30 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 function Cadastro() {
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function handleOnChangeNome(e){    
+    setNome(e.target.value);
+  }
+
+  function handleOnChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleOnChangeSenha(e) {
+    setSenha(e.target.value);
+  }
+  
+  function cadastrarUsuario() {
+    //ToDo - ajuste na função assim como está no service
+    debugger;
+    const setUser = UsuarioService.postUsuario(nome,email,senha)
+
+  }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -40,7 +66,8 @@ function Cadastro() {
                   name="Nome"
                   required
                   fullWidth
-                  id="firstName"
+                  id="nome"
+                  onChange={handleOnChangeNome}
                   label="Nome"
                   autoFocus
                 />
@@ -50,10 +77,12 @@ function Cadastro() {
                 <TextField
                   required
                   fullWidth
-                  id="Email"
                   label="Email"
                   name="email"
                   autoComplete="email"
+                  id="email"
+                  onChange={handleOnChangeEmail}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -63,8 +92,9 @@ function Cadastro() {
                   name="Senha"
                   label="Senha"
                   type="password"
-                  id="password"
                   autoComplete="Nova-senha"
+                  id="senha"
+                  onChange={handleOnChangeSenha}
                 />
               </Grid>
 
@@ -73,6 +103,7 @@ function Cadastro() {
               type="submit"
               fullWidth
               variant="contained"
+              onClick={cadastrarUsuario}
               sx={{ mt: 3, mb: 2 }}
             >
               CONFIRMAR

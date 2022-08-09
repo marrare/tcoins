@@ -1,151 +1,192 @@
 .Nav {
-    width: 90%;
-    margin: auto;
-    margin-top: 10px;
-    max-height: 600px;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  margin-top: 10px;
+  max-height: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ConteudoProduto {
+  width: 100%;
+  padding: 0 1.2rem;
+}
+
+.OpcoesProdutos {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
 }
 
 .Bloco1 {
-    display: flex;
+  display: flex;
 }
 
 .ImagemLoja {
-    background-color: black;
-    width: 200px;
-    height: 200px;
+  background-color: black;
+  width: 200px;
+  object-fit: cover;
+  height: 200px;
 }
 
 .Localizacao {
-    min-width: 600px;
-    height: 300px;
+  min-width: 600px;
+  height: 300px;
 }
 
 .NomeLoja {
-    margin-left: 15px;
-    margin-top: 30px;
+  margin-left: 15px;
+  margin-top: 30px;
+}
+
+.InformacoesSuperior {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .DescricaoLoja {
-    max-width: 700px;
-    text-align: start;
+  max-width: 700px;
+  text-align: start;
 }
 
 .BarraPesquisa {
-    margin: auto;
+  margin: auto;
+  width: 100%;
 }
 
 .Checkbox {
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .Listagem {
-    width: 900px;
-    margin: auto;
+  width: 900px;
+  margin: auto;
 }
 
 .ListaProdutos {
-    max-height: 130px;
-    width: 900px;
-    box-shadow: 2px 2px 10px #CCC;
-    display: flex;
-    margin: 20px;
+  background-color: #fff;
+  max-height: 130px;
+  width: 900px;
+  box-shadow: 2px 2px 10px #CCC;
+  display: flex;
+  margin: 20px;
 }
 
 .FotoProdutos {
-    height: 100px;
-    width: 100px;
-    padding: 10px;
-    align-self: center;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  padding: 10px;
+  align-self: center;
 
 }
 
 .DetalheProduto {
-    width: 700px;
-    max-height: 60px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  /* width: 700px; */
+  max-height: 60px;
+  gap: 5rem;
+  margin-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+}
+.DetalheProduto > h2{
+  font-size: 1.2rem;
 }
 
 .DescricaoProduto {
-    max-width: 80%;
-    text-align: justify;
-    margin-left: 2.5rem;
+  max-width: 80%;
+  text-align: justify;
+  /* margin-left: 2.5rem; */
 
 }
 
+.EditarProduto {
+  color: #00AFEF;
+  cursor: pointer;
+}
+
+.DeletarProduto {
+  cursor: pointer;
+  color: #f53636;
+}
+
+.DetalheProduto p>span {
+  color: #14ff27;
+  font-weight: bold;
+}
+
 .Fieldset {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 /* Checkbox */
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 30px;
-    height: 18px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    inline-size: 1;
-    content: "";
-    height: 12px;
-    width: 12px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  inline-size: 1;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 
-  .InputNumber {
-    margin-left: 20px;
-    width: 80%;
-  }
+.InputNumber {
+  margin-left: 20px;
+  width: 80%;
+}
