@@ -39,7 +39,7 @@ export default function MultiActionAreaCard({ loja, lojaInfo }) {
   //   //produtos array
 
   //   ramo: loja.ramoLoja,
-  const link = `loja/${loja.nome}`
+  const link = `loja/${loja.nome}/${loja.lojaId}`
   // }])
   return (
     <Card className="CardItem2" sx={{ maxWidth: 260 }}>
