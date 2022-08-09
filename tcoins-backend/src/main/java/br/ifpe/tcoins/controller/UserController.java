@@ -20,7 +20,7 @@ import br.ifpe.tcoins.exception.ResourceNotFoundException;
 import br.ifpe.tcoins.model.User;
 import br.ifpe.tcoins.service.UserService;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/usuario")
 public class UserController {
