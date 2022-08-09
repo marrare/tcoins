@@ -7,12 +7,12 @@ const ProdutoService = {
         const ret = await RequisicaoService.get(`produto?currentPage=${currentpage}&pageSize=${pageSize}`, header);
         return ret;
     },
-    async createProduto(lojaId, produto) {
-        const header = { lojaId: Number(lojaId) }
+    async createProduto(lojaId = "", produto) {
+        const header = { lojaId }
         const body = JSON.stringify(produto)
         console.log(body)
 
-        const ret = await RequisicaoService.post('produto', body, header);
+        const ret = await RequisicaoService.post('produto', produto, header);
         console.log(ret)
         return ret;
 
