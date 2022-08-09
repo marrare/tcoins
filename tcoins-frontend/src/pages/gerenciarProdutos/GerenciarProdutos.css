@@ -92,6 +92,9 @@
   align-items: center;
 
 }
+.DetalheProduto > h2{
+  font-size: 1.2rem;
+}
 
 .DescricaoProduto {
   max-width: 80%;
