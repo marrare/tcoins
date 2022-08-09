@@ -3,7 +3,7 @@
   import {useLoadScript, MarkerF, InfoWindowF} from '@react-google-maps/api'
   
   const containerStyle = {
-    width: '400px',
+    width: '600px',
     height: '250px'
   };
   
