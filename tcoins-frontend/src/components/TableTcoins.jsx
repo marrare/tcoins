@@ -38,7 +38,7 @@ export default function TableEstilizada({ lojas }) {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             /* backgroundColor: theme.palette.common.black, */
-            backgroundColor: theme.palette.primary.dark,
+            /* backgroundColor: theme.palette.primary.dark, */
             color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -55,24 +55,24 @@ export default function TableEstilizada({ lojas }) {
             border: 0,
         },
     }));
- 
+
     return (
 
         <div className="Corpo">
 
 
-            <div classsName="Tabela">
+            <div classsName="Tabela" className="TableCostumizada">
                 <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto' }} >
-                    <Table aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
+                    <Table aria-label="customized table" >
+                        <TableHead >
+                            <TableRow className="HeaderTabela">
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Nome</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Ramo</StyledTableCell>
                                 <StyledTableCell align="center" sx={{ fontSize: '1.1rem' }}>Ações</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody >
                             {lojas.map((loja) => (
 
                                 <StyledTableRow key={loja.nome}>

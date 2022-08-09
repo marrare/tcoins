@@ -27,9 +27,10 @@ function Home() {
     const [pesquisa, setPesquisa] = useState('');
     const [page, setPage] = React.useState(1);
     const [lojasHome, setLojas] = useState([]);
+    const [ramos, setRamos] = useState([])
 
-    const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
-    { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
+    // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
+    // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
 
     //metodo para pegar valor da page
     const handleChange = (event, value) => {
@@ -51,15 +52,21 @@ function Home() {
     //pegar os dados com filtro e busca
     useEffect(() => {
         //tratar o filtro de ramo colocando depois
+        getRamos()
         setPage(1)
         getLojas();
-        
+         
 
     }, [ramo, pesquisa])
 
     async function getLojas() {
         const lojas = await LojaService.getLojas(pesquisa, ramo, page, 4);
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
+
+    }
+    async function getRamos() {
+        const ramos = await LojaService.getRamos();
+        if (ramos.status == 200 || ramos.status == 404) setRamos(ramos.data);
 
     }
     async function getLojasPorPagina() {
@@ -70,26 +77,7 @@ function Home() {
     
 
 
-    /* const api = axios.create({
-        baseURL: 'https://servicodados.ibge.gov.br/api/v1/localidades/'
-    }); */
-    const [getdata, setData] = useState([]);
-
-
-    function resgatarDados() {
-        LojaService.getLojas('nomeLoja')
-            .then(function (response) {
-                setData(response.data);
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    useEffect(() => {
-        resgatarDados()
-    }, [])
+ 
 
     return (
 
@@ -115,7 +103,7 @@ function Home() {
                                     <em>Nenhum</em>
                                 </MenuItem>
                                 {ramos.map((ramoEscolhido, i) => (
-                                    <MenuItem value={ramoEscolhido.nome}>{ramoEscolhido.nome}</MenuItem>
+                                    <MenuItem value={ramoEscolhido.ramo}>{ramoEscolhido.ramo}</MenuItem>
                                 ))}
 
                             </Select>

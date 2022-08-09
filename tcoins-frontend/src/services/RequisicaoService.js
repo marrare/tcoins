@@ -20,11 +20,12 @@ const RequisicaoService = {
     post(rota, body, header = {}) {
         return new Promise(async (resolve, reject) => {
             try {
-                instance.post(rota, { headers: header }, body).then((data) => {
+                instance.post(rota, body, { headers: header }).then((data) => {
                     resolve(data);
                 }).catch((error) => reject(error));
             } catch (err) {
                 reject(err);
+                console.log(err)
             }
         });
     },
@@ -32,7 +33,7 @@ const RequisicaoService = {
     update(rota, body, header = {}) {
         return new Promise(async (resolve, reject) => {
             try {
-                instance.put(rota, { header: header }, body).then((data) => {
+                instance.put(rota, body, { header: header }).then((data) => {
                     resolve(data);
                 }).catch((error) => reject(error));
             } catch (err) {
