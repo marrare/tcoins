@@ -7,20 +7,24 @@ const ProdutoService = {
         const ret = await RequisicaoService.get(`produto?currentPage=${currentpage}&pageSize=${pageSize}`, header);
         return ret;
     },
-    async createProduto(lojaId = "", produto) {
-        const header = {lojaId }
-        const body = {produto}
+    async createProduto(lojaId, produto) {
+        const header = { lojaId: Number(lojaId) }
+        const body = JSON.stringify(produto)
+        console.log(body)
+
         const ret = await RequisicaoService.post('produto', body, header);
+        console.log(ret)
         return ret;
+
     },
     async updateProduto(produtoId = "", lojaId = "", produto) {
         const header = { produtoId, lojaId }
-        const body = {produto}
+        const body = { produto }
         const ret = await RequisicaoService.update('produto', body, header);
         return ret;
     },
     async deleteProduto(id) {
-        const header = {id}
+        const header = { id }
         const ret = await RequisicaoService.delete('produto', header);
         return ret;
     },

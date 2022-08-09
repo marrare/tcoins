@@ -19,6 +19,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ProdutoService from '../../services/ProdutoService';
 import ProdutosLista from '../../components/ProdutosLista'
+import { ToastContainer, toast } from 'react-toastify';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -36,6 +37,7 @@ const style = {
 function GerenciarProdutos() {
     //nome da loja
     const { nome } = useParams();
+    const { lojaId } = useParams();
     //Trazendo os produtos e a loja
     const [produtosLista, setProdutos] = useState([]);
     const [lojaDetalhe, setLoja] = useState([0]);
@@ -49,7 +51,35 @@ function GerenciarProdutos() {
     //coordenadas para o maps
     const latitude = lojaDetalhada.latitude;
     const longitude = lojaDetalhada.longitude;
-    const lojaId = lojaDetalhada.lojaId
+
+    //TOASTS
+    const sucesso = () => toast.success('Produto cadastrado com sucesso!', {
+        position: "top-right",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+    const erro = () => toast.error('Erro ao salvar novo produto!', {
+        position: "top-right",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
+    console.log(lojaId)
+
+    //dados do produto
+    const [nomeProduto, setNome] = useState('')
+    const [descricao, setDescricao] = useState('')
+    const [recompensa, setRecompensa] = useState('')
+    const [preco, setPreco] = useState('')
+    const [imagem, setImagem] = useState('')
 
     //logicas para o modal
     const [open, setOpen] = useState(false);
@@ -59,6 +89,23 @@ function GerenciarProdutos() {
     const [isDisabled, setIsDisabled] = useState(true);
     const [checkedTwo, setCheckedTwo] = useState(false);
     const [isDisabledTwo, setIsDisabledTwo] = useState(true);
+
+
+    const addNome = event => {
+        setNome(event.target.value);
+    };
+    const addImagem = event => {
+        setImagem(event.target.value);
+    };
+    const addDescricao = event => {
+        setDescricao(event.target.value);
+    };
+    const addPreco = event => {
+        setPreco(event.target.value);
+    };
+    const addRecompensa = event => {
+        setRecompensa(event.target.value);
+    };
 
 
     const handleChange = () => {
@@ -90,6 +137,13 @@ function GerenciarProdutos() {
         }
 
     };
+    const dadosProduto = {
+        nome: nomeProduto,
+        descricao: descricao,
+        precoTcoins: preco,
+        valorRecompensa: recompensa,
+        imagem: imagem
+    }
 
 
 
@@ -99,10 +153,21 @@ function GerenciarProdutos() {
 
         getLoja();
         getProdutos();
-        console.log(lojaDetalhe.lojaId)
+        console.log(lojaId)
 
 
     }, [])
+    //onde tiver 1 trocar por produto id
+    async function createProdut() {
+        const produtoAtualizado = await ProdutoService.createProduto(lojaId, dadosProduto);
+        if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) {
+            sucesso()
+        } else if (produtoAtualizado.status == 500) {
+            console.log('erro ao salvar')
+            erro()
+        };
+
+    }
 
     //reformular pra loja/info
     async function getLoja() {
@@ -112,7 +177,7 @@ function GerenciarProdutos() {
     }
 
     async function getProdutos() {
-        const produtos = await ProdutoService.getProdutosByLoja('', 1, '', '');
+        const produtos = await ProdutoService.getProdutosByLoja('', lojaId, '', '');
         if (produtos.status == 200 || produtos.status == 404) setProdutos(produtos.data);
     }
 
@@ -134,7 +199,7 @@ function GerenciarProdutos() {
                     <p className='DescricaoLoja'>{lojaDetalhada.descricao}</p>
                 </div>
                 <div className='Localizacao map'>
-                     <MapView lat={lojaDetalhada.latitude} lng={lojaDetalhada.longitude}></MapView>
+                    <MapView lat={latitude} lng={longitude}></MapView>
                 </div>
             </div>
 
@@ -176,45 +241,49 @@ function GerenciarProdutos() {
                         autoComplete="given-name"
                         name="Nome"
                         required
+                        value={nomeProduto}
                         fullWidth
                         id="firstName"
-                        label="Nome"
-                        autoFocus
-                    />
+                        onChange={addNome}
+                        label="Nome do produto"
+                        autoFocus />
+
                     <TextField sx={{ marginBottom: 1 }}
                         autoComplete="given-name"
                         name="Foto"
+                        value={imagem}
+                        onChange={addImagem}
                         required
                         fullWidth
                         id="Foto"
-                        label="Foto"
-                    />
+                        label="URL da imagem" />
                     <TextField
                         sx={{ height: 8, marginBottom: 5 }}
                         autoComplete="given-name"
                         name="Descricao"
+                        value={descricao}
                         required
                         fullWidth
+                        onChange={addDescricao}
                         id="Descricao"
-                        label="Descrição"
-                    />
+                        label="Descrição" />
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Recompensa em tcoins(TC)</legend>
-                        <label class="switch">
+                        <label className="switch">
                             <input type="checkbox" onClick={handleChange} checked={checked}
                             ></input>
 
-                            <span class="slider round"></span>
+                            <span className="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabled} ></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' value={recompensa} onChange={addRecompensa} disabled={isDisabled}></input>
                     </fieldset>
                     <fieldset className='Fieldset'>
                         <legend className='Legenda'>Comprar com tcoins(TC)</legend>
-                        <label class="switch">
+                        <label className="switch">
                             <input type="checkbox" onClick={handleChangeTwo} checked={checkedTwo}></input>
-                            <span class="slider round"></span>
+                            <span className="slider round"></span>
                         </label>
-                        <input type="number" className="InputNumber" placeholder='Valor da recompensa' disabled={isDisabledTwo}></input>
+                        <input type="number" className="InputNumber" placeholder='Valor da compra' value={preco} onChange={addPreco} disabled={isDisabledTwo}></input>
                     </fieldset>
 
                     <Button
@@ -231,15 +300,17 @@ function GerenciarProdutos() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={createProdut}
                     >
-                        CONFIRMAR
+                        SALVAR
                     </Button>
                 </Box>
             </Modal>
+            <ToastContainer />
 
 
             {produtosLista.map((produto, i) => (
-                <ProdutosLista produto={produto} lojaId={lojaDetalhada.lojaId}></ProdutosLista>
+                <ProdutosLista produto={produto} lojaId={lojaId}></ProdutosLista>
 
             ))}
 

@@ -25,6 +25,7 @@ const RequisicaoService = {
                 }).catch((error) => reject(error));
             } catch (err) {
                 reject(err);
+                console.log(err)
             }
         });
     },
