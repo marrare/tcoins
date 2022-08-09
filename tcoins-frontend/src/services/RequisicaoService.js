@@ -33,7 +33,7 @@ const RequisicaoService = {
     update(rota, body, header = {}) {
         return new Promise(async (resolve, reject) => {
             try {
-                instance.put(rota, { header: header }, body).then((data) => {
+                instance.put(rota, body, { header: header }).then((data) => {
                     resolve(data);
                 }).catch((error) => reject(error));
             } catch (err) {

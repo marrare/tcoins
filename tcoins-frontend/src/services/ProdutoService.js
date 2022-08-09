@@ -9,9 +9,6 @@ const ProdutoService = {
     },
     async createProduto(lojaId = "", produto) {
         const header = { lojaId }
-        const body = JSON.stringify(produto)
-        console.log(body)
-
         const ret = await RequisicaoService.post('produto', produto, header);
         console.log(ret)
         return ret;

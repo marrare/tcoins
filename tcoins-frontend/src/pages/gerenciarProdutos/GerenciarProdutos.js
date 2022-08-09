@@ -107,7 +107,15 @@ function GerenciarProdutos() {
         setRecompensa(event.target.value);
     };
 
-
+    const limparCampos = () => {
+        setNome('')
+        setDescricao('')
+        setPreco('')
+        setRecompensa('')
+        setImagem('')
+        handleChange()
+        handleChangeTwo()
+    }
     const handleChange = () => {
 
         setChecked(!checked)
@@ -146,14 +154,15 @@ function GerenciarProdutos() {
     }
 
 
-
+    useEffect(() => {
+        getProdutos();
+    }, [produtosLista])
 
     //pegar os dados por página
     useEffect(() => {
 
         getLoja();
         getProdutos();
-        console.log(lojaId)
 
 
     }, [])
@@ -161,7 +170,10 @@ function GerenciarProdutos() {
     async function createProdut() {
         const produtoAtualizado = await ProdutoService.createProduto(lojaId, dadosProduto);
         if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) {
+            handleClose()
             sucesso()
+            limparCampos()
+
         } else if (produtoAtualizado.status == 500) {
             console.log('erro ao salvar')
             erro()
