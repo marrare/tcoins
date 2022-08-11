@@ -3,14 +3,7 @@ package br.ifpe.tcoins.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.ifpe.tcoins.dto.request.UserRequestDTO;
 import br.ifpe.tcoins.dto.request.UserUpdateRequestDTO;
@@ -62,6 +55,14 @@ public class UserController {
        userAtt.setImagem(requestDTO.getImagem());
        usuarioService.updateUser(userAtt);
        return ResponseEntity.ok().build();
+   }
+
+   @PostMapping("/login")
+    public ResponseEntity login(@RequestHeader String email, @RequestHeader String senha){
+       UserDTO user = usuarioService.login(email, senha);
+       if (user != null)
+           return ResponseEntity.ok(user);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
    }
 
 }
