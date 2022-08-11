@@ -1,5 +1,6 @@
 package br.ifpe.tcoins.service;
 
+import br.ifpe.tcoins.dto.response.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class UserService {
 	}
 
 	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+		return userRepository.findByEmailAndDeletedFalse(email);
 	}
 
 	public String generateCodigoUser(){
@@ -56,4 +57,15 @@ public class UserService {
 				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 				.toString().toUpperCase();
 	}
+
+    public UserDTO login(String email, String senha) {
+		User user = this.userRepository.findByEmailAndDeletedFalse(email);
+		if (user == null)
+			throw new ResourceNotFoundException("Usuario não encontrado");
+
+		if (user.getSenha().equals(senha))
+			return UserDTO.convertFromUser(user);
+	return null;
+
+    }
 }
