@@ -9,10 +9,10 @@ import br.ifpe.tcoins.model.Loja;
 public class LojaDTO implements Serializable {
 
 	private static final long serialVersionUID = -2345142241051723236L;
-	
+
 	private Long donoId;
-	
-	private Long ramoId;
+
+	private String ramo;
 
 	private Long id;
 	
@@ -27,7 +27,9 @@ public class LojaDTO implements Serializable {
 	private Byte[] imagem;
 	
 	public static LojaDTO convertFromLoja(Loja loja) {
-		return new ModelMapper().map(loja, LojaDTO.class);
+		LojaDTO lojaDto = new ModelMapper().map(loja, LojaDTO.class);
+		lojaDto.setRamo(loja.getRamo().getRamo());
+		return lojaDto;
 	}
 	
 	public Loja convertToLoja() {
@@ -50,12 +52,12 @@ public class LojaDTO implements Serializable {
 		this.donoId = donoId;
 	}
 
-	public Long getRamoId() {
-		return ramoId;
+	public String getRamo() {
+		return ramo;
 	}
 
-	public void setRamoId(Long ramoId) {
-		this.ramoId = ramoId;
+	public void setRamo(String ramo) {
+		this.ramo = ramo;
 	}
 
 	public String getNome() {
