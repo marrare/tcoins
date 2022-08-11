@@ -5,6 +5,8 @@ import org.modelmapper.ModelMapper;
 
 public class ProdutoDTO {
 
+    private Long id;
+
     private String nome;
 
     private String descricao;
@@ -15,12 +17,22 @@ public class ProdutoDTO {
 
     private byte[] imagem;
 
+    private boolean deleted;
+
     public static ProdutoDTO convertFromProduto(Produto produto) {
         return new ModelMapper().map(produto, ProdutoDTO.class);
     }
 
     public Produto convertToProduto() {
         return new ModelMapper().map(this, Produto.class);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -63,4 +75,11 @@ public class ProdutoDTO {
         this.imagem = imagem;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }
