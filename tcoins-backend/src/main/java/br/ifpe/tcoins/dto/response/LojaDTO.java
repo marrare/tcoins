@@ -10,11 +10,11 @@ public class LojaDTO implements Serializable {
 
 	private static final long serialVersionUID = -2345142241051723236L;
 	
-	private Long lojaId;
-	
 	private Long donoId;
 	
-	private String ramo;
+	private Long ramoId;
+
+	private Long id;
 	
 	private String nome;
 	
@@ -27,21 +27,19 @@ public class LojaDTO implements Serializable {
 	private Byte[] imagem;
 	
 	public static LojaDTO convertFromLoja(Loja loja) {
-		LojaDTO lojaDto = new ModelMapper().map(loja, LojaDTO.class);
-		lojaDto.setRamo(loja.getRamo().getRamo());
-		return lojaDto;
+		return new ModelMapper().map(loja, LojaDTO.class);
 	}
 	
 	public Loja convertToLoja() {
 		return new ModelMapper().map(this, Loja.class);
 	}
 
-	public Long getLojaId() {
-		return lojaId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLojaId(Long lojaId) {
-		this.lojaId = lojaId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getDonoId() {
@@ -52,12 +50,12 @@ public class LojaDTO implements Serializable {
 		this.donoId = donoId;
 	}
 
-	public String getRamo() {
-		return ramo;
+	public Long getRamoId() {
+		return ramoId;
 	}
 
-	public void setRamo(String ramo) {
-		this.ramo = ramo;
+	public void setRamoId(Long ramoId) {
+		this.ramoId = ramoId;
 	}
 
 	public String getNome() {
