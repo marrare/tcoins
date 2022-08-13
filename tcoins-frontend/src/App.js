@@ -11,6 +11,7 @@ import Cadastro from './pages/cadastro/Cadastro';
 import ComprasUser from './pages/comprasUsuario/ComprasUser';
 import GerenciarLojas from './pages/gerenciarLojas/GerenciarLojas';
 import GerenciarProdutos from './pages/gerenciarProdutos/GerenciarProdutos';
+import Planos from './pages/planos/Planos';
 import GerenciarPerfil from './pages/gerenciarPerfil/GerenciarPerfil';
 import MultiActionAreaCard from './components/MultiActionAreaCard';
 
@@ -26,7 +27,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/gerenciar-lojas/:userId" element={<GerenciarLojas />} />
-        <Route path="/loja/:nome/:lojaId" element={<GerenciarProdutos />} />
+        <Route path="/loja/:nome" element={<GerenciarProdutos />} />
+        <Route path="/planos" element={<Planos />} />
       </Routes>
 
       <Footer></Footer>
