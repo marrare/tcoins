@@ -30,3 +30,8 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.formModal {
+    display: flex;
+    flex-direction: row;
+}
