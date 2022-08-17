@@ -28,6 +28,7 @@ function Home() {
     const [page, setPage] = React.useState(1);
     const [lojasHome, setLojas] = useState([]);
     const [ramos, setRamos] = useState([])
+    const [user, setUser] = useState();
 
     // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
     // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
@@ -40,7 +41,6 @@ function Home() {
         setRamo(value.props.value)
 
     }
-
 
     //pegar os dados por página
     useEffect(() => {

@@ -28,6 +28,9 @@ function Login() {
     function autenticarUsuario() {
       
         if(email == user.email && senha == user.senha) {
+            localStorage.setItem("id:",JSON.stringify(user.id) ),
+            localStorage.setItem("nome:",JSON.stringify(user.nome) ),
+            localStorage.setItem("email:",JSON.stringify(user.email))
             return <Navigate to="/" />
         }else{
             console.log("Credenciais incorretas")
@@ -37,7 +40,7 @@ function Login() {
       useEffect(() => {
         UsuarioService
           .getUsuario("id")
-          .then((response) => setUser(response.data))
+          .then((response) => setUser(response.data) )
           .catch((err) => {
             console.error("ops! ocorreu um erro" + err);
           });
