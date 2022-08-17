@@ -1,10 +1,10 @@
 import RequisicaoService from "./RequisicaoService";
 
 const UsuarioService = {
-
-    getUsuario(id = ""){
+    async getUsuario(id) {
         const header = { id }
-        RequisicaoService.get(id, header);
+        const ret = await RequisicaoService.get('usuario', header);
+        return ret;
     },
     //ToDo - Ajuste na função assim como está no swagger
     postUsuario(user = "", email = "", senha = "") {
@@ -14,7 +14,7 @@ const UsuarioService = {
 
     deleteUsuario(id = "") {
         const header = { id }
-        RequisicaoService.delete( "usuario", header);
+        RequisicaoService.delete("usuario", header);
     }
 
 }
