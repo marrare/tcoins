@@ -46,8 +46,6 @@ public class PlanoService {
 
         UserPlano userPlano = new UserPlano();
         userPlano.setPlano(planos);
-        userPlano.getPlano().getId();
-
         Calendar data = Calendar.getInstance();
         data.add(Calendar.MONTH, duracao);
         userPlano.setDataExpiracao(data.getTime());
