@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class User extends ObjetoGeral {
 	
 	@OneToOne(optional = true)
-	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
+	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable = true)
 	private UserPlano planoVigente;
 	
 	@Column(length = 45, nullable=false)
