@@ -1,24 +1,23 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import ButtonAppBar from './components/ButtonAppBar';
-import Footer from './components/Footer';
+import ButtonAppBar from "./components/ButtonAppBar";
+import Footer from "./components/Footer";
 
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Cadastro from './pages/cadastro/Cadastro';
-import ComprasUser from './pages/comprasUsuario/ComprasUser';
-import GerenciarLojas from './pages/gerenciarLojas/GerenciarLojas';
-import GerenciarProdutos from './pages/gerenciarProdutos/GerenciarProdutos';
-import Planos from './pages/planos/Planos';
-import GerenciarPerfil from './pages/gerenciarPerfil/GerenciarPerfil';
-import MultiActionAreaCard from './components/MultiActionAreaCard';
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Cadastro from "./pages/cadastro/Cadastro";
+import ComprasUser from "./pages/comprasUsuario/ComprasUser";
+import GerenciarLojas from "./pages/gerenciarLojas/GerenciarLojas";
+import GerenciarProdutos from "./pages/gerenciarProdutos/GerenciarProdutos";
+import Planos from "./pages/planos/Planos";
+import GerenciarPerfil from "./pages/gerenciarPerfil/GerenciarPerfil";
+import MultiActionAreaCard from "./components/MultiActionAreaCard";
 
 function App() {
   return (
     <div className="App">
-
       <ButtonAppBar></ButtonAppBar>
 
       <Routes>
@@ -32,7 +31,6 @@ function App() {
       </Routes>
 
       <Footer></Footer>
-
     </div>
   );
 }
