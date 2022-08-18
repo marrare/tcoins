@@ -17,11 +17,14 @@ const theme = createTheme();
 
 function Cadastro() {
 
+  //teste
+
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [user, setUser] = useState();
   let navigate = useNavigate();
+
 
   function handleOnChangeNome(e){    
     setNome(e.target.value);
