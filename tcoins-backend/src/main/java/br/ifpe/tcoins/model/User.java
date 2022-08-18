@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class User extends ObjetoGeral {
 	
 	@OneToOne(optional = true)
-	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
+	@JoinColumn(name = "plano_vigente", referencedColumnName = "id", nullable = true)
 	private UserPlano planoVigente;
 	
 	@Column(length = 45, nullable=false)
@@ -33,6 +33,17 @@ public class User extends ObjetoGeral {
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean deleted;
+
+	@Column(name = "tcoins")
+	private Long tcoins;
+
+	public Long getTcoins() {
+		return tcoins;
+	}
+
+	public void setTcoins(Long tcoins) {
+		this.tcoins = tcoins;
+	}
 
 	public UserPlano getPlanoVigente() {
 		return planoVigente;

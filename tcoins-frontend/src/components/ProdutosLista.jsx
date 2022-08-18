@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import ProdutoService from '../services/ProdutoService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InputLabel from '@mui/material/InputLabel';
 
 const style = {
     position: 'absolute',
@@ -33,7 +34,17 @@ const style = {
 
 
 export default function ProdutosLista({ produto, lojaId }) {
-    const sucesso = () => toast.success('Produto deletado com sucesso!', {
+    //console.log(produto)
+    const sucesso = (message) => toast.success(message, {
+        position: "top-right",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+    const erro = (message) => toast.error(message, {
         position: "top-right",
         autoClose: 6000,
         hideProgressBar: false,
@@ -46,11 +57,12 @@ export default function ProdutosLista({ produto, lojaId }) {
     const imageDefault = 'https://cdn-icons-png.flaticon.com/512/2649/2649327.png';
     const imageCard = produto.imagem === null ? imageDefault : produto.imagem;
 
+    const [produtosLista, setProdutos] = useState([]);
     const [nome, setNome] = useState(produto.nome)
     const [descricao, setDescricao] = useState(produto.descricao)
     const [recompensa, setRecompensa] = useState(produto.valorRecompensa)
     const [preco, setPreco] = useState(produto.precoTcoins)
-    const [imagem, setImagem] = useState(imageDefault)
+    const [imagem, setImagem] = useState(produto.imagem)
 
     const isRecompensaTcoins = produto.valorRecompensa === null ? false : true;
     const isPrecoTcoins = produto.valorRecompensa === null ? false : true;
@@ -70,7 +82,8 @@ export default function ProdutosLista({ produto, lojaId }) {
         setNome(event.target.value);
     };
     const mudarImagem = event => {
-        setImagem(event.target.value);
+        console.log(event.target.files[0]);
+
     };
     const mudarDescricao = event => {
         setDescricao(event.target.value);
@@ -111,28 +124,52 @@ export default function ProdutosLista({ produto, lojaId }) {
         }
 
     };
-    useEffect(() => {
+    const deleteProdutoClicado = (id, e) => {
+        console.log(id);
+        deleteProduto(id)
+    }
+    const editProdutoClicado = (id, e) => {
+        console.log(id);
+        updateProduto(id)
+    }
 
 
-
-
-    }, []);
     const dadosProduto = {
+        id: produto.id,
         nome: nome,
         descricao: descricao,
         precoTcoins: preco,
+        imagem: imagem,
         valorRecompensa: recompensa,
-        imagem: imagem
+    }
+
+    async function getProdutos() {
+        const produtos = await ProdutoService.getProdutosByLoja('', lojaId, '', '');
+        if (produtos.status == 200 || produtos.status == 404) setProdutos(produtos.data);
     }
     //onde tiver 1 trocar por produto id
-    async function updateProduto() {
-        const produtoAtualizado = await ProdutoService.updateProduto(1, lojaId, dadosProduto);
-        if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) console.log('tudo ok');
+    async function updateProduto(id) {
+        const produtoAtualizado = await ProdutoService.updateProduto(id, lojaId, dadosProduto);
+        if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) {
+            // childToParent(true)
+            handleClose()
+
+            sucesso('Produto atualizado com sucesso!')
+
+        } else {
+            handleClose()
+            erro('Erro ao atualizar produto!')
+        };
 
     }
-    async function deleteProduto() {
-        const produtoAtualizado = await ProdutoService.deleteProduto(1);
-        if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) sucesso();
+    async function deleteProduto(id) {
+        const produtoAtualizado = await ProdutoService.deleteProduto(id);
+        if (produtoAtualizado.status == 200 || produtoAtualizado.status == 404) {
+
+            sucesso('Produto deletado com sucesso!')
+        } else {
+            erro('Erro ao deletar produto!')
+        };
 
     }
 
@@ -151,6 +188,10 @@ export default function ProdutosLista({ produto, lojaId }) {
                 <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
                     Editar Produto
                 </Typography>
+                <TextField sx={{ marginBottom: 1 }}
+                    type="hidden"
+                    value={produto.id}
+                />
                 <TextField sx={{ marginTop: 2, marginBottom: 1 }}
                     autoComplete="given-name"
                     name="Nome"
@@ -161,16 +202,17 @@ export default function ProdutosLista({ produto, lojaId }) {
                     onChange={mudarNome}
                     label="Nome do produto"
                     autoFocus />
-
+                <InputLabel id="demo-simple-select-label">Foto</InputLabel>
                 <TextField sx={{ marginBottom: 1 }}
-                    autoComplete="given-name"
-                    name="Foto"
+
+                    type="file"
+                    fullWidth
                     value={imagem}
                     onChange={mudarImagem}
                     required
-                    fullWidth
                     id="Foto"
-                    label="URL da imagem" />
+
+                />
                 <TextField
                     sx={{ height: 8, marginBottom: 5 }}
                     autoComplete="given-name"
@@ -214,7 +256,7 @@ export default function ProdutosLista({ produto, lojaId }) {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    onClick={updateProduto}
+                    onClick={(e) => editProdutoClicado(produto.id, e)}
                 >
                     ATUALIZAR
                 </Button>
@@ -224,7 +266,7 @@ export default function ProdutosLista({ produto, lojaId }) {
             <div className="Listagem">
 
                 <div className="ListaProdutos">
-                    <img alt={produto.nome} className="FotoProdutos" src={imageDefault}></img>
+                    <img alt={produto.nome} className="FotoProdutos" src={produto.imagem}></img>
                     <div className="ConteudoProduto">
                         <div className="InformacoesSuperior">
                             <div className="DetalheProduto">
@@ -234,7 +276,7 @@ export default function ProdutosLista({ produto, lojaId }) {
                             </div>
                             <div className="OpcoesProdutos">
                                 <CreateIcon className="EditarProduto" fontSize='medium' onClick={handleOpen}></CreateIcon>
-                                <DeleteIcon className="DeletarProduto" fontSize='medium' onClick={deleteProduto}></DeleteIcon>
+                                <DeleteIcon className="DeletarProduto" fontSize='medium' onClick={(e) => deleteProdutoClicado(produto.id, e)}></DeleteIcon>
                             </div>
                         </div>
                         <div className='DescricaoProduto'>
