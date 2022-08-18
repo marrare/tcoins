@@ -2,6 +2,10 @@ package br.ifpe.tcoins.controller;
 
 import java.util.List;
 
+import br.ifpe.tcoins.dto.request.CardPaymentDTO;
+import br.ifpe.tcoins.dto.response.PaymentResponseDTO;
+import br.ifpe.tcoins.service.PagamentoService;
+import com.mercadopago.exceptions.MPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,6 +29,8 @@ import br.ifpe.tcoins.service.LojaService;
 import br.ifpe.tcoins.service.RamoService;
 import br.ifpe.tcoins.service.UserService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/loja")
 @CrossOrigin(origins = "*")
@@ -36,6 +42,8 @@ public class LojaController {
 	UserService userService;
 	@Autowired
 	RamoService ramoService;
+	@Autowired
+	PagamentoService pagamentoService;
 
 	@GetMapping
 	public ResponseEntity<List<LojaDTO>> getAll(
@@ -95,6 +103,12 @@ public class LojaController {
 		if (lojas.getNumberOfElements() == 0) throw new ResourceNotFoundException("Not found lojas");
 
 		return  ResponseEntity.ok(lojas.getContent());
+	}
+
+	@PostMapping("/pay")
+	public ResponseEntity<PaymentResponseDTO> processPayment(@RequestBody @Valid CardPaymentDTO cardPaymentDTO) throws MPException {
+		PaymentResponseDTO payment = pagamentoService.processPayment(cardPaymentDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(payment);
 	}
 
 }
