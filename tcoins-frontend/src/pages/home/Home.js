@@ -28,6 +28,8 @@ function Home() {
     const [page, setPage] = React.useState(1);
     const [lojasHome, setLojas] = useState([]);
     const [ramos, setRamos] = useState([])
+    const [user, setUser] = useState();
+    const [totalPages, getPages] = useState([])
 
     // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
     // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
@@ -41,10 +43,11 @@ function Home() {
 
     }
 
-
     //pegar os dados por página
     useEffect(() => {
         getLojasPorPagina();
+        getTotalPages();
+        console.log(localStorage.getItem('userId'))
     }, [page])
 
     //pegar os dados com filtro e busca
@@ -53,7 +56,6 @@ function Home() {
         getRamos()
         setPage(1)
         getLojas();
-         
 
     }, [ramo, pesquisa])
 
@@ -72,10 +74,12 @@ function Home() {
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
-    
+    async function getTotalPages() {
+        const lojas = await LojaService.getLojas('', '', '', '');
+        if (lojas.status == 200 || lojas.status == 404) getPages(Math.ceil(lojas.data.length/4));
 
+    }
 
- 
 
     return (
 
@@ -166,7 +170,7 @@ function Home() {
                     ))}
                 </div>
                 <div className='Paginacao'>
-                    <Pagination color="secondary" count={10} page={page} onChange={handleChange} />
+                    <Pagination color="secondary" count={totalPages} page={page} onChange={handleChange} />
                 </div>
 
 

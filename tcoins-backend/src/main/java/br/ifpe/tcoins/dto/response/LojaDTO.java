@@ -9,12 +9,12 @@ import br.ifpe.tcoins.model.Loja;
 public class LojaDTO implements Serializable {
 
 	private static final long serialVersionUID = -2345142241051723236L;
-	
-	private Long lojaId;
-	
+
 	private Long donoId;
-	
+
 	private String ramo;
+
+	private Long id;
 	
 	private String nome;
 	
@@ -36,12 +36,12 @@ public class LojaDTO implements Serializable {
 		return new ModelMapper().map(this, Loja.class);
 	}
 
-	public Long getLojaId() {
-		return lojaId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLojaId(Long lojaId) {
-		this.lojaId = lojaId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getDonoId() {
