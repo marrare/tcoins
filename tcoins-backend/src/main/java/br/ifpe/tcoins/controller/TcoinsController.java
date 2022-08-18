@@ -13,9 +13,14 @@ public class TcoinsController {
     @Autowired
     TcoinsService tcoinsService;
 
-    @PostMapping("uso")
-    public ResponseEntity usarTcoins(@RequestHeader Long UserId, @RequestHeader Integer valor){
-        tcoinsService.usarTcoins(UserId, valor);
+    @PostMapping("resgate")
+    public ResponseEntity resgatarTcoins(@RequestHeader Long userId, @RequestHeader Integer valor){
+        tcoinsService.usarTcoins(userId, valor);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("add")
+    public ResponseEntity addTcoins(@RequestHeader Long userId, @RequestHeader Integer valor){
+        tcoinsService.addTcoins(userId,valor);
         return ResponseEntity.ok().build();
     }
 }
