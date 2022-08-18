@@ -44,9 +44,7 @@ function Home() {
 
     //pegar os dados por página
     useEffect(() => {
-
         getLojasPorPagina();
-        console.log(page)
     }, [page])
 
     //pegar os dados com filtro e busca
@@ -117,7 +115,7 @@ function Home() {
                                 label="Ramo"
                                 selectedValue={ordem}
                                 onChange={(itemValue) => setOrdem(itemValue)}
-                                placeholder="Selecione "
+                                placeholder="Selecione"
                             >
                                 <MenuItem value="">
                                     <em>Nenhum</em>
