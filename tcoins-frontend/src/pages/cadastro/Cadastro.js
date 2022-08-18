@@ -14,12 +14,26 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Toasts from '../../components/Toasts'
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 
 const theme = createTheme();
 
 function Cadastro() {
 
-  //teste
+  const firebaseConfig = {
+    apiKey: "AIzaSyBr7xDG3FPEYPMaiOnMlJNxVJMnJ4-A12k",
+    authDomain: "t-coins-a913f.firebaseapp.com",
+    projectId: "t-coins-a913f",
+    storageBucket: "t-coins-a913f.appspot.com",
+    messagingSenderId: "590110810673",
+    appId: "1:590110810673:web:32540c4b9bbe2b709fab10",
+    measurementId: "G-G5VVCP0RKK"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -47,9 +61,26 @@ function Cadastro() {
 
   }).catch(() => {
       Toasts.erro('Não foi possivel cadastrar usuário')
-  });;
+  })
   }
+    function signInWithGoogle () {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const nameGoogle = result.user.displayName;
+        const emailGoogle = result.user.email;
+        const User = UsuarioService.postUsuario(nameGoogle,emailGoogle,'senha').then((data) => {
 
+          navigate("/login", { replace: true });
+    
+      }).catch(() => {
+          Toasts.erro('Não foi possivel cadastrar usuário')
+      })
+  
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -117,6 +148,14 @@ function Cadastro() {
               sx={{ mt: 3, mb: 2 }}
             >
               CONFIRMAR
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={signInWithGoogle}
+              sx={{ mt: 3, mb: 2 }}
+            >
+              cadastrar com google
             </Button>
             <ToastContainer
                         position="top-right"
