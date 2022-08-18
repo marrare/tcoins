@@ -94,8 +94,9 @@ export default function UserIcone({ user }) {
                 <MenuItem>
                     <ListItemIcon>
                         <Person fontSize="small" />
+                        <Link className="linkCard" to={"/perfil"}>Minha conta</Link>
                     </ListItemIcon>
-                    Minha conta
+                    
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon>

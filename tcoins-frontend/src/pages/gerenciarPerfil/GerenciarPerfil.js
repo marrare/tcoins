@@ -1,12 +1,32 @@
 import React from 'react';
 import './GerenciarPerfil.css';
-
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import UsuarioService from '../../services/UsuarioService';
 
 function GerenciarPerfil() {
+    const [user, setUser] = useState([]);
+    const [userID, setId] = useState();
+
+    useEffect(() => {
+        setInterval(() => {
+          const idUsuario = localStorage.getItem('userId');
+          setId(idUsuario);
+          getUser();
+        }, 1000);
+      }, []);
+      useEffect(() => {
+        const idUsuario = localStorage.getItem('userId')
+        setId(idUsuario)
+        getUser();
+      }, [userID])
+    async function getUser() {
+        const usuario = await UsuarioService.getUsuario(userID).then((user)=>{ setUser(user.data)})
+    
+      }
     return (
 
         <div className='container'>
@@ -21,82 +41,30 @@ function GerenciarPerfil() {
                             fullWidth
                             size="small"
                     /> */}
-                    <input type="file" className='foto'></input>
                 </div>
                 <TextField 
-                    autoComplete="given-name"
                     name="Nome"
-                    required
+                    disabled
                     fullWidth
-                    id="firstName"
-                    label="Nome"
-                    autoFocus
+                    label={user.nome}
                     size="small"
                 />
                 <TextField
                     margin="normal"
-                    required
+                    disabled
                     fullWidth
                     id="standard-basic"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
+                    label={user.email}
                     size="small"
                 />
                 <TextField
                     margin="normal"
-                    required
+                    disabled
                     fullWidth
-                    name="password"
-                    label="Senha"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
+                    id="standard-basic"
+                    label={user.codigoUser}
                     size="small"
                 />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Nova Senha"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    size="small"
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Confirmar Senha"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    size="small"
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3 }}
-                    className='Botao'
-
-                >
-                    Confirmar
-                </Button>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mb: 2 }}
-                    className='Botao'
-                >
-                    Cancelar
-                </Button>
-
-
             </div>
         </div>
     )

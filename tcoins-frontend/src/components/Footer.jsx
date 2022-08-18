@@ -18,21 +18,22 @@ export default function Footer() {
                     <nav className='FooterNav'>
                         <ul className='FooterLista'>
                             <span className='ListaTitulo ItemFooter'>Planos</span>
-                            <li className='ListaItem'>Standard</li>
-                            <li className='ListaItem'>Intermediary</li>
-                            <li className='ListaItem'>Advanced</li>
+                            <li className='ListaItem'>Básico</li>
+                            <li className='ListaItem'>Padrão</li>
+                            <li className='ListaItem'>Padrão múltiplo</li>
+                            <li className='ListaItem'>Premium</li>
                         </ul>
                         <ul className='FooterLista'>
                             <span className='ListaTitulo ItemFooter'>Quem somos?</span>
-                            <li className='ListaItem'>Lorem</li>
-                            <li className='ListaItem'>Lorem</li>
-                            <li className='ListaItem'>Lorem</li>
+                            <li className='ListaItem'>Informações da empresa</li>
+                            <li className='ListaItem'>Localização</li>
+                            <li className='ListaItem'>Clientes</li>
                         </ul>
                         <ul className='FooterLista'>
                             <span className='ListaTitulo ItemFooter'>Dúvidas</span>
-                            <li className='ListaItem'>Lorem</li>
-                            <li className='ListaItem'>Lorem</li>
-                            <li className='ListaItem'>Lorem</li>
+                            <li className='ListaItem'>FAQ</li>
+                            <li className='ListaItem'>TELEFONES</li>
+                            <li className='ListaItem'>CHAT</li>
                         </ul>
                     </nav>
                 </div>

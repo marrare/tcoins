@@ -28,6 +28,7 @@ function App() {
         <Route path="/gerenciar-lojas/:userId" element={<GerenciarLojas />} />
         <Route path="/loja/:nome/:id" element={<GerenciarProdutos />} />
         <Route path="/planos" element={<Planos />} />
+        <Route path="/perfil" element={<GerenciarPerfil />} />
       </Routes>
 
       <Footer></Footer>
