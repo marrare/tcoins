@@ -20,3 +20,8 @@
 .BotaoAcao {
     margin-right: 10px;
 }
+
+.BotaoLojas {
+    background-color: var(--sucess-color);
+    margin-bottom: 0.7rem;
+}

@@ -93,7 +93,8 @@ body {
   align-items: center;
 
 }
-.fotoTabela{
+
+.fotoTabela {
   width: 30px;
   height: 20px;
 }
@@ -224,6 +225,12 @@ body {
   transition: all .15s ease;
   box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
 }
+
+.BotaoLojas {
+  background-color: var(--sucess-color);
+  margin-bottom: 0.7rem;
+}
+
 
 .Login {
   color: #000;

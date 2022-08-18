@@ -22,7 +22,7 @@ const LojaService = {
         const ret = await RequisicaoService.get(`loja/usuario?page=${page}&pageSize=${pageSize}`, header);
         return ret;
     },
-    async createLoja(userId = "", ramoId, loja) {
+    async createLoja(userId, ramoId, loja) {
         const header = { userId, ramoId }
         const ret = await RequisicaoService.post('loja', loja, header);
         return ret;
@@ -35,8 +35,8 @@ const LojaService = {
     // },
     async deleteLoja(lojaId) {
         const header = { lojaId }
-        const ret = await RequisicaoService.delete('loja', header);
-        return ret;
+        return RequisicaoService.delete('loja', header);
+
     },
 }
 
