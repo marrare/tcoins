@@ -27,9 +27,12 @@ function Home() {
     const [pesquisa, setPesquisa] = useState('');
     const [page, setPage] = React.useState(1);
     const [lojasHome, setLojas] = useState([]);
+    const [ramos, setRamos] = useState([])
+    const [user, setUser] = useState();
+    const [totalPages, getPages] = useState([])
 
-    const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
-    { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
+    // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
+    // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
 
     //metodo para pegar valor da page
     const handleChange = (event, value) => {
@@ -40,20 +43,19 @@ function Home() {
 
     }
 
-
     //pegar os dados por página
     useEffect(() => {
-
         getLojasPorPagina();
-        console.log(page)
+        getTotalPages();
+        console.log(localStorage.getItem('userId'))
     }, [page])
 
     //pegar os dados com filtro e busca
     useEffect(() => {
         //tratar o filtro de ramo colocando depois
+        getRamos()
         setPage(1)
         getLojas();
-        
 
     }, [ramo, pesquisa])
 
@@ -62,34 +64,22 @@ function Home() {
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
+    async function getRamos() {
+        const ramos = await LojaService.getRamos();
+        if (ramos.status == 200 || ramos.status == 404) setRamos(ramos.data);
+
+    }
     async function getLojasPorPagina() {
         const lojas = await LojaService.getLojas('', '', page, 4);
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
-    
+    async function getTotalPages() {
+        const lojas = await LojaService.getLojas('', '', '', '');
+        if (lojas.status == 200 || lojas.status == 404) getPages(Math.ceil(lojas.data.length/4));
 
-
-    /* const api = axios.create({
-        baseURL: 'https://servicodados.ibge.gov.br/api/v1/localidades/'
-    }); */
-    const [getdata, setData] = useState([]);
-
-
-    function resgatarDados() {
-        LojaService.getLojas('nomeLoja')
-            .then(function (response) {
-                setData(response.data);
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
-    useEffect(() => {
-        resgatarDados()
-    }, [])
 
     return (
 
@@ -115,7 +105,7 @@ function Home() {
                                     <em>Nenhum</em>
                                 </MenuItem>
                                 {ramos.map((ramoEscolhido, i) => (
-                                    <MenuItem value={ramoEscolhido.nome}>{ramoEscolhido.nome}</MenuItem>
+                                    <MenuItem value={ramoEscolhido.ramo}>{ramoEscolhido.ramo}</MenuItem>
                                 ))}
 
                             </Select>
@@ -129,7 +119,7 @@ function Home() {
                                 label="Ramo"
                                 selectedValue={ordem}
                                 onChange={(itemValue) => setOrdem(itemValue)}
-                                placeholder="Selecione "
+                                placeholder="Selecione"
                             >
                                 <MenuItem value="">
                                     <em>Nenhum</em>
@@ -180,7 +170,7 @@ function Home() {
                     ))}
                 </div>
                 <div className='Paginacao'>
-                    <Pagination color="secondary" count={10} page={page} onChange={handleChange} />
+                    <Pagination color="secondary" count={totalPages} page={page} onChange={handleChange} />
                 </div>
 
 

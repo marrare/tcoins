@@ -19,6 +19,8 @@ public class UserDTO {
 
     private Byte[] imagem;
 
+    private Long tcoins;
+
     public UserDTO() {
     }
 
@@ -38,6 +40,14 @@ public class UserDTO {
 
     public User convertToUser() {
         return new ModelMapper().map(this, User.class);
+    }
+
+    public Long getTcoins() {
+        return tcoins;
+    }
+
+    public void setTcoins(Long tcoins) {
+        this.tcoins = tcoins;
     }
 
     public Long getId() {

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './GerenciarLojas.css';
 import LojaService from '../../services/LojaService';
+
+import Toasts from '../../components/Toasts';
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
@@ -25,6 +27,8 @@ import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import gerar from '../gerarPdf';
+import { ToastContainer } from 'react-toastify';
 
 const style = {
     position: 'absolute',
@@ -64,27 +68,65 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function GerenciarLojas() {
-
+    const [pesquisa, setPesquisa] = useState('');
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    const [ramo, setRamo] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setRamo(event.target.value);
-    };
-
+    const [ramos, setRamos] = useState([])
     const { userId } = useParams();
     const [lojasPorDono, setLojasPorDono] = useState([0]);
     //puxando o primeiro array
-    const lojasDetalhadas = lojasPorDono[0]
+    const lojaTabela = [...lojasPorDono].reverse()
 
-    //pegar os dados por página
+
+    //dados da loja
+    const [nomeLoja, setNome] = useState('')
+    const [descricao, setDescricao] = useState('')
+    const [ramo, setRamo] = useState()
+    const [imagem, setImagem] = useState()
+    const [latitude, setLatitude] = useState(-8.1184208)
+    const [longitude, setLongitude] = useState(-35.0335069)
+
+    const dadosLoja = {
+        nome: nomeLoja,
+        descricao: descricao,
+        latitude: latitude,
+        longitude: longitude,
+        imagem: imagem
+    }
+
+    //adicionar loja
+    const mudarRamo = (event, value) => {
+        setRamo(value.props.value)
+    }
+    const addNome = event => {
+        setNome(event.target.value);
+    };
+    const addImagem = event => {
+
+        const file = event.target.files[0].file;
+        setImagem(file);
+    };
+    const addDescricao = event => {
+        setDescricao(event.target.value);
+    };
+
+
+    const limparCampos = () => {
+        setNome('')
+        setDescricao('')
+        setImagem('')
+        setRamo('')
+
+    }
     useEffect(() => {
-
         getLojasPorDono();
 
+    }, [lojasPorDono])
+    //pegar os dados
+    useEffect(() => {
+        getRamos()
+        getLojasPorDono();
 
     }, [])
 
@@ -92,6 +134,25 @@ export default function GerenciarLojas() {
     async function getLojasPorDono() {
         const lojasGerenciadas = await LojaService.getLojasByUser(userId, '', '');
         if (lojasGerenciadas.status == 200 || lojasGerenciadas.status == 404) setLojasPorDono(lojasGerenciadas.data);
+
+    }
+    async function getRamos() {
+        const ramos = await LojaService.getRamos();
+        if (ramos.status == 200 || ramos.status == 404) setRamos(ramos.data);
+
+    }
+    async function createLoja() {
+        const loja = await LojaService.createLoja(userId, ramo, dadosLoja);
+        console.log(loja.status)
+        if (loja.status == 200 || loja.status == 404 || loja.status === 201) {
+            debugger
+            handleClose()
+            Toasts.sucesso('Loja cadastrada com sucesso!')
+            limparCampos()
+
+        } else if (loja.status == 500) {
+            Toasts.erro('Erro ao cadastrar loja!')
+        };
 
     }
     return (
@@ -108,6 +169,7 @@ export default function GerenciarLojas() {
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="Buscar por nome"
                         inputProps={{ 'aria-label': 'Buscar por nome' }}
+                        onChange={e => setPesquisa(e.target.value.toLowerCase())}
                     />
                     <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                         <SearchIcon />
@@ -117,9 +179,10 @@ export default function GerenciarLojas() {
                         <AddIcon />
                     </IconButton>
                 </Paper>
+                <Button className="Botao" color="inherit" onClick={(e) => gerar(lojasPorDono)}>Baixar PDF</Button>
             </div>
 
-            <TableEstilizada lojas={lojasPorDono}></TableEstilizada>
+            <TableEstilizada lojas={lojaTabela}></TableEstilizada>
 
             <Modal
                 open={open}
@@ -136,6 +199,8 @@ export default function GerenciarLojas() {
                         name="Nome"
                         required
                         fullWidth
+                        value={nomeLoja}
+                        onChange={addNome}
                         id="firstName"
                         label="Nome"
                         autoFocus
@@ -146,28 +211,33 @@ export default function GerenciarLojas() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         name="Ramo"
+                        placeholder="Selecione "
                         required
                         fullWidth
                         value={ramo}
                         label="Ramo"
-                        onChange={handleChange}
+                        onChange={mudarRamo}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
+                        <MenuItem value=''>
+                            <em>Nenhum</em>
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {ramos.map((ramoEscolhido, i) => (
+                            <MenuItem value={ramoEscolhido.id}>{ramoEscolhido.ramo}</MenuItem>
+                        ))}
                     </Select>
                     <InputLabel id="demo-simple-select-label">Foto</InputLabel>
-                    <TextField sx={{marginBottom: 1 }}
+                    <TextField sx={{ marginBottom: 1 }}
                         name="upload-photo"
                         type="file"
                         fullWidth
+                        value={imagem}
+                        onClick={addImagem}
                     />
                     <TextField
                         sx={{ height: 8, marginBottom: 5 }}
                         autoComplete="given-name"
+                        value={descricao}
+                        onChange={addDescricao}
                         name="Descricao"
                         required
                         fullWidth
@@ -188,14 +258,27 @@ export default function GerenciarLojas() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={createLoja}
                     >
                         CONFIRMAR
                     </Button>
                 </Box>
             </Modal>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='colored'
+            />
 
 
-            
+
 
         </div>
     );

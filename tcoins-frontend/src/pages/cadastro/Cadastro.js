@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -21,6 +22,8 @@ function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [user, setUser] = useState();
+  let navigate = useNavigate();
 
   const usuario = {
     nome: nome,
@@ -41,13 +44,8 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    const setUser = UsuarioService.postUsuario(usuario).then( ()=>{ 
-    console.log("Pegou")
-    } , (erro)=> {
-      console.log("deu erro", erro)
-
-    })
-
+    const User = UsuarioService.postUsuario(nome,email,senha);
+    navigate("/", { replace: true });
   }
 
 
@@ -111,7 +109,6 @@ function Cadastro() {
 
             </Grid>
             <Button
-              type="Button"
               fullWidth
               variant="contained"
               onClick={cadastrarUsuario}
