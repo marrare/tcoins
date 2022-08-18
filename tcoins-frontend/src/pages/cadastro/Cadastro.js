@@ -25,11 +25,6 @@ function Cadastro() {
   const [user, setUser] = useState();
   let navigate = useNavigate();
 
-  const usuario = {
-    nome: nome,
-    email: email,
-    senha: senha,
-  }
 
   function handleOnChangeNome(e){    
     setNome(e.target.value);
