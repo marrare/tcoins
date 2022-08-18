@@ -34,6 +34,17 @@ public class User extends ObjetoGeral {
 	@Column(columnDefinition = "boolean default false")
 	private boolean deleted;
 
+	@Column(name = "tcoins")
+	private Long tcoins;
+
+	public Long getTcoins() {
+		return tcoins;
+	}
+
+	public void setTcoins(Long tcoins) {
+		this.tcoins = tcoins;
+	}
+
 	public UserPlano getPlanoVigente() {
 		return planoVigente;
 	}
