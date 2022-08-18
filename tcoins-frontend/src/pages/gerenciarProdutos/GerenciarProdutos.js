@@ -242,10 +242,7 @@ function GerenciarProdutos() {
                 </IconButton>
             </Paper>
 
-            <div className="Checkbox">
-                <input type='checkbox'></input>
-                <label>Apenas produtos que permitem comprar com tcoins (TC)</label>
-            </div>
+
 
             <Modal
                 open={open}

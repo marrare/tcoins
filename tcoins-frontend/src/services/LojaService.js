@@ -35,8 +35,8 @@ const LojaService = {
     // },
     async deleteLoja(lojaId) {
         const header = { lojaId }
-        const ret = await RequisicaoService.delete('loja', header);
-        return ret;
+        return RequisicaoService.delete('loja', header);
+        
     },
 }
 

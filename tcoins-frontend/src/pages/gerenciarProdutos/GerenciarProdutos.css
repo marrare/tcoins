@@ -82,6 +82,8 @@
 
 }
 
+
+
 .DetalheProduto {
   /* width: 700px; */
   max-height: 60px;
@@ -92,7 +94,8 @@
   align-items: center;
 
 }
-.DetalheProduto > h2{
+
+.DetalheProduto>h2 {
   font-size: 1.2rem;
 }
 

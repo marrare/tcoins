@@ -29,6 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import gerar from '../gerarPdf';
 import { ToastContainer } from 'react-toastify';
+import '../../App.css'
 
 const style = {
     position: 'absolute',
@@ -179,7 +180,7 @@ export default function GerenciarLojas() {
                         <AddIcon />
                     </IconButton>
                 </Paper>
-                <Button className="Botao" color="inherit" onClick={(e) => gerar(lojasPorDono)}>Baixar PDF</Button>
+                <Button className="Botao BotaoLojas" color="inherit" onClick={(e) => gerar(lojasPorDono)}>Baixar PDF</Button>
             </div>
 
             <TableEstilizada lojas={lojaTabela}></TableEstilizada>

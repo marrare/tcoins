@@ -71,14 +71,18 @@ export default function TableEstilizada({ lojas }) {
     }));
 
     async function deleteLoja(id) {
-        const loja = await LojaService.deleteLoja(id);
-
-        if (loja.status == 200 || loja.status == 404 || loja.status === 201) {
+        const loja = await LojaService.deleteLoja(id).then(() => {
             Toasts.sucesso('Loja deletada com sucesso!')
 
-        } else if (loja.status == 500) {
+        }).catch(() => {
             Toasts.erro('Erro ao deletar loja!')
-        };
+        })
+
+        // if () {
+
+        // } else if (loja.status == 500) {
+
+        // };
 
     }
 
@@ -108,7 +112,7 @@ export default function TableEstilizada({ lojas }) {
                                     <StyledTableCell align="left">{loja.nome}</StyledTableCell>
                                     <StyledTableCell align="left">{loja.ramo}</StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <Button size="small" color="primary" >EDITAR</Button>
+                                        {/* <Button size="small" color="primary" >EDITAR</Button> */}
                                         <Button size="small" color="error" onClick={(e) => deleteRow(loja.id, e)}>DELETAR</Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
