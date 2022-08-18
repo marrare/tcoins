@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
     setId(idUsuario)
     getUser();
   }, [userID])
-  const botão = !userID || userID == undefined ? <UserIcone user={user}></UserIcone>: <div className='Botoes'>
+  const botão = userID && userID != 'undefined' ? <UserIcone user={user}></UserIcone>: <div className='Botoes'>
   <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
   <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
 </div>
