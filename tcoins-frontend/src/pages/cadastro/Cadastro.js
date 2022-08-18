@@ -40,8 +40,8 @@ function Cadastro() {
     setSenha(e.target.value);
   }
   
-  function cadastrarUsuario() {
-    const User = UsuarioService.postUsuario(nome,email,senha).then((data) => {
+  async function cadastrarUsuario() {
+    const User = await UsuarioService.postUsuario(nome,email,senha).then((data) => {
 
       navigate("/login", { replace: true });
 

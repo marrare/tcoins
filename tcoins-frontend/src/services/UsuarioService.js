@@ -7,14 +7,14 @@ const UsuarioService = {
         return ret;
     },
 
-    postUsuario(user = "", email = "", senha = "") {
+    async postUsuario(user = "", email = "", senha = "") {
         const header = { user }
         const body = {
             "nome": user,
             "email": email,
             "senha": senha
           }
-        RequisicaoService.post("usuario", body, header)
+        await RequisicaoService.post("usuario", body, header)
     },
 
     deleteUsuario(id = "") {
