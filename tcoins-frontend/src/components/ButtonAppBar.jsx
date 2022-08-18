@@ -8,10 +8,39 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import UserIcone from './UserInformation'
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
+import UsuarioService from '../services/UsuarioService';
 
 export default function ButtonAppBar() {
+
+  // const opcao = isLogado ? <UserIcone user={user}></UserIcone>;
+  // <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
+  // <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
+
+
+  //pra o user que logar
+  const [isLogado, setLogado] = React.useState(false);
+  const { userId } = useParams();
+  const [user, setUser] = useState([]);
+  const [userID, setId] = useState()
+
+  useEffect(() => {
+    const idUsuario = localStorage.getItem('userId')
+    console.log(idUsuario)
+
+    setId(idUsuario)
+    getUser();
+  }, [userID])
+
+  async function getUser() {
+    const usuario = await UsuarioService.getUsuario(userID);
+    if (usuario.status == 200 || usuario.status == 404) setUser(usuario.data);
+
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -39,8 +68,10 @@ export default function ButtonAppBar() {
             </nav>
           </div>
           <div className='Botoes'>
-            <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
-            <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
+
+
+            <UserIcone user={user}></UserIcone>
+
           </div>
 
         </Toolbar>

@@ -1,20 +1,30 @@
 import RequisicaoService from "./RequisicaoService";
 
 const UsuarioService = {
-
-    getUsuario(id = ""){
+    async getUsuario(id) {
         const header = { id }
-        RequisicaoService.get(id, header);
+        const ret = await RequisicaoService.get('usuario', header);
+        return ret;
     },
-    //ToDo - Ajuste na função assim como está no swagger
+
     postUsuario(user = "", email = "", senha = "") {
-        const header = { user, email, senha }
-        RequisicaoService.post("usuario", header)
+        const header = { user }
+        const body = {
+            "nome": user,
+            "email": email,
+            "senha": senha
+          }
+        RequisicaoService.post("usuario", body, header)
     },
 
     deleteUsuario(id = "") {
         const header = { id }
-        RequisicaoService.delete( "usuario", header);
+        RequisicaoService.delete("usuario", header);
+    },
+    async login(email="", senha=""){
+        const header = { email, senha }
+        const ret = await RequisicaoService.post('usuario/login', header ,header);
+        return ret;
     }
 
 }

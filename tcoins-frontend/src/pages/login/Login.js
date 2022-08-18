@@ -1,47 +1,58 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import UsuarioService from '../../services/UsuarioService';
-import {Navigate} from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import Toasts from '../../components/Toasts'
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-
+import { ToastContainer } from 'react-toastify';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 function Login() {
-
+    let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-
     const [user, setUser] = useState();
+    const [userID, setUserID] = useState();
 
-    function handleOnChange(e){    
-        setEmail(e.target.value);
-        setSenha(e.target.value);
-        console.log(email);
+    function handleOnChange(e) {
+        setEmail(e.target.value)
+    }
+    function OnChange(e) {
+        setSenha(e.target.value)
+    }
+    function saveLocalStorage(e) {
+        localStorage.setItem("userId", userID);
+
+
+
     }
 
-    function autenticarUsuario() {
-      
-        if(email == user.email && senha == user.senha) {
-            return <Navigate to="/" />
-        }else{
-            console.log("Credenciais incorretas")
-        }
-    }
+    async function autenticarUsuario() {
+        const user = await UsuarioService.login(email, senha).then((data) => {
 
-      useEffect(() => {
-        UsuarioService
-          .getUsuario("id")
-          .then((response) => setUser(response.data))
-          .catch((err) => {
-            console.error("ops! ocorreu um erro" + err);
-          });
-      }, []);
+            setUser(data.data.nome);
+            setUserID(data.data.id)
+            saveLocalStorage()
+            if (userID) {
+                navigate("/")
+
+
+            }
+
+        }).catch(() => {
+
+            Toasts.erro('Email ou senha incorreta')
+        });
+
+    }
+    useEffect(() => {
+        localStorage.setItem("usuario", user)
+    }, [user])
 
 
     return (
@@ -85,13 +96,25 @@ function Login() {
                             label="Senha"
                             type="password"
                             id="senha"
-                            onChange={handleOnChange}
+                            onChange={OnChange}
                             autoComplete="current-password"
                         />
                     </Grid>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme='colored'
+                    />
+
 
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         onClick={autenticarUsuario}
@@ -109,6 +132,7 @@ function Login() {
                     </Grid>
                 </Box>
             </Box>
+
 
         </div>
 

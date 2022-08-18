@@ -10,6 +10,7 @@ const RequisicaoService = {
             try {
                 instance.get(rota, { headers: header }).then((data) => {
                     resolve(data);
+                    
                 }).catch((error) => reject(error));
             } catch (err) {
                 reject(err);
@@ -20,7 +21,7 @@ const RequisicaoService = {
     post(rota, body, header = {}) {
         return new Promise(async (resolve, reject) => {
             try {
-                instance.post(rota, body, { headers: header }).then((data) => {
+                instance.post(rota, body, { headers: header, "Content-Type": "multipart/form-data" }).then((data) => {
                     resolve(data);
                 }).catch((error) => reject(error));
             } catch (err) {
@@ -33,7 +34,7 @@ const RequisicaoService = {
     update(rota, body, header = {}) {
         return new Promise(async (resolve, reject) => {
             try {
-                instance.put(rota, body, { header: header }).then((data) => {
+                instance.put(rota, body, { headers: header }).then((data) => {
                     resolve(data);
                 }).catch((error) => reject(error));
             } catch (err) {

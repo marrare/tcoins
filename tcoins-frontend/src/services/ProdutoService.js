@@ -16,8 +16,7 @@ const ProdutoService = {
     },
     async updateProduto(produtoId = "", lojaId = "", produto) {
         const header = { produtoId, lojaId }
-        const body = { produto }
-        const ret = await RequisicaoService.update('produto', body, header);
+        const ret = await RequisicaoService.update('produto', produto, header);
         return ret;
     },
     async deleteProduto(id) {

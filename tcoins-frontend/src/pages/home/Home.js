@@ -15,6 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import Toasts from '../../components/Toasts'
 
 
 // import CheckIcon from '@mui/icons-material/CheckIcon'
@@ -28,6 +30,8 @@ function Home() {
     const [page, setPage] = React.useState(1);
     const [lojasHome, setLojas] = useState([]);
     const [ramos, setRamos] = useState([])
+    const [user, setUser] = useState();
+    const [totalPages, getPages] = useState([])
 
     // const ramos = [{ id: 1, nome: 'Alimentos' }, { id: 2, nome: 'Cosméticos' },
     // { id: 3, nome: 'Roupas' }, { id: 4, nome: 'Acessórios' }]
@@ -40,13 +44,18 @@ function Home() {
         setRamo(value.props.value)
 
     }
+    useEffect(() => {
+        const idUsuario = localStorage.getItem('userId')
+        console.log(idUsuario)
+        setUser(idUsuario)
 
-
+    }, [user])
     //pegar os dados por página
     useEffect(() => {
-
         getLojasPorPagina();
-        console.log(page)
+        getTotalPages();
+
+
     }, [page])
 
     //pegar os dados com filtro e busca
@@ -55,7 +64,7 @@ function Home() {
         getRamos()
         setPage(1)
         getLojas();
-         
+
 
     }, [ramo, pesquisa])
 
@@ -74,10 +83,12 @@ function Home() {
         if (lojas.status == 200 || lojas.status == 404) setLojas(lojas.data);
 
     }
-    
+    async function getTotalPages() {
+        const lojas = await LojaService.getLojas('', '', '', '');
+        if (lojas.status == 200 || lojas.status == 404) getPages(Math.ceil(lojas.data.length / 4));
 
+    }
 
- 
 
     return (
 
@@ -117,7 +128,7 @@ function Home() {
                                 label="Ramo"
                                 selectedValue={ordem}
                                 onChange={(itemValue) => setOrdem(itemValue)}
-                                placeholder="Selecione "
+                                placeholder="Selecione"
                             >
                                 <MenuItem value="">
                                     <em>Nenhum</em>
@@ -168,8 +179,21 @@ function Home() {
                     ))}
                 </div>
                 <div className='Paginacao'>
-                    <Pagination color="secondary" count={10} page={page} onChange={handleChange} />
+                    <Pagination color="secondary" count={totalPages} page={page} onChange={handleChange} />
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme='colored'
+                />
+
 
 
 
