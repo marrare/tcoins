@@ -144,7 +144,7 @@ export default function GerenciarLojas() {
     }
     async function createLoja() {
         const loja = await LojaService.createLoja(userId, ramo, dadosLoja);
-        console.log(loja.status)
+        console.log(userId)
         if (loja.status == 200 || loja.status == 404 || loja.status === 201) {
             debugger
             handleClose()

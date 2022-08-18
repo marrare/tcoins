@@ -2,6 +2,7 @@
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
 import { React, Fragment, useState, useEffect } from 'react';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
@@ -15,6 +16,7 @@ import { Link } from "react-router-dom";
 
 
 export default function UserIcone({ user }) {
+    let navigate = useNavigate();
     console.log(user.id)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -25,8 +27,13 @@ export default function UserIcone({ user }) {
         setAnchorEl(null);
 
     };
+    function deslogar(e) {
+        localStorage.clear()
+        navigate("/login")
+    }
 
-    const link = `/gerenciar-lojas/${user.id}/`
+    const link = `/gerenciar-lojas/${localStorage.getItem('userId')}/`
+
     return (
 
         <Fragment>
@@ -98,7 +105,7 @@ export default function UserIcone({ user }) {
                     <Link className="linkCard" to={link}>Gerenciar lojas</Link>
 
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={deslogar}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

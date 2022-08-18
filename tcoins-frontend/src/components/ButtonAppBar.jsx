@@ -26,13 +26,18 @@ export default function ButtonAppBar() {
   const [isLogado, setLogado] = React.useState(false);
   const { userId } = useParams();
   const [user, setUser] = useState([]);
-  useEffect(() => {
+  const [userID, setId] = useState()
 
+  useEffect(() => {
+    const idUsuario = localStorage.getItem('userId')
+    console.log(idUsuario)
+
+    setId(idUsuario)
     getUser();
-  }, [])
+  }, [userID])
 
   async function getUser() {
-    const usuario = await UsuarioService.getUsuario(1);
+    const usuario = await UsuarioService.getUsuario(userID);
     if (usuario.status == 200 || usuario.status == 404) setUser(usuario.data);
 
   }

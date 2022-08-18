@@ -55,7 +55,7 @@ export default function ProdutosLista({ produto, lojaId }) {
     });
     //logica de imagem
     const imageDefault = 'https://cdn-icons-png.flaticon.com/512/2649/2649327.png';
-    const imageCard = produto.imagem === null ? imageDefault : produto.imagem;
+    const imageCard = produto.imagem === null || produto.imagem == '' || produto.imagem == undefined ? imageDefault : produto.imagem;
 
     const [produtosLista, setProdutos] = useState([]);
     const [nome, setNome] = useState(produto.nome)

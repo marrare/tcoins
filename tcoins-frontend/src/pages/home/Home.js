@@ -15,6 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import Toasts from '../../components/Toasts'
 
 
 // import CheckIcon from '@mui/icons-material/CheckIcon'
@@ -42,12 +44,18 @@ function Home() {
         setRamo(value.props.value)
 
     }
+    useEffect(() => {
+        const idUsuario = localStorage.getItem('userId')
+        console.log(idUsuario)
+        setUser(idUsuario)
 
+    }, [user])
     //pegar os dados por página
     useEffect(() => {
         getLojasPorPagina();
         getTotalPages();
-        console.log(localStorage.getItem('userId'))
+
+
     }, [page])
 
     //pegar os dados com filtro e busca
@@ -56,6 +64,7 @@ function Home() {
         getRamos()
         setPage(1)
         getLojas();
+
 
     }, [ramo, pesquisa])
 
@@ -76,7 +85,7 @@ function Home() {
     }
     async function getTotalPages() {
         const lojas = await LojaService.getLojas('', '', '', '');
-        if (lojas.status == 200 || lojas.status == 404) getPages(Math.ceil(lojas.data.length/4));
+        if (lojas.status == 200 || lojas.status == 404) getPages(Math.ceil(lojas.data.length / 4));
 
     }
 
@@ -172,6 +181,19 @@ function Home() {
                 <div className='Paginacao'>
                     <Pagination color="secondary" count={totalPages} page={page} onChange={handleChange} />
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme='colored'
+                />
+
 
 
 
