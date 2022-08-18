@@ -25,6 +25,7 @@ function Cadastro() {
   const firebaseConfig = {
     apiKey: "AIzaSyBr7xDG3FPEYPMaiOnMlJNxVJMnJ4-A12k",
     authDomain: "t-coins-a913f.firebaseapp.com",
+    databaseURL:"gs://t-coins-a913f.appspot.com",
     projectId: "t-coins-a913f",
     storageBucket: "t-coins-a913f.appspot.com",
     messagingSenderId: "590110810673",

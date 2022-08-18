@@ -146,7 +146,7 @@ export default function GerenciarLojas() {
         const loja = await LojaService.createLoja(userId, ramo, dadosLoja);
         console.log(userId)
         if (loja.status == 200 || loja.status == 404 || loja.status === 201) {
-            debugger
+
             handleClose()
             Toasts.sucesso('Loja cadastrada com sucesso!')
             limparCampos()

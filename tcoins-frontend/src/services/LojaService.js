@@ -9,7 +9,6 @@ const LojaService = {
     },
     async getLoja(lojaId) {
         const header = { lojaId }
-        debugger;
         const ret = await RequisicaoService.get('loja/info', header);
         return ret;
     },
