@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://localhost:8080/api/tcoins/'
+    baseURL: 'https://tcoinsapp.herokuapp.com/api/tcoins'
 });
 
 const RequisicaoService = {
@@ -10,6 +10,8 @@ const RequisicaoService = {
             try {
                 instance.get(rota, { headers: header }).then((data) => {
                     resolve(data);
+                    console.log(data);
+                    
                 }).catch((error) => reject(error));
             } catch (err) {
                 reject(err);

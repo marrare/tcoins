@@ -16,6 +16,8 @@ const theme = createTheme();
 
 function Cadastro() {
 
+  //teste
+
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -39,7 +41,12 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    const setUser = UsuarioService.postUsuario(usuario)
+    const setUser = UsuarioService.postUsuario(usuario).then( ()=>{ 
+    console.log("Pegou")
+    } , (erro)=> {
+      console.log("deu erro", erro)
+
+    })
 
   }
 
@@ -104,7 +111,7 @@ function Cadastro() {
 
             </Grid>
             <Button
-              type="submit"
+              type="Button"
               fullWidth
               variant="contained"
               onClick={cadastrarUsuario}
