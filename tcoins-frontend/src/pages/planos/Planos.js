@@ -65,12 +65,19 @@ function Planos() {
   const [duracao, setDuracao] = useState([]);
 
   const editPlano = (id, e) => {
-    atualizarPlano(userID, planoId, duracao)
-}
+    localStorage.setItem('idPlano', planoId)
+    if(planoId == 4){
+    window.location.replace('https://mpago.la/2wBBycB')}
+  else if(planoId == 3){
+    window.location.replace('https://mpago.la/29yku9C')
+  }else if(planoId == 2){
+    window.location.replace('https://mpago.la/2XnRSHn')
+  }}
+
   const planoVigente = user.planoVigentePlanoId ? user.planoVigentePlanoId: 1
   const planoUser = items[planoVigente - 1]
   async function atualizarPlano(id) {
-    const planoAtualizado = await PlanoService.atualizarPlano(userID, planoId, duracao);
+    const planoAtualizado = await PlanoService.atualizarPlano(userID, planoId);
     if (planoAtualizado.status == 200 || planoAtualizado.status == 404) {
         handleClose()
         console.log("Plano atualizado com sucesso")
@@ -150,70 +157,6 @@ function Planos() {
             <MenuItem value={3}>Padrão Múltiplo</MenuItem>
             <MenuItem value={4}>Premium</MenuItem>
           </Select>
-          <fieldset className="Fieldset">
-            <legend className="Legenda">Detalhes do Cartão</legend>
-
-            <div className="formModal">
-              <TextField
-                sx={{ height: 8, marginBottom: 5 }}
-                autoComplete="given-name"
-                name="Nome"
-                required
-                fullWidth
-                id="Nome"
-                label="Nome"
-                size="small"
-              />
-              <TextField
-                sx={{ height: 8, marginBottom: 5 }}
-                autoComplete="given-name"
-                type="number"
-                name="CPF"
-                required
-                fullWidth
-                id="CPF"
-                label="CPF"
-                size="small"
-              />
-            </div>
-
-            <TextField
-              sx={{ height: 8, marginBottom: 5 }}
-              autoComplete="given-name"
-              type="number"
-              name="NumeroCartao"
-              required
-              fullWidth
-              id="NumeroCartao"
-              label="Número do Cartão"
-              size="small"
-            />
-
-            <InputLabel id="demo-simple-select-label">Vencimento:</InputLabel>
-            <div className="formModal">
-              <TextField
-                sx={{ height: 8, marginBottom: 5 }}
-                autoComplete="given-name"
-                type="date"
-                name="DataVencimento"
-                required
-                fullWidth
-                id="DataVencimento"
-                size="small"
-              />
-
-              <TextField
-                sx={{ height: 8, marginBottom: 5 }}
-                autoComplete="given-name"
-                name="CodigoSeguranca"
-                required
-                fullWidth
-                id="CodigoSeguranca"
-                label="Código Segurança"
-                size="small"
-              />
-            </div>
-          </fieldset>
 
           <Button
             sx={{ marginBottom: 1, backgroundColor: "red", marginTop: 2 }}
