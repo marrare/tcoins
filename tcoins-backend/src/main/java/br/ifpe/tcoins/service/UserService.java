@@ -25,6 +25,7 @@ public class UserService {
 		User usuario = this.userRepository.findByCodigoUser(code);
 		if (usuario == null) {
 			user.setCodigoUser(code);
+			user.setTcoins(0L);
 			userRepository.save(user);
 		}else
 			this.createUser(user);
