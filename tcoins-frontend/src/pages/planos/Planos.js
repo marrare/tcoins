@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import UsuarioService from '../../services/UsuarioService';
 
 const style = {
   position: "absolute",
@@ -32,30 +33,45 @@ function Planos() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [ramo, setRamo] = React.useState("");
+  const [user, setUser] = useState([]);
+  const [userID, setId] = useState()
 
   const handleChange = (event, value) => {
-    console.log(value.props.value);
-    setRamo(value.props.value);
+    const planoSelecionado = value.props.value
+    setPlanoId(planoSelecionado);
   };
 
-  /* const [userId, setUserId] = useState([]); */
-  const idUsuario = localStorage.getItem('userId');
-   
+  useEffect(() => {
+    setInterval(() => {
+      const idUsuario = localStorage.getItem('userId')
+      setId(idUsuario)
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    const idUsuario = localStorage.getItem('userId')
+    setId(idUsuario)
+    getUser();
+  }, [userID])
+
+   function getUser() {
+    if(userID != undefined){
+    const usuario =  UsuarioService.getUsuario(userID).then((user)=>{ 
+      setUser(user.data)})}
+
+  }
+
   const [planoId, setPlanoId] = useState([]);
   const [duracao, setDuracao] = useState([]);
 
   const editPlano = (id, e) => {
-    console.log(id);
-    console.log(idUsuario)
-    atualizarPlano(idUsuario, planoId, duracao)
+    atualizarPlano(userID, planoId, duracao)
 }
-
+  const planoVigente = user.planoVigentePlanoId ? user.planoVigentePlanoId: 1
+  const planoUser = items[planoVigente - 1]
   async function atualizarPlano(id) {
-    const planoAtualizado = await PlanoService.atualizarPlano(idUsuario, planoId, duracao);
+    const planoAtualizado = await PlanoService.atualizarPlano(userID, planoId, duracao);
     if (planoAtualizado.status == 200 || planoAtualizado.status == 404) {
-        // childToParent(true)
         handleClose()
         console.log("Plano atualizado com sucesso")
 
@@ -65,37 +81,36 @@ function Planos() {
     };
 
 }
-
+ const cabeçalho = userID != 'undefined' && userID != undefined  ?  <div className="planoAtual">
+ <div className="titulo">
+   <h3>Plano Vigente</h3>
+ </div>
+ <div className="containerDetalhePlano">
+   <div className="detalhePlano">
+     <p>Nome do Plano: <b> {planoUser.nome}</b></p>
+     <p>Preço pago: <b> {planoUser.preco}</b></p>  
+   </div>
+   <div className="botaoPlano">
+     <Button
+       sx={{ marginBottom: 1 }}
+       className="botao"
+       type="submit"
+       color="success"
+       fullWidth
+       variant="contained"
+       onClick={handleOpen}
+     >
+       Trocar de Plano
+     </Button>
+     <Button type="submit" color="error" fullWidth variant="outlined">
+       Cancelar Plano
+     </Button>
+   </div>
+ </div>
+</div>:<></>
   return (
     <div>
-      <div className="planoAtual">
-        <div className="titulo">
-          <h3>Plano Vigente</h3>
-        </div>
-        <div className="containerDetalhePlano">
-          <div className="detalhePlano">
-            <p>Nome do Plano: </p>
-            <p>Data de Contratação: </p>
-            <p>Data de Expiração: </p>
-          </div>
-          <div className="botaoPlano">
-            <Button
-              sx={{ marginBottom: 1 }}
-              className="botao"
-              type="submit"
-              color="success"
-              fullWidth
-              variant="contained"
-              onClick={handleOpen}
-            >
-              Trocar de Plano
-            </Button>
-            <Button type="submit" color="error" fullWidth variant="outlined">
-              Cancelar Plano
-            </Button>
-          </div>
-        </div>
-      </div>
+      {cabeçalho}
 
       <Modal
         open={open}
@@ -122,7 +137,7 @@ function Planos() {
             name="Ramo"
             required
             fullWidth
-            value={ramo}
+            value={planoId}
             label="Ramo"
             size="small"
             onChange={handleChange}
@@ -130,12 +145,11 @@ function Planos() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Básico</MenuItem>
-            <MenuItem value={20}>Padrão</MenuItem>
-            <MenuItem value={30}>Padrão Múltiplo</MenuItem>
-            <MenuItem value={40}>Premium</MenuItem>
+            <MenuItem value={1}>Básico</MenuItem>
+            <MenuItem value={2}>Padrão</MenuItem>
+            <MenuItem value={3}>Padrão Múltiplo</MenuItem>
+            <MenuItem value={4}>Premium</MenuItem>
           </Select>
-          <InputLabel id="demo-simple-select-label">Preço: 70,00</InputLabel>
           <fieldset className="Fieldset">
             <legend className="Legenda">Detalhes do Cartão</legend>
 
@@ -215,7 +229,7 @@ function Planos() {
             type="submit"
             fullWidth
             variant="contained"
-            onClick={(e) => editPlano(idUsuario, e)}
+            onClick={(e) => editPlano(userID, e)}
           >
             CONFIRMAR
           </Button>

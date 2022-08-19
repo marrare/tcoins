@@ -44,8 +44,7 @@ export default function ButtonAppBar() {
   <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
 </div>
   async function getUser() {
-    if(userID != 'undefined'){
-      console.log('deu merda')
+    if(userID != undefined){
     const usuario = await UsuarioService.getUsuario(userID);
     if (usuario.status == 200 || usuario.status == 404){ setUser(usuario.data)};
 

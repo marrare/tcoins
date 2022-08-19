@@ -208,8 +208,6 @@ function GerenciarProdutos() {
         const produtos = await ProdutoService.getProdutosByLoja(pesquisa, id, '', 4);
         if (produtos.status == 200 || produtos.status == 404) setProdutos(produtos.data);
     }
-
-
     return (
 
         <div className='Container'>
@@ -349,7 +347,7 @@ function GerenciarProdutos() {
 
 
             {produtosListaInverso.map((produto, i) => (
-                <ProdutosLista produto={produto} lojaId={id} dono = {userID == lojaDetalhe.donoId}></ProdutosLista>
+                <ProdutosLista produto={produto} lojaId={id} ramo ={lojaDetalhe.ramo} dono = {userID == lojaDetalhe.donoId} ></ProdutosLista>
 
             ))}
 

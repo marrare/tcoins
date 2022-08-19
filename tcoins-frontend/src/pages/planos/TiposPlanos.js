@@ -3,8 +3,8 @@ const items = [
     id: 1,
     nome: "Básico",
     preco: "GRATUITO",
-    lojas: "2 lojas",
-    produtos: "6 produtos"
+    lojas: "0 lojas",
+    produtos: "0 produtos"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const items = [
     id: 3,
     nome: "Padrão Múltiplo",
     preco: "R$120",
-    lojas: "12 lojas",
+    lojas: "8 lojas",
     produtos: "30 produtos"
   },
   {
@@ -25,7 +25,7 @@ const items = [
     nome: "Premium",
     preco: "R$200",
     lojas: "12 lojas",
-    produtos: "30 produtos"
+    produtos: "80 produtos"
   }
 ];
 

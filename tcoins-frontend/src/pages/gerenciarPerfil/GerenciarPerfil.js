@@ -25,7 +25,10 @@ function GerenciarPerfil() {
         getUser();
       }, [userID])
     async function getUser() {
-        const usuario = await UsuarioService.getUsuario(userID).then((user)=>{ setUser(user.data)})
+        console.log("gerenciar")
+        if(userID != "undefined"){
+            const usuario = await UsuarioService.getUsuario(userID).then((user)=>{ setUser(user.data)})
+        }
     
       }
     return (
