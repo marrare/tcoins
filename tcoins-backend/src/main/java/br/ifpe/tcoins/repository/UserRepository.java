@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public User findByIdAndDeletedFalse(Long id);
 
     public User findByCodigoUser(String codigoUser);
+
+    public User findByCodigoUserAndDeletedFalse(String codigoUser);
 }

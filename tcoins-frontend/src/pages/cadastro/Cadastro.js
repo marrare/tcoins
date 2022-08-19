@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import Toasts from '../../components/Toasts'
 
 const theme = createTheme();
 
@@ -39,8 +41,13 @@ function Cadastro() {
   }
   
   function cadastrarUsuario() {
-    const User = UsuarioService.postUsuario(nome,email,senha);
-    navigate("/", { replace: true });
+    const User = UsuarioService.postUsuario(nome,email,senha).then((data) => {
+
+      navigate("/login", { replace: true });
+
+  }).catch(() => {
+      Toasts.erro('Não foi possivel cadastrar usuário')
+  });;
   }
 
 
@@ -111,6 +118,18 @@ function Cadastro() {
             >
               CONFIRMAR
             </Button>
+            <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme='colored'
+                    />
 
           </Box>
         </Box>
