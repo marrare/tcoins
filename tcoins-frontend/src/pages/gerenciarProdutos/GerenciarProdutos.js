@@ -78,6 +78,15 @@ function GerenciarProdutos() {
     const [checkedTwo, setCheckedTwo] = useState(false);
     const [isDisabledTwo, setIsDisabledTwo] = useState(true);
 
+    const [userID, setId] = useState()
+
+    useEffect(() => {
+      setInterval(() => {
+        const idUsuario = localStorage.getItem('userId')
+        setId(idUsuario)
+      }, 1000);
+    }, []);
+
     //metodo para pegar valor da page
     const handleChangePage = (event, value) => {
         setPage(value);
@@ -237,7 +246,7 @@ function GerenciarProdutos() {
                     <SearchIcon />
                 </IconButton>
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                <IconButton color="primary" sx={{ p: '10px' }} aria-label="add" onClick={handleOpen}>
+                <IconButton disabled={userID != lojaDetalhe.donoId} color="primary" sx={{ p: '10px' }} aria-label="add" onClick={handleOpen}>
                     <AddIcon />
                 </IconButton>
             </Paper>
@@ -340,12 +349,9 @@ function GerenciarProdutos() {
 
 
             {produtosListaInverso.map((produto, i) => (
-                <ProdutosLista produto={produto} lojaId={id}></ProdutosLista>
+                <ProdutosLista produto={produto} lojaId={id} dono = {userID == lojaDetalhe.donoId}></ProdutosLista>
 
             ))}
-            <div className='Paginacao'>
-                <Pagination color="secondary" count={10} page={page} onChange={handleChangePage} />
-            </div>
 
         </div>
 

@@ -30,9 +30,14 @@ export default function UserIcone({ user }) {
         localStorage.clear()
         window.location.reload(false);
     }
-
     const link = `/gerenciar-lojas/${localStorage.getItem('userId')}/`
+    const donoDeLoja = user.planoVigentePlanoId == 2 || user.planoVigentePlanoId == 3 || user.planoVigentePlanoId == 4? <MenuItem>
+    <ListItemIcon>
+        <Settings fontSize="small" />
+    </ListItemIcon>
+    <Link className="linkCard" to={link}>Gerenciar lojas</Link>
 
+</MenuItem>: <></>
     return (
 
         <Fragment>
@@ -98,13 +103,7 @@ export default function UserIcone({ user }) {
                     </ListItemIcon>
                     
                 </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
-                    </ListItemIcon>
-                    <Link className="linkCard" to={link}>Gerenciar lojas</Link>
-
-                </MenuItem>
+                {donoDeLoja}
                 <MenuItem onClick={deslogar}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

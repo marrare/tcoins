@@ -33,7 +33,7 @@ const style = {
 };
 
 
-export default function ProdutosLista({ produto, lojaId }) {
+export default function ProdutosLista({ produto, lojaId, dono }) {
     //console.log(produto)
     const sucesso = (message) => toast.success(message, {
         position: "top-right",
@@ -172,8 +172,11 @@ export default function ProdutosLista({ produto, lojaId }) {
         };
 
     }
-
-
+    console.log(dono)
+    const botão= dono ? <div className="OpcoesProdutos">
+    <CreateIcon className="EditarProduto" fontSize='medium' onClick={handleOpen}></CreateIcon>
+    <DeleteIcon className="DeletarProduto" fontSize='medium' onClick={(e) => deleteProdutoClicado(produto.id, e)}></DeleteIcon>
+</div>: <></>
 
     return (
 
@@ -274,10 +277,8 @@ export default function ProdutosLista({ produto, lojaId }) {
                                 <p>Preço: <span>{produto.precoTcoins} tcoins</span> </p>
                                 <p>Recompensa: <span>{produto.valorRecompensa} tcoins</span> </p>
                             </div>
-                            <div className="OpcoesProdutos">
-                                <CreateIcon className="EditarProduto" fontSize='medium' onClick={handleOpen}></CreateIcon>
-                                <DeleteIcon className="DeletarProduto" fontSize='medium' onClick={(e) => deleteProdutoClicado(produto.id, e)}></DeleteIcon>
-                            </div>
+                            {botão}
+                            
                         </div>
                         <div className='DescricaoProduto'>
                             <p>{produto.descricao}</p>
