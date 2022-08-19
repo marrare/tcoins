@@ -231,6 +231,44 @@ body {
   margin-bottom: 0.7rem;
 }
 
+.BuscarCliente {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+}
+
+.listaMenor {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+.add{
+  color: #18bf5c;
+}
+
+.quant {
+  margin-left: 20px;
+  width: 20%;
+}
+
+.listaProduto {
+  box-shadow: 2px 2px 10px #CCC;
+  display: flex;
+  max-height: 50px;
+}
+
+.BotaoBuscar {
+  background-color: var(--sucess-color) !important;
+  color: #fff !important;
+  padding: 0.7rem !important;
+  align-self: center !important;
+  margin: 0 !important;
+}
 
 .Login {
   color: #000;
