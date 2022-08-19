@@ -64,6 +64,8 @@
   margin: auto;
 }
 
+
+
 .ListaProdutos {
   background-color: #fff;
   max-height: 130px;
@@ -97,6 +99,20 @@
 
 .DetalheProduto>h2 {
   font-size: 1.2rem;
+}
+.detalhe{
+  
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.detalhe > h2{
+  font-size: 0.9rem;
+ 
+}
+.detalhe > p{
+  font-size: 0.9rem;
+  
 }
 
 .DescricaoProduto {

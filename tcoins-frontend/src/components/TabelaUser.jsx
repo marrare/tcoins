@@ -8,6 +8,23 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
+
+export default function TabelaUser() {
+    function createData(loja, produtos, compra_tcoins, total_recompensas, preco_total, data_compra) {
+        return { loja, produtos, compra_tcoins, total_recompensas, preco_total, data_compra };
+    }
+    /*exemplo de dados
+      produtos sendo um array
+      */
+    const rows = [
+        createData('Loja 1', 'produto198', 'SIM', 24, '', '24/04/2022'),
+        createData('Loja 4', 'produto198', 'SIM', 37, '', '22/05/2022'),
+        createData('Loja 2', 'produto198', 'NÃO', '', 6.0, '21/04/2022'),
+        createData('Loja 1', 'produto198', 'SIM', 67, '', '23/02/2022'),
+        createData('Loja 6', 'produto198', 'NÃO', '', 3.9, '13/04/2022'),
+    ];
+    
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -26,21 +43,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
         border: 0,
     },
 }));
-
-function createData(loja, produtos, compra_tcoins, total_recompensas, preco_total, data_compra) {
-    return { loja, produtos, compra_tcoins, total_recompensas, preco_total, data_compra };
-}
-/*exemplo de dados
-  produtos sendo um array
-  */
-const rows = [
-    createData('Loja 1', 'produto198', 'SIM', 24, '', '24/04/2022'),
-    createData('Loja 4', 'produto198', 'SIM', 37, '', '22/05/2022'),
-    createData('Loja 2', 'produto198', 'NÃO', '', 6.0, '21/04/2022'),
-    createData('Loja 1', 'produto198', 'SIM', 67, '', '23/02/2022'),
-    createData('Loja 6', 'produto198', 'NÃO', '', 3.9, '13/04/2022'),
-];
-export default function TabelaUser() {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">

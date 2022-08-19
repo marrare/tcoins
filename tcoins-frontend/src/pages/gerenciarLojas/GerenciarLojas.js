@@ -130,6 +130,7 @@ export default function GerenciarLojas() {
         getLojasPorDono();
 
     }, [])
+    
 
 
     async function getLojasPorDono() {
