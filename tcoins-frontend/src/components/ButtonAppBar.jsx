@@ -44,10 +44,12 @@ export default function ButtonAppBar() {
   <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
 </div>
   async function getUser() {
+    if(userID != 'undefined'){
+      console.log('deu merda')
     const usuario = await UsuarioService.getUsuario(userID);
-    if (usuario.status == 200 || usuario.status == 404) setUser(usuario.data);
+    if (usuario.status == 200 || usuario.status == 404){ setUser(usuario.data)};
 
-  }
+  }}
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

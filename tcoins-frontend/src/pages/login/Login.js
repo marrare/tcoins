@@ -42,6 +42,9 @@ function Login() {
     }
     function saveLocalStorage(e) {
         localStorage.setItem("userId", userID);
+        if (userID) {
+            navigate("/")
+        }
     }
 
     async function autenticarUsuario() {
@@ -50,11 +53,7 @@ function Login() {
             setUser(data.data.nome);
             setUserID(data.data.id)
             saveLocalStorage()
-            if (userID) {
-                navigate("/")
-
-
-            }
+            
 
         }).catch(() => {
 
@@ -63,7 +62,8 @@ function Login() {
 
     }
     useEffect(() => {
-        localStorage.setItem("usuario", user)
+        localStorage.setItem("usuario", user);
+        saveLocalStorage()
     }, [user])
 
      function signInWithGoogle () {
