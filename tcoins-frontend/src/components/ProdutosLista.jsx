@@ -33,8 +33,8 @@ const style = {
 };
 
 
-export default function ProdutosLista({ produto, lojaId, dono }) {
-    //console.log(produto)
+export default function ProdutosLista({ produto, lojaId, dono, ramo }) {
+
     const sucesso = (message) => toast.success(message, {
         position: "top-right",
         autoClose: 6000,
@@ -54,9 +54,12 @@ export default function ProdutosLista({ produto, lojaId, dono }) {
         progress: undefined,
     });
     //logica de imagem
-    const imageDefault = 'https://cdn-icons-png.flaticon.com/512/2649/2649327.png';
-    const imageCard = produto.imagem === null || produto.imagem == '' || produto.imagem == undefined ? imageDefault : produto.imagem;
-
+    const Alimentos = 'https://freepikpsd.com/file/2019/10/alimentos-png-2-Free-PNG-Images-Transparent-1024x915.png';
+    const Cosméticos = 'https://cdn-icons-png.flaticon.com/512/409/409190.png';
+    const Roupas = 'https://cdn-icons-png.flaticon.com/512/2331/2331716.png';
+    const Acessórios ='https://cdn-icons-png.flaticon.com/512/2649/2649327.png';
+    const imageDefault = ramo == "Alimentos"? Alimentos : ramo == "Cosméticos"? Cosméticos: ramo == "Roupas"? Roupas :Acessórios;
+    
     const [produtosLista, setProdutos] = useState([]);
     const [nome, setNome] = useState(produto.nome)
     const [descricao, setDescricao] = useState(produto.descricao)
@@ -172,7 +175,6 @@ export default function ProdutosLista({ produto, lojaId, dono }) {
         };
 
     }
-    console.log(dono)
     const botão= dono ? <div className="OpcoesProdutos">
     <CreateIcon className="EditarProduto" fontSize='medium' onClick={handleOpen}></CreateIcon>
     <DeleteIcon className="DeletarProduto" fontSize='medium' onClick={(e) => deleteProdutoClicado(produto.id, e)}></DeleteIcon>
@@ -269,7 +271,7 @@ export default function ProdutosLista({ produto, lojaId, dono }) {
             <div className="Listagem">
 
                 <div className="ListaProdutos">
-                    <img alt={produto.nome} className="FotoProdutos" src={produto.imagem}></img>
+                    <img alt={produto.nome} className="FotoProdutos" src={imageDefault}></img>
                     <div className="ConteudoProduto">
                         <div className="InformacoesSuperior">
                             <div className="DetalheProduto">
