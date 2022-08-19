@@ -13,8 +13,8 @@ public class TcoinsService {
     UserRepository userRepository;
 
 
-    public void usarTcoins(Long userId, Integer tcoins) {
-        User user = userRepository.findByIdAndDeletedFalse(userId);
+    public void usarTcoins(String codigoUser, Integer tcoins) {
+        User user = userRepository.findByCodigoUserAndDeletedFalse(codigoUser);
         if (user == null)
             throw new ResourceNotFoundException("Usuario não encontrado");
 
@@ -28,12 +28,12 @@ public class TcoinsService {
 
     }
 
-    public void addTcoins(Long userId, Integer quantidade){
+    public void addTcoins(String codigoUser, Integer quantidade){
 
-    User user = userRepository.findByIdAndDeletedFalse(userId);
+        User user = userRepository.findByCodigoUserAndDeletedFalse(codigoUser);
         if (user == null)
             throw new ResourceNotFoundException("Usuario não encontrado");
-    Long valorAtual = user.getTcoins();
+        Long valorAtual = user.getTcoins();
 
         if (quantidade < 0)
             return;
