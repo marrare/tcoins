@@ -100,6 +100,7 @@ export default function ComprasUser() {
     const [quant, setQuant] = useState();
     const [user, setUser] = useState([]);
     const [userID, setId] = useState()
+    const [codigo, setCodigo] = useState()
     const [lojasPorDono, setLojasPorDono] = useState([0]);
     const [produtosLista, setProdutos] = useState([]);
 
@@ -127,18 +128,21 @@ export default function ComprasUser() {
     function buscarSaldo() {
         setTcoins(user.tcoins)
     }
+    function addCodigo(e){
+        setCodigo(e.target.value)
+    }
     const setarRecompensa = (valor, preco, e) => {
-        recompensa += valor
-        tcoinsTotal += preco
-        console.log(recompensa)
+
 
     }
     function comprar() {
-        console.log(userID)
-        adicionarTcoins(userID)
-        resgatarRecompensas(userID)
-        handleClose()
-
+        if (checked){
+            console.log("retirar tcoins", tcoins)
+            resgatarRecompensas()}
+        if (!checked){
+            adicionarTcoins()
+            console.log("Add tcoins ", tcoins)
+        }
 
     }
 
@@ -152,13 +156,13 @@ export default function ComprasUser() {
         if (lojasGerenciadas.status == 200 || lojasGerenciadas.status == 404) setLojasPorDono(lojasGerenciadas.data);
 
     }
-    async function resgatarRecompensas(id) {
-        const resgate = await ComprasService.resgatarTcoins(id, tcoinsTotal);
+    async function resgatarRecompensas() {
+        const resgate = await ComprasService.resgatarTcoins(codigo, tcoins);
         if (resgate.status == 200 || resgate.status == 404);
 
     }
-    async function adicionarTcoins(id) {
-        const add = await ComprasService.addTcoins(id, recompensa);
+    async function adicionarTcoins() {
+        const add = await ComprasService.addTcoins(codigo, tcoins);
         if (add.status == 200 || add.status == 404);
 
     }
@@ -177,11 +181,9 @@ export default function ComprasUser() {
     // } else if (loja.status == 500) {
 
 
-
-
-
-
-
+    function addTcoins(e) {
+        setTcoins(e.target.value);
+    }
 
     return (
         <div className="Container">
@@ -243,39 +245,23 @@ export default function ComprasUser() {
                                 <TextField
                                     sx={{ marginBottom: 5, height: 7 }}
                                     autoComplete="given-name"
-                                    value={descricao}
-                                    onChange={addDescricao}
+                                    onChange={addCodigo}
                                     name="codigo"
                                     required
                                     fullWidth
                                     id="codigo"
                                     label="Código do cliente"
                                 />
-                                <Button sx={{ marginBottom: 5, height: 8 }} className='Botao BotaoBuscar'
-                                    onClick={buscarSaldo}>
-                                    Buscar
-                                </Button>
                             </div>
-                            <TextField
-                                sx={{ marginBottom: 7, height: 7 }}
-                                autoComplete="given-name"
-                                value={descricao}
-                                onChange={addDescricao}
-                                name="nome"
-                                required
-                                fullWidth
-                                id="nome"
-                                label="Nome do cliente"
-                            />
+
                             <TextField
                                 sx={{ marginBottom: 8, height: 7 }}
                                 autoComplete="given-name"
-                                value={tcoins}
-
-                                name="saldo"
+                                onChange={addTcoins}
+                                name="tcoins"
                                 required
                                 fullWidth
-                                id="saldo"
+                                id="tcoins"
                                 label="Saldo do cliente"
                             />
                             <legend className='Legenda'>Usar saldo ?</legend>
