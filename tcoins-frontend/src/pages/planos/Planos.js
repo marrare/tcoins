@@ -67,11 +67,11 @@ function Planos() {
   const editPlano = (id, e) => {
     localStorage.setItem('idPlano', planoId)
     if(planoId == 4){
-    window.location.replace('https://mpago.la/2wBBycB')}
+    window.location.replace('https://mpago.la/26qhsxX')}
   else if(planoId == 3){
-    window.location.replace('https://mpago.la/29yku9C')
+    window.location.replace('https://mpago.la/1Fmsyzd')
   }else if(planoId == 2){
-    window.location.replace('https://mpago.la/2XnRSHn')
+    window.location.replace('https://mpago.la/2CK98SK')
   }}
 
   const planoVigente = user.planoVigentePlanoId ? user.planoVigentePlanoId: 1

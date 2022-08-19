@@ -31,6 +31,7 @@ function App() {
         <Route path="/planos" element={<Planos />} />
         <Route path="/perfil" element={<GerenciarPerfil />} />
         <Route path="/pagamento" element={<Pagamento/>} />
+        <Route path="/pagamentos" element={<Pagamento/>} />
       </Routes>
 
       <Footer></Footer>
