@@ -1,5 +1,7 @@
 import React from "react";
 import "./Planos.css";
+import PlanoService from '../../services/PlanoService';
+import { useState, useEffect } from 'react';
 
 import Carousel from "react-material-ui-carousel";
 import Paper from "@mui/material/Paper";
@@ -37,6 +39,32 @@ function Planos() {
     console.log(value.props.value);
     setRamo(value.props.value);
   };
+
+  /* const [userId, setUserId] = useState([]); */
+  const idUsuario = localStorage.getItem('userId');
+   
+  const [planoId, setPlanoId] = useState([]);
+  const [duracao, setDuracao] = useState([]);
+
+  const editPlano = (id, e) => {
+    console.log(id);
+    console.log(idUsuario)
+    atualizarPlano(idUsuario, planoId, duracao)
+}
+
+  async function atualizarPlano(id) {
+    const planoAtualizado = await PlanoService.atualizarPlano(idUsuario, planoId, duracao);
+    if (planoAtualizado.status == 200 || planoAtualizado.status == 404) {
+        // childToParent(true)
+        handleClose()
+        console.log("Plano atualizado com sucesso")
+
+    } else {
+        handleClose()
+        console.log("Erro ao atualizar plano")
+    };
+
+}
 
   return (
     <div>
@@ -187,6 +215,7 @@ function Planos() {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={(e) => editPlano(idUsuario, e)}
           >
             CONFIRMAR
           </Button>

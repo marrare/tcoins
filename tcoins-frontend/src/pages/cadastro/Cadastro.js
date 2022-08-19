@@ -56,9 +56,9 @@ function Cadastro() {
   }
   
   async function cadastrarUsuario() {
-    const User = await UsuarioService.postUsuario(nome,email,senha).then((data) => {
+    const User = await UsuarioService.postUsuario(nome,email,senha).then(() => {
 
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
 
   }).catch(() => {
       Toasts.erro('Não foi possivel cadastrar usuário')
@@ -71,7 +71,7 @@ function Cadastro() {
         const emailGoogle = result.user.email;
         const User = UsuarioService.postUsuario(nameGoogle,emailGoogle,'senha').then((data) => {
 
-          navigate("/login", { replace: true });
+          navigate("/", { replace: true });
     
       }).catch(() => {
           Toasts.erro('Não foi possivel cadastrar usuário')

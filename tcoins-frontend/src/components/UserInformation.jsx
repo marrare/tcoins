@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Person from '@mui/icons-material/Person';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
@@ -30,9 +31,14 @@ export default function UserIcone({ user }) {
         localStorage.clear()
         window.location.reload(false);
     }
-
     const link = `/gerenciar-lojas/${localStorage.getItem('userId')}/`
+    const donoDeLoja = user.planoVigentePlanoId == 2 || user.planoVigentePlanoId == 3 || user.planoVigentePlanoId == 4? <MenuItem>
+    <ListItemIcon>
+        <Settings fontSize="small" />
+    </ListItemIcon>
+    <Link className="linkCard" to={link}>Gerenciar lojas</Link>
 
+</MenuItem>: <></>
     return (
 
         <Fragment>
@@ -95,16 +101,16 @@ export default function UserIcone({ user }) {
                     <ListItemIcon>
                         <Person fontSize="small" />
                         <Link className="linkCard" to={"/perfil"}>Minha conta</Link>
-                    </ListItemIcon>
-                    
+                    </ListItemIcon>                    
                 </MenuItem>
                 <MenuItem>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
+                <ListItemIcon>
+                    <CurrencyExchangeIcon fontSize="small" sx={{marginRigth:10}}/>
+                        
                     </ListItemIcon>
-                    <Link className="linkCard" to={link}>Gerenciar lojas</Link>
-
-                </MenuItem>
+                    {user.tcoins} Tcoins
+                    </MenuItem>
+                {donoDeLoja}
                 <MenuItem onClick={deslogar}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

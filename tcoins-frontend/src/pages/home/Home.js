@@ -119,31 +119,7 @@ function Home() {
 
                             </Select>
                         </FormControl>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel id="demo-simple-select-filled-label">Ordernar por: </InputLabel>
 
-                            <Select
-                                className="Ordernar"
-                                id="demo-simple-select-filled-label"
-                                label="Ramo"
-                                selectedValue={ordem}
-                                onChange={(itemValue) => setOrdem(itemValue)}
-                                placeholder="Selecione"
-                            >
-                                <MenuItem value="">
-                                    <em>Nenhum</em>
-                                </MenuItem>
-                                <MenuItem value={'nome'}>Nome</MenuItem>
-                                <MenuItem value={'proximas'}>Mais Próximas</MenuItem>
-
-                                {/* <MenuItem value="">
-                                <em>Nenhum</em>
-                            </MenuItem>
-                            
-                            <MenuItem value={'Mais próximas'}>Mais próximas</MenuItem>
-                            <MenuItem value={'Data de abertura'}>Data de abertura</MenuItem> */}
-                            </Select>
-                        </FormControl>
                     </div>
 
                     <Paper
