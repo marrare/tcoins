@@ -30,6 +30,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import gerar from '../gerarPdf';
 import { ToastContainer } from 'react-toastify';
 import '../../App.css'
+import ComprasService from '../../services/ComprasService';
 
 const style = {
     position: 'absolute',
@@ -131,7 +132,14 @@ export default function GerenciarLojas() {
 
     }, [])
     
+    const [openCompra, setOpenCompra] = React.useState(false);
+    const [checked, setChecked] = useState(false);
+    const [tcoins, setTcoins] = useState();
+    const [codigo, setCodigo] = useState();
+    const [loja, setLoja] = useState();
 
+    const handleOpenCompra = () => setOpenCompra(true);
+    const handleCloseCompra = () => setOpenCompra(false);
 
     async function getLojasPorDono() {
         const lojasGerenciadas = await LojaService.getLojasByUser(userId, '', '');
@@ -156,6 +164,51 @@ export default function GerenciarLojas() {
             Toasts.erro('Erro ao cadastrar loja!')
         };
 
+    }
+
+    function addCodigo(e){
+        setCodigo(e.target.value)
+    }
+
+    function comprar() {
+        if (checked){
+            resgatarRecompensas()
+            handleCloseCompra()}
+        if (!checked){
+            adicionarTcoins()
+            handleCloseCompra()
+            }
+
+    }
+    const mudarLoja = (event, value) => {
+        setLoja(value.props.value)
+        console.log(loja)
+    }
+    const handleChange = () => {
+        setChecked(!checked)
+    };
+
+    async function resgatarRecompensas() {
+        const resgate = await ComprasService.resgatarTcoins(codigo, tcoins).then(()=>{
+            Toasts.sucesso('Resgate feito com sucesso!')}
+            ).catch(
+                Toasts.erro('Erro ao fazer resgate!')
+                )
+
+    }
+    async function adicionarTcoins() {
+        const add = await ComprasService.addTcoins(codigo, tcoins).then(()=>{
+            Toasts.sucesso('Compra feita com sucesso!')
+        }
+        
+        ).catch(
+            Toasts.erro('Erro ao fazer compra!')
+            );
+
+    }
+  
+    function addTcoins(e) {
+        setTcoins(e.target.value);
     }
     return (
 
@@ -182,6 +235,7 @@ export default function GerenciarLojas() {
                     </IconButton>
                 </Paper>
                 <Button className="Botao BotaoLojas" color="inherit" onClick={(e) => gerar(lojasPorDono)}>Baixar PDF</Button>
+                <Button className="Botao BotaoLojas" color="inherit" onClick={handleOpenCompra}>Adicionar compra</Button>
             </div>
 
             <TableEstilizada lojas={lojaTabela}></TableEstilizada>
@@ -279,7 +333,73 @@ export default function GerenciarLojas() {
                 theme='colored'
             />
 
+                <Modal
+                open={openCompra}
+                onClose={handleCloseCompra}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>                    
+                            <Select sx={{ marginBottom: 1, marginTop: 3 }}
+                                autoComplete="given-name"
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                name="Ramo"
+                                placeholder="Loja:  "
+                                required
+                                fullWidth
+                                value={loja}
+                                label="Ramo"
+                                onChange={mudarLoja}
+                            >
+                                <MenuItem value=''>
+                                    <em>Nenhum</em>
+                                </MenuItem>
+                                {lojasPorDono.map((lojasPorDono, i) => (
+                                    <MenuItem value={lojasPorDono.id}>{lojasPorDono.nome}</MenuItem>
+                                ))}
+                            </Select>
 
+                                <TextField
+                                    sx={{ marginBottom: 5, height: 7 }}
+                                    autoComplete="given-name"
+                                    onChange={addCodigo}
+                                    name="codigo"
+                                    required
+                                    fullWidth
+                                    id="codigo"
+                                    label="Código do cliente"
+                                />
+
+
+                            <TextField
+                                sx={{ marginBottom: 8, height: 7 }}
+                                autoComplete="given-name"
+                                onChange={addTcoins}
+                                name="tcoins"
+                                required
+                                fullWidth
+                                id="tcoins"
+                                label="Saldo do cliente"
+                            />
+                            <legend className='Legenda'>Usar saldo ?</legend>
+                            <label className="switch">
+                                <input type="checkbox" onClick={handleChange} checked={checked}
+                                ></input>
+
+                                <span className="slider round"></span>
+                            </label>
+
+                            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                
+                                <Box sx={{ flex: '1 1 auto' }} />
+
+                                <Button onClick={comprar}>
+                                    Confirmar
+                                </Button>
+                            </Box>
+                </Box>
+            </Modal>
 
 
         </div>

@@ -18,12 +18,12 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
-
+import { useNavigate, Link } from "react-router-dom";
 
 
 
 export default function TableEstilizada({ lojas }) {
-
+const navigate = useNavigate();
     //logica para campos da tabela
 
 
@@ -95,6 +95,7 @@ export default function TableEstilizada({ lojas }) {
                 <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto' }} >
                     <Table aria-label="customized table" >
                         <TableHead >
+                            <link rel="stylesheet" href="" />
                             <TableRow className="HeaderTabela">
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Imagem</StyledTableCell>
                                 <StyledTableCell align="left" sx={{ fontSize: '1.1rem' }}>Nome</StyledTableCell>
@@ -104,15 +105,17 @@ export default function TableEstilizada({ lojas }) {
                         </TableHead>
                         <TableBody >
                             {lojas.map((loja, i) => (
-
+                                 
                                 <StyledTableRow key={loja.nome}>
+                                    
                                     <StyledTableCell component="th" scope="row" align="left">
+                                    <Link  to={`../../loja/${loja.nome}/${loja.id}`}>
                                         <img className='fotoTabela' src={loja.imagem === null || loja.imagem == '' || loja.imagem === undefined ? imageDefault : loja.imagem} alt="Imagem da Loja"></img>
+                                    </Link>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">{loja.nome}</StyledTableCell>
                                     <StyledTableCell align="left">{loja.ramo}</StyledTableCell>
                                     <StyledTableCell align="center">
-                                        {/* <Button size="small" color="primary" >EDITAR</Button> */}
                                         <Button size="small" color="error" onClick={(e) => deleteRow(loja.id, e)}>DELETAR</Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
