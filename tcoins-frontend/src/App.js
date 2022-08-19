@@ -12,6 +12,7 @@ import ComprasUser from "./pages/comprasUsuario/ComprasUser";
 import GerenciarLojas from "./pages/gerenciarLojas/GerenciarLojas";
 import GerenciarProdutos from "./pages/gerenciarProdutos/GerenciarProdutos";
 import Planos from "./pages/planos/Planos";
+import Pagamento from "./pages/planos/atualizarPlano";
 import GerenciarPerfil from "./pages/gerenciarPerfil/GerenciarPerfil";
 import MultiActionAreaCard from "./components/MultiActionAreaCard";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/loja/:nome/:id" element={<GerenciarProdutos />} />
         <Route path="/planos" element={<Planos />} />
         <Route path="/perfil" element={<GerenciarPerfil />} />
+        <Route path="/pagamento" element={<Pagamento/>} />
       </Routes>
 
       <Footer></Footer>
