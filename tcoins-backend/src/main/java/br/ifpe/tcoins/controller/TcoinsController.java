@@ -14,13 +14,13 @@ public class TcoinsController {
     TcoinsService tcoinsService;
 
     @PostMapping("resgate")
-    public ResponseEntity resgatarTcoins(@RequestHeader Long userId, @RequestHeader Integer valor){
-        tcoinsService.usarTcoins(userId, valor);
+    public ResponseEntity resgatarTcoins(@RequestHeader String codigoUser, @RequestHeader Integer valor){
+        tcoinsService.usarTcoins(codigoUser, valor);
         return ResponseEntity.ok().build();
     }
     @PostMapping("add")
-    public ResponseEntity addTcoins(@RequestHeader Long userId, @RequestHeader Integer valor){
-        tcoinsService.addTcoins(userId,valor);
+    public ResponseEntity addTcoins(@RequestHeader String codigoUser, @RequestHeader Integer valor){
+        tcoinsService.addTcoins(codigoUser,valor);
         return ResponseEntity.ok().build();
     }
 }

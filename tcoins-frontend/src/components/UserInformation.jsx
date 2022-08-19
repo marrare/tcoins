@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
 
 export default function UserIcone({ user }) {
     let navigate = useNavigate();
-    console.log(user.id)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -29,7 +28,7 @@ export default function UserIcone({ user }) {
     };
     function deslogar(e) {
         localStorage.clear()
-        navigate("/login")
+        window.location.reload(false);
     }
 
     const link = `/gerenciar-lojas/${localStorage.getItem('userId')}/`

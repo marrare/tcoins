@@ -29,13 +29,21 @@ export default function ButtonAppBar() {
   const [userID, setId] = useState()
 
   useEffect(() => {
-    const idUsuario = localStorage.getItem('userId')
-    console.log(idUsuario)
+    setInterval(() => {
+      const idUsuario = localStorage.getItem('userId')
+      setId(idUsuario)
+    }, 1000);
+  }, []);
 
+  useEffect(() => {
+    const idUsuario = localStorage.getItem('userId')
     setId(idUsuario)
     getUser();
   }, [userID])
-
+  const teste = userID ? <UserIcone user={user}></UserIcone>: <div className='Botoes'>
+  <Button color="inherit"><Link to="/login" className="Login Botao">Login</Link></Button>
+  <Button color="inherit"><Link to="/cadastro" className="Cadastro Botao">Cadastro</Link></Button>
+</div>
   async function getUser() {
     const usuario = await UsuarioService.getUsuario(userID);
     if (usuario.status == 200 || usuario.status == 404) setUser(usuario.data);
@@ -60,17 +68,16 @@ export default function ButtonAppBar() {
           <div className="HeaderCenter">
             <nav className='HeaderNav'>
               <ul className='HeaderLista'>
-                <li className='ListaTitulo'><a href="#">Planos</a></li>
-                <li className='ListaTitulo'><a href="#">Quem somos?</a></li>
-                <li className='ListaTitulo'><a href="#">Dúvidas</a></li>
-                <li className='ListaTitulo'><a href="#">Contato</a></li>
+                <li className='ListaTitulo'><a href="/planos">Planos</a></li>
+                <li className='ListaTitulo'><a href="https://tcoinsif.wixsite.com/website/sobre">Quem somos?</a></li>
+                <li className='ListaTitulo'><a href="https://tcoinsif.wixsite.com/website/entre-em-contato">Contato</a></li>
               </ul>
             </nav>
           </div>
           <div className='Botoes'>
 
-
-            <UserIcone user={user}></UserIcone>
+          {teste}
+            
 
           </div>
 
